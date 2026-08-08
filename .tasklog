@@ -340,3 +340,4 @@
 350: feat: add home tab, categories, notifications, and wishlist screens
 1: chore: initial repository setup
 2: docs: create and prioritize product backlog with story points
+3: chore: set up GitHub repository with main/develop/feature branching strategy
