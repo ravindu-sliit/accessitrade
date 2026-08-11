@@ -1,1 +1,13 @@
 1: chore: initial repository setup and project scaffolding
+2: docs: draft project charter with vision, scope and stakeholder roles
+3: docs: select technology stack - Flutter, Firebase, Cloudinary, speech-to-text
+4: chore: define git branching strategy and repository structure
+5: docs: create and prioritize product backlog with story points
+6: docs: develop 4 user stories for core PWD marketplace journeys
+7: docs: develop service blueprint for courier and community trust hub
+8: docs: create 4 user personas for PWD marketplace users
+9: docs: define Scrum roles and Definition of Done with accessibility checks
+10: docs: plan Sprint 1 and Sprint 2 backlogs with team capacity
+11: docs: design 4 user flows for search, purchase, seller, community
+12: docs: create 4 empathy maps for PWD user personas
+13: docs: produce low-fidelity wireframes for core screens with accessibility notes
