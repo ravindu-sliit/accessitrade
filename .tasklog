@@ -681,3 +681,16 @@
 349: feat: add splash, landing, onboarding and voice login screens
 350: feat: add home tab, categories, notifications, and wishlist screens
 1: chore: initial repository setup
+2: docs: create and prioritize product backlog with story points
+3: chore: set up GitHub repository with main/develop/feature branching strategy
+4: docs: draft project charter - vision, scope, constraints, stakeholder roles
+5: docs: select technology stack - Flutter, Firebase, Cloudinary, speech-to-text
+6: docs: create 4 user personas for PWD marketplace users
+7: docs: create 4 empathy maps for PWD user personas
+8: docs: define Scrum roles and Definition of Done with accessibility checks
+9: docs: develop 4 user stories covering core PWD marketplace journeys
+10: docs: design 4 user flows for search, purchase, seller listing, community
+11: docs: develop service blueprint for door-to-door courier and community trust
+12: docs: plan Sprint 1 and Sprint 2 backlogs with team capacity confirmed
+13: docs: confirm client/stakeholder proxy for Sprint 1 and 2 reviews
+14: docs: produce low-fidelity wireframes for 4 core screens with accessibility notes
