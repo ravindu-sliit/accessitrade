@@ -59,3 +59,4 @@
 59: feat(US-07): TASK-07.4 configure Cloud Firestore database
 60: feat(US-07): TASK-07.5 configure Firebase Storage for product images
 61: feat(US-07): TASK-07.6 configure Cloud Functions (scaffolded for future use)
+62: feat(US-07): TASK-07.7 configure Firebase security rules for auth-gated access
