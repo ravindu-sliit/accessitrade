@@ -394,3 +394,4 @@
 54: chore(US-06): TASK-06.9 verify initial application runs on Android emulator
 55: chore(US-06): TASK-06.10 commit initial Flutter project structure
 56: feat(US-07): TASK-07.1 create Firebase project and register Android app
+57: feat(US-07): TASK-07.2 connect Flutter app to Firebase using FlutterFire CLI
