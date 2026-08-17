@@ -43,3 +43,4 @@
 43: feat(US-05): TASK-05.8 apply accessibility requirements (readable text, large touch targets)
 44: feat(US-05): TASK-05.9 review hi-fi designs with team and revise
 45: docs(US-05): TASK-05.10 finalize approved hi-fi wireframes for Flutter implementation
+46: chore(US-06): TASK-06.1 install and configure Flutter SDK
