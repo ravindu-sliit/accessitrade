@@ -48,3 +48,4 @@
 48: chore(US-06): TASK-06.3 configure Android and iOS build targets
 49: chore(US-06): TASK-06.4 configure project dependencies in pubspec.yaml
 50: chore(US-06): TASK-06.5 create project folder structure (screens, models, services, providers)
+51: feat(US-06): TASK-06.6 scaffold presentation layer
