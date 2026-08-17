@@ -386,3 +386,4 @@
 46: chore(US-06): TASK-06.1 install and configure Flutter SDK
 47: feat(US-06): TASK-06.2 create Flutter project with accessitrade app name
 48: chore(US-06): TASK-06.3 configure Android and iOS build targets
+49: chore(US-06): TASK-06.4 configure project dependencies in pubspec.yaml
