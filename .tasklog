@@ -45,3 +45,4 @@
 45: docs(US-05): TASK-05.10 finalize approved hi-fi wireframes for Flutter implementation
 46: chore(US-06): TASK-06.1 install and configure Flutter SDK
 47: feat(US-06): TASK-06.2 create Flutter project with accessitrade app name
+48: chore(US-06): TASK-06.3 configure Android and iOS build targets
