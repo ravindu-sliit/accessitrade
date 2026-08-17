@@ -14,3 +14,4 @@
 14: feat(US-03): define functional requirements - auth, product, seller, cart, community
 15: feat(US-03): define non-functional requirements - accessibility, security, performance
 16: docs(US-03): document and finalize approved requirements specification
+17: feat(US-04): create lo-fi wireframes for Login, Registration and Home screens
