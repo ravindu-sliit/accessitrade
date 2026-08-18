@@ -22,3 +22,4 @@
 22: feat(US-05): create hi-fi designs for Auth, Home, Product Browsing and Search
 23: feat(US-05): create hi-fi designs for Seller Dashboard, Cart, Checkout and Community
 24: feat(US-05): apply accessibility requirements across all hi-fi screens
+25: chore(US-06): create Flutter project with accessitrade app and configure dependencies
