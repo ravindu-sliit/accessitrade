@@ -12,3 +12,14 @@
 12: docs: plan Sprint 1 and Sprint 2 backlogs with team capacity confirmed
 13: docs: confirm client/stakeholder proxy for Sprint 1 and 2 reviews
 14: docs: produce low-fidelity wireframes for 4 core screens with accessibility notes
+15: feat(US-03): TASK-03.1 identify authentication requirements
+16: feat(US-03): TASK-03.2 identify product requirements
+17: feat(US-03): TASK-03.3 identify seller requirements
+18: feat(US-03): TASK-03.4 identify cart and checkout requirements
+19: feat(US-03): TASK-03.5 identify payment requirements
+20: feat(US-03): TASK-03.6 identify community requirements
+21: feat(US-03): TASK-03.7 define accessibility requirements (WCAG, screen reader, large touch targets)
+22: feat(US-03): TASK-03.8 define security requirements
+23: feat(US-03): TASK-03.9 define performance requirements
+24: docs(US-03): TASK-03.10 document functional requirements
+25: docs(US-03): TASK-03.11 document non-functional requirements
