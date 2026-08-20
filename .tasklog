@@ -11,3 +11,21 @@
 11: docs: design 4 user flows for search, purchase, seller, community
 12: docs: create 4 empathy maps for PWD user personas
 13: docs: produce low-fidelity wireframes for core screens with accessibility notes
+14: feat(US-03): define functional requirements - auth, product, seller, cart, community
+15: feat(US-03): define non-functional requirements - accessibility, security, performance
+16: docs(US-03): document and finalize approved requirements specification
+17: feat(US-04): create lo-fi wireframes for Login, Registration and Home screens
+18: feat(US-04): create lo-fi wireframes for Product Search, Details and Seller Dashboard
+19: feat(US-04): create lo-fi wireframes for Cart, Checkout and Community screens
+20: docs(US-04): add accessibility annotations and finalize approved lo-fi wireframes
+21: feat(US-05): define visual design system - colors, typography, components
+22: feat(US-05): create hi-fi designs for Auth, Home, Product Browsing and Search
+23: feat(US-05): create hi-fi designs for Seller Dashboard, Cart, Checkout and Community
+24: feat(US-05): apply accessibility requirements across all hi-fi screens
+25: chore(US-06): create Flutter project with accessitrade app and configure dependencies
+26: chore(US-06): configure Android/iOS targets and create project folder structure
+27: feat(US-06): scaffold presentation, state, and data layers
+28: chore(US-06): verify initial app runs on Android emulator and commit project
+29: feat(US-07): create Firebase project and connect Flutter app via FlutterFire CLI
+30: feat(US-07): configure Firebase Auth, Firestore, Storage and security rules
+31: test(US-07): test Firebase connection and verify data read/write operations
