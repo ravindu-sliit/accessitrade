@@ -352,3 +352,52 @@
 12: docs: plan Sprint 1 and Sprint 2 backlogs with team capacity confirmed
 13: docs: confirm client/stakeholder proxy for Sprint 1 and 2 reviews
 14: docs: produce low-fidelity wireframes for 4 core screens with accessibility notes
+15: feat(US-03): TASK-03.1 identify authentication requirements
+16: feat(US-03): TASK-03.2 identify product requirements
+17: feat(US-03): TASK-03.3 identify seller requirements
+18: feat(US-03): TASK-03.4 identify cart and checkout requirements
+19: feat(US-03): TASK-03.5 identify payment requirements
+20: feat(US-03): TASK-03.6 identify community requirements
+21: feat(US-03): TASK-03.7 define accessibility requirements (WCAG, screen reader, large touch targets)
+22: feat(US-03): TASK-03.8 define security requirements
+23: feat(US-03): TASK-03.9 define performance requirements
+24: docs(US-03): TASK-03.10 document functional requirements
+25: docs(US-03): TASK-03.11 document non-functional requirements
+26: feat(US-04): TASK-04.1 identify MVP screens and define navigation flow
+27: feat(US-04): TASK-04.2 create lo-fi wireframes for Login and Registration screens
+28: feat(US-04): TASK-04.3 create lo-fi wireframes for Home and Product Browsing screens
+29: feat(US-04): TASK-04.4 create lo-fi wireframes for Product Search and Product Details
+30: feat(US-04): TASK-04.5 create lo-fi wireframes for Seller Dashboard and Product Listing
+31: feat(US-04): TASK-04.6 create lo-fi wireframes for Cart, Checkout, Order Confirmation
+32: feat(US-04): TASK-04.7 create lo-fi wireframes for Custom Product Request and Community
+33: feat(US-04): TASK-04.8 add accessibility considerations to all wireframes
+34: feat(US-04): TASK-04.9 review wireframes with team and revise based on feedback
+35: docs(US-04): TASK-04.10 finalize and document approved low-fidelity wireframes
+36: feat(US-05): TASK-05.1 define visual design system - colors, typography, spacing, components
+37: feat(US-05): TASK-05.2 create hi-fi designs for Login, Registration, User Profile
+38: feat(US-05): TASK-05.3 create hi-fi designs for Home, Product Browsing, Search
+39: feat(US-05): TASK-05.4 create hi-fi designs for Product Details, Filters, Seller Profile
+40: feat(US-05): TASK-05.5 create hi-fi designs for Seller Dashboard, Inventory, Create Listing
+41: feat(US-05): TASK-05.6 create hi-fi designs for Cart, Checkout, Payment, Confirmation
+42: feat(US-05): TASK-05.7 create hi-fi designs for Custom Product Request and Community
+43: feat(US-05): TASK-05.8 apply accessibility requirements (readable text, large touch targets)
+44: feat(US-05): TASK-05.9 review hi-fi designs with team and revise
+45: docs(US-05): TASK-05.10 finalize approved hi-fi wireframes for Flutter implementation
+46: chore(US-06): TASK-06.1 install and configure Flutter SDK
+47: feat(US-06): TASK-06.2 create Flutter project with accessitrade app name
+48: chore(US-06): TASK-06.3 configure Android and iOS build targets
+49: chore(US-06): TASK-06.4 configure project dependencies in pubspec.yaml
+50: chore(US-06): TASK-06.5 create project folder structure (screens, models, services, providers)
+51: feat(US-06): TASK-06.6 scaffold presentation layer
+52: feat(US-06): TASK-06.7 scaffold application and state management layer
+53: feat(US-06): TASK-06.8 scaffold data layer (services, models)
+54: chore(US-06): TASK-06.9 verify initial application runs on Android emulator
+55: chore(US-06): TASK-06.10 commit initial Flutter project structure
+56: feat(US-07): TASK-07.1 create Firebase project and register Android app
+57: feat(US-07): TASK-07.2 connect Flutter app to Firebase using FlutterFire CLI
+58: feat(US-07): TASK-07.3 configure Firebase Authentication (email/password)
+59: feat(US-07): TASK-07.4 configure Cloud Firestore database
+60: feat(US-07): TASK-07.5 configure Firebase Storage for product images
+61: feat(US-07): TASK-07.6 configure Cloud Functions (scaffolded for future use)
+62: feat(US-07): TASK-07.7 configure Firebase security rules for auth-gated access
+63: test(US-07): TASK-07.8 test Firebase connection and verify data read/write
