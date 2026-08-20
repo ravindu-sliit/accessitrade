@@ -735,3 +735,11 @@
 53: feat(US-06): TASK-06.8 scaffold data layer (services, models)
 54: chore(US-06): TASK-06.9 verify initial application runs on Android emulator
 55: chore(US-06): TASK-06.10 commit initial Flutter project structure
+56: feat(US-07): TASK-07.1 create Firebase project and register Android app
+57: feat(US-07): TASK-07.2 connect Flutter app to Firebase using FlutterFire CLI
+58: feat(US-07): TASK-07.3 configure Firebase Authentication (email/password)
+59: feat(US-07): TASK-07.4 configure Cloud Firestore database
+60: feat(US-07): TASK-07.5 configure Firebase Storage for product images
+61: feat(US-07): TASK-07.6 configure Cloud Functions (scaffolded for future use)
+62: feat(US-07): TASK-07.7 configure Firebase security rules for auth-gated access
+63: test(US-07): TASK-07.8 test Firebase connection and verify data read/write
