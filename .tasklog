@@ -28,3 +28,4 @@
 28: chore(US-06): verify initial app runs on Android emulator and commit project
 29: feat(US-07): create Firebase project and connect Flutter app via FlutterFire CLI
 30: feat(US-07): configure Firebase Auth, Firestore, Storage and security rules
+31: test(US-07): test Firebase connection and verify data read/write operations
