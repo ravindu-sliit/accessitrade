@@ -715,3 +715,13 @@
 33: feat(US-04): TASK-04.8 add accessibility considerations to all wireframes
 34: feat(US-04): TASK-04.9 review wireframes with team and revise based on feedback
 35: docs(US-04): TASK-04.10 finalize and document approved low-fidelity wireframes
+36: feat(US-05): TASK-05.1 define visual design system - colors, typography, spacing, components
+37: feat(US-05): TASK-05.2 create hi-fi designs for Login, Registration, User Profile
+38: feat(US-05): TASK-05.3 create hi-fi designs for Home, Product Browsing, Search
+39: feat(US-05): TASK-05.4 create hi-fi designs for Product Details, Filters, Seller Profile
+40: feat(US-05): TASK-05.5 create hi-fi designs for Seller Dashboard, Inventory, Create Listing
+41: feat(US-05): TASK-05.6 create hi-fi designs for Cart, Checkout, Payment, Confirmation
+42: feat(US-05): TASK-05.7 create hi-fi designs for Custom Product Request and Community
+43: feat(US-05): TASK-05.8 apply accessibility requirements (readable text, large touch targets)
+44: feat(US-05): TASK-05.9 review hi-fi designs with team and revise
+45: docs(US-05): TASK-05.10 finalize approved hi-fi wireframes for Flutter implementation
