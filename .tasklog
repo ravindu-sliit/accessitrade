@@ -87,3 +87,4 @@
 87: feat(US-10): TASK-10.4 implement product retrieval and product details operations
 88: feat(US-10): TASK-10.5 implement product update and delete operations for sellers
 89: feat(US-10): TASK-10.6 implement product image upload and retrieval using Firebase Storage
+90: feat(US-10): TASK-10.7 implement product search and basic filtering operations
