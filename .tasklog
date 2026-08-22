@@ -402,3 +402,4 @@
 62: feat(US-07): TASK-07.7 configure Firebase security rules for auth-gated access
 63: test(US-07): TASK-07.8 test Firebase connection and verify data read/write
 64: feat(US-08): TASK-08.1 prepare approved hi-fi screens for prototyping
+65: feat(US-08): TASK-08.2 create navigation links between authentication screens
