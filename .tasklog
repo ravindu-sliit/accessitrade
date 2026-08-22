@@ -32,3 +32,4 @@
 32: feat(US-08): prepare hi-fi screens in Figma and create auth navigation links
 33: feat(US-08): create interactive navigation for product, seller, and checkout flows
 34: feat(US-08): add community navigation, transitions and finalize prototype with team
+35: feat(US-09): design user and product data structures and Firestore collections
