@@ -435,3 +435,4 @@
 95: feat(US-11): TASK-11.3 implement user login using Firebase Authentication
 96: feat(US-11): TASK-11.4 implement logout functionality
 97: feat(US-11): TASK-11.5 implement password reset functionality
+98: feat(US-11): TASK-11.6 create user profile document in Firestore after registration
