@@ -767,3 +767,4 @@
 85: feat(US-10): TASK-10.2 implement user profile creation, retrieval, and update operations
 86: feat(US-10): TASK-10.3 implement product creation and storage operations
 87: feat(US-10): TASK-10.4 implement product retrieval and product details operations
+88: feat(US-10): TASK-10.5 implement product update and delete operations for sellers
