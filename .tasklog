@@ -776,3 +776,4 @@
 94: feat(US-11): TASK-11.2 implement user registration using Firebase Authentication
 95: feat(US-11): TASK-11.3 implement user login using Firebase Authentication
 96: feat(US-11): TASK-11.4 implement logout functionality
+97: feat(US-11): TASK-11.5 implement password reset functionality
