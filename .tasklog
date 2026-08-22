@@ -432,3 +432,4 @@
 92: feat(US-10): TASK-10.9 implement order creation and order status management operations
 93: feat(US-11): TASK-11.1 design user registration data flow
 94: feat(US-11): TASK-11.2 implement user registration using Firebase Authentication
+95: feat(US-11): TASK-11.3 implement user login using Firebase Authentication
