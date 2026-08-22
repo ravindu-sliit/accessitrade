@@ -436,3 +436,4 @@
 96: feat(US-11): TASK-11.4 implement logout functionality
 97: feat(US-11): TASK-11.5 implement password reset functionality
 98: feat(US-11): TASK-11.6 create user profile document in Firestore after registration
+99: feat(US-11): TASK-11.7 implement user profile retrieval functionality
