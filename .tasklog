@@ -763,3 +763,4 @@
 81: feat(US-09): TASK-09.8 create Firestore collections and define required document fields
 82: feat(US-09): TASK-09.9 configure Firebase Storage structure for product images and user files
 83: test(US-09): TASK-09.10 configure and test database security rules and data access permissions
+84: feat(US-10): TASK-10.1 implement user registration and login using Firebase Authentication
