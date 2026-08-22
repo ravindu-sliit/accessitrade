@@ -413,3 +413,4 @@
 73: docs(US-08): TASK-08.10 review and finalize interactive prototype with the team
 74: feat(US-09): TASK-09.1 identify main data entities (user, product, order, cart, seller, community)
 75: feat(US-09): TASK-09.2 design user data structure and Firestore collection schema
+76: feat(US-09): TASK-09.3 design product data structure and Firestore collection
