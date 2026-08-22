@@ -761,3 +761,4 @@
 79: feat(US-09): TASK-09.6 design payment-related data structure
 80: feat(US-09): TASK-09.7 design custom product request and community data structures
 81: feat(US-09): TASK-09.8 create Firestore collections and define required document fields
+82: feat(US-09): TASK-09.9 configure Firebase Storage structure for product images and user files
