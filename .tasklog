@@ -30,3 +30,4 @@
 30: feat(US-07): configure Firebase Auth, Firestore, Storage and security rules
 31: test(US-07): test Firebase connection and verify data read/write operations
 32: feat(US-08): prepare hi-fi screens in Figma and create auth navigation links
+33: feat(US-08): create interactive navigation for product, seller, and checkout flows
