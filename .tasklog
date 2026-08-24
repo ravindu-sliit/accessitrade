@@ -34,3 +34,4 @@
 34: feat(US-08): add community navigation, transitions and finalize prototype with team
 35: feat(US-09): design user and product data structures and Firestore collections
 36: feat(US-09): design cart, order, payment and community data structures
+37: feat(US-09): configure Firestore collections, Storage structure and security rules
