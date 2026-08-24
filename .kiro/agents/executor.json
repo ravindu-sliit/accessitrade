@@ -1,0 +1,65 @@
+{
+  "name": "executor",
+  "description": "Task executor. Implements code changes, runs builds/tests, follows project conventions. Does NOT edit task files or git commit.",
+  "tools": ["read", "write", "shell"],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://AGENTS.md",
+    "skill://.kiro/skills/rules/debugging/SKILL.md",
+    "skill://.kiro/skills/rules/testing/SKILL.md",
+    "skill://.kiro/skills/rules/refactoring/SKILL.md",
+    "skill://.kiro/skills/rules/performance/SKILL.md",
+    "skill://.kiro/skills/rules/api-design/SKILL.md",
+    "skill://.kiro/skills/rules/database/SKILL.md",
+    "skill://.kiro/skills/rules/frontend/SKILL.md",
+    "skill://.kiro/skills/custom/**/*.md"
+  ],
+  "hooks": {
+    "agentSpawn": [
+      {
+        "command": "echo '⚡ EXECUTOR: 1) Read existing code 2) Implement task 3) Build & test 4) Report result. Do NOT git commit or edit task files.'"
+      }
+    ],
+    "preToolUse": [
+      {
+        "matcher": "execute_bash",
+        "command": "hooks/security/block-dangerous.sh"
+      },
+      {
+        "matcher": "execute_bash",
+        "command": "hooks/security/block-secrets.sh"
+      },
+      {
+        "matcher": "execute_bash",
+        "command": "hooks/security/block-sed-json.sh"
+      },
+      {
+        "matcher": "execute_bash",
+        "command": "hooks/security/block-outside-workspace.sh"
+      },
+      {
+        "matcher": "fs_write",
+        "command": "hooks/security/block-outside-workspace.sh"
+      }
+    ],
+    "postToolUse": [
+      {
+        "matcher": "execute_bash",
+        "command": "hooks/feedback/post-bash.sh"
+      }
+    ]
+  },
+  "includeMcpJson": true,
+  "toolsSettings": {
+    "shell": {
+      "autoAllowReadonly": true,
+      "deniedCommands": [
+        "git commit.*",
+        "git push.*",
+        "git checkout.*",
+        "git reset.*",
+        "git stash.*"
+      ]
+    }
+  }
+}

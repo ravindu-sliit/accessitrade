@@ -1,0 +1,54 @@
+{
+  "name": "project-runner",
+  "description": "Autonomous SDLC agent for large projects. Reads specs, generates tasks, implements, tests, reviews, and commits with minimal human input.",
+  "tools": ["*"],
+  "allowedTools": ["*"],
+  "resources": [
+    "file://AGENTS.md",
+    "skill://.kiro/skills/rules/planning/SKILL.md",
+    "skill://.kiro/skills/rules/task-tracking/SKILL.md",
+    "skill://.kiro/skills/rules/spec-driven/SKILL.md",
+    "skill://.kiro/skills/rules/code-review/SKILL.md",
+    "skill://.kiro/skills/rules/git-workflow/SKILL.md",
+    "skill://.kiro/skills/rules/testing/SKILL.md",
+    "skill://.kiro/skills/rules/deployment/SKILL.md",
+    "skill://.kiro/skills/custom/**/*.md",
+    {
+      "type": "knowledgeBase",
+      "source": "file://./docs",
+      "name": "ProjectDocs",
+      "description": "Project documentation, specs, and guides",
+      "indexType": "best",
+      "autoUpdate": true
+    }
+  ],
+  "toolsSettings": {
+    "subagent": {
+      "availableAgents": ["researcher", "reviewer", "executor", "spec-generator"],
+      "trustedAgents": ["researcher", "reviewer", "executor", "spec-generator"]
+    },
+    "shell": {
+      "autoAllowReadonly": true,
+      "deniedCommands": [
+        "rm\\s+(-[rRf]|--recursive|--force).*",
+        "rmdir\\b.*",
+        "mkfs\\b.*",
+        "sudo\\b.*",
+        "git\\s+push\\s+.*--force.*",
+        "git\\s+reset\\s+--hard.*",
+        "git\\s+clean\\s+-f.*",
+        "chmod\\s+(-R\\s+)?777.*",
+        "curl.*\\|\\s*(ba)?sh.*",
+        "wget.*\\|\\s*(ba)?sh.*",
+        "kill\\s+-9.*",
+        "killall\\b.*",
+        "shutdown\\b.*",
+        "reboot\\b.*",
+        "DROP\\s+(DATABASE|TABLE|SCHEMA).*",
+        "TRUNCATE\\b.*",
+        "find\\b.*-delete",
+        "find\\b.*-exec\\s+rm"
+      ]
+    }
+  }
+}

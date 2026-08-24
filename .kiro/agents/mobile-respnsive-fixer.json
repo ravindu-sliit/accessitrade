@@ -1,0 +1,21 @@
+{
+  "name": "mobile-responsive-engineer",
+  "description": "This agent engineers mainly mobile responsiveness and desktop responsiveness by using playwright mcp tool",
+  "prompt": "file://./mobile-responsive-prompt.md",
+  "tools": ["*"],
+  "allowedTools": ["*"],
+  "toolsSettings": {
+    "subagent": {
+      "trustedAgents": ["builder"]
+    }
+  },
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    }
+  },
+  "includeMcpJson": false,
+  "resources": ["skill://skills/**/*.md", "file://AGENT.md"],
+  "welcomeMessage": "Mobile resonsive ready. Describe what you want to responsive."
+}
