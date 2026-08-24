@@ -1,17 +1,1 @@
-# accessitrade
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+AccessiTrade is an inclusive local marketplace designed for Persons with Disabilities(PWD) in Sri Lanka. The app removes digital and physical barriers by providing voice-activated product search with screen reader support, a simplified seller dashboard with door-to-door courier pickup, a distraction-free step-by-step checkout for sensory-sensitive users, and a community trust hub for caregivers to post custom item requests and verify sellers. Built with Flutter and Firebase as part of SE3050 User Experience Engineering — Group_060, SLIIT.
