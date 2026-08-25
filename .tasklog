@@ -39,3 +39,4 @@
 39: feat(US-10): implement product image upload and retrieval using Cloudinary
 40: feat(US-10): implement cart operations and order creation/status management
 41: feat(US-10): implement product search, filtering and complete backend integration
+42: feat(US-11): implement Firebase user registration, login and logout
