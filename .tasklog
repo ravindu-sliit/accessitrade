@@ -37,3 +37,4 @@
 37: feat(US-09): configure Firestore collections, Storage structure and security rules
 38: feat(US-10): implement user profile and product CRUD operations via Firebase
 39: feat(US-10): implement product image upload and retrieval using Cloudinary
+40: feat(US-10): implement cart operations and order creation/status management
