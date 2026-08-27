@@ -41,3 +41,4 @@
 41: feat(US-10): implement product search, filtering and complete backend integration
 42: feat(US-11): implement Firebase user registration, login and logout
 43: feat(US-11): implement password reset, profile CRUD and Firestore document creation
+44: feat(US-11): implement user role management and test auth operations
