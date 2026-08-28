@@ -421,3 +421,12 @@
 81: feat(US-09): TASK-09.8 create Firestore collections and define required document fields
 82: feat(US-09): TASK-09.9 configure Firebase Storage structure for product images and user files
 83: test(US-09): TASK-09.10 configure and test database security rules and data access permissions
+84: feat(US-10): TASK-10.1 implement user registration and login using Firebase Authentication
+85: feat(US-10): TASK-10.2 implement user profile creation, retrieval, and update operations
+86: feat(US-10): TASK-10.3 implement product creation and storage operations
+87: feat(US-10): TASK-10.4 implement product retrieval and product details operations
+88: feat(US-10): TASK-10.5 implement product update and delete operations for sellers
+89: feat(US-10): TASK-10.6 implement product image upload and retrieval using Firebase Storage
+90: feat(US-10): TASK-10.7 implement product search and basic filtering operations
+91: feat(US-10): TASK-10.8 implement cart operations - add, update, retrieve, remove items
+92: feat(US-10): TASK-10.9 implement order creation and order status management operations
