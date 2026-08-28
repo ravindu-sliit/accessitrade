@@ -430,3 +430,13 @@
 90: feat(US-10): TASK-10.7 implement product search and basic filtering operations
 91: feat(US-10): TASK-10.8 implement cart operations - add, update, retrieve, remove items
 92: feat(US-10): TASK-10.9 implement order creation and order status management operations
+93: feat(US-11): TASK-11.1 design user registration data flow
+94: feat(US-11): TASK-11.2 implement user registration using Firebase Authentication
+95: feat(US-11): TASK-11.3 implement user login using Firebase Authentication
+96: feat(US-11): TASK-11.4 implement logout functionality
+97: feat(US-11): TASK-11.5 implement password reset functionality
+98: feat(US-11): TASK-11.6 create user profile document in Firestore after registration
+99: feat(US-11): TASK-11.7 implement user profile retrieval functionality
+100: feat(US-11): TASK-11.8 implement user profile update functionality
+101: feat(US-11): TASK-11.9 implement user role management for buyers and sellers
+102: test(US-11): TASK-11.10 test authentication, profile, and user access operations
