@@ -46,3 +46,4 @@
 46: chore: update pubspec dependencies and resolve version conflicts
 47: fix: resolve Firestore security rules for seller write access
 48: docs: update README with project setup and contribution guidelines
+49: fix: correct navigation routing for unauthenticated users
