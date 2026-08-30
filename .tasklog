@@ -43,3 +43,4 @@
 43: feat(US-11): implement password reset, profile CRUD and Firestore document creation
 44: feat(US-11): implement user role management and test auth operations
 45: refactor: improve Firebase service layer error handling and logging
+46: chore: update pubspec dependencies and resolve version conflicts
