@@ -50,3 +50,4 @@
 50: refactor: extract reusable form validation helpers
 51: chore: add accessibility semantics review notes for Sprint 3
 52: fix: resolve auth state persistence issue on app restart
+53: test: add unit tests for auth service edge cases
