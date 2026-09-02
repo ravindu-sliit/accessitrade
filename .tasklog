@@ -53,3 +53,4 @@
 53: test: add unit tests for auth service edge cases
 54: refactor: improve order model serialization for Firestore
 55: fix: update hi-fi wireframe links and design token documentation
+56: chore: prepare Sprint 3 design assets for developer handoff
