@@ -48,3 +48,4 @@
 48: docs: update README with project setup and contribution guidelines
 49: fix: correct navigation routing for unauthenticated users
 50: refactor: extract reusable form validation helpers
+51: chore: add accessibility semantics review notes for Sprint 3
