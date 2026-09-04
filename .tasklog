@@ -56,3 +56,4 @@
 56: chore: prepare Sprint 3 design assets for developer handoff
 57: fix: resolve Android build configuration for Firebase integration
 58: chore: sprint 3 planning - story breakdown and task assignment
+59: docs: document data model decisions and Firestore schema
