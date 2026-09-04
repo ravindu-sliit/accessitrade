@@ -54,3 +54,4 @@
 54: refactor: improve order model serialization for Firestore
 55: fix: update hi-fi wireframe links and design token documentation
 56: chore: prepare Sprint 3 design assets for developer handoff
+57: fix: resolve Android build configuration for Firebase integration
