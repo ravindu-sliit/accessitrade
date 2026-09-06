@@ -42,3 +42,20 @@
 42: feat(US-11): implement Firebase user registration, login and logout
 43: feat(US-11): implement password reset, profile CRUD and Firestore document creation
 44: feat(US-11): implement user role management and test auth operations
+45: refactor: improve Firebase service layer error handling and logging
+46: chore: update pubspec dependencies and resolve version conflicts
+47: fix: resolve Firestore security rules for seller write access
+48: docs: update README with project setup and contribution guidelines
+49: fix: correct navigation routing for unauthenticated users
+50: refactor: extract reusable form validation helpers
+51: chore: add accessibility semantics review notes for Sprint 3
+52: fix: resolve auth state persistence issue on app restart
+53: test: add unit tests for auth service edge cases
+54: refactor: improve order model serialization for Firestore
+55: fix: update hi-fi wireframe links and design token documentation
+56: chore: prepare Sprint 3 design assets for developer handoff
+57: fix: resolve Android build configuration for Firebase integration
+58: chore: sprint 3 planning - story breakdown and task assignment
+59: docs: document data model decisions and Firestore schema
+60: test: add integration tests for backend service layer
+61: docs: finalize Sprint 3 UX acceptance criteria
