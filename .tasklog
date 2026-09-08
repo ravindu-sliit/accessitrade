@@ -60,3 +60,4 @@
 60: test: add integration tests for backend service layer
 61: docs: finalize Sprint 3 UX acceptance criteria
 62: feat(US-12): create registration and login screens with accessible form layout
+63: feat(US-12): implement Firebase auth, email/password validation and error handling
