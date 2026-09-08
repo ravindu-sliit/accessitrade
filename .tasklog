@@ -59,3 +59,4 @@
 59: docs: document data model decisions and Firestore schema
 60: test: add integration tests for backend service layer
 61: docs: finalize Sprint 3 UX acceptance criteria
+62: feat(US-12): create registration and login screens with accessible form layout
