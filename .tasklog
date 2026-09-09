@@ -69,3 +69,4 @@
 69: feat(US-14): create Product model with id, name, description, category, price fields
 70: feat(US-14): add images, sellerId, inventory and accessibility metadata fields
 71: feat(US-14): create Firestore product collection with service layer integration
+72: feat(US-18): add image picker and allow seller to select product image from gallery
