@@ -62,3 +62,4 @@
 62: feat(US-12): create registration and login screens with accessible form layout
 63: feat(US-12): implement Firebase auth, email/password validation and error handling
 64: feat(US-12): implement auth state management, logout and screen reader labels
+65: test(US-12): write authentication unit tests and verify all flows
