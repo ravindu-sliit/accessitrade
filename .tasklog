@@ -71,3 +71,4 @@
 71: feat(US-14): create Firestore product collection with service layer integration
 72: feat(US-18): add image picker and allow seller to select product image from gallery
 73: feat(US-18): upload image to Firebase Storage and store URL in Firestore record
+74: feat(US-18): add image validation, alt-text field and test upload flow
