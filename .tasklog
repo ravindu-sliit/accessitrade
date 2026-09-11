@@ -65,3 +65,4 @@
 65: test(US-12): write authentication unit tests and verify all flows
 66: feat(US-13): define customer, seller and caregiver role models with permissions
 67: feat(US-13): create UserProfile model, Firestore storage and profile screen
+68: feat(US-13): implement role-based navigation and test role permissions
