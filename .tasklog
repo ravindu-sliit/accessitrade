@@ -77,3 +77,4 @@
 77: test(US-19): test seller profile screen and verify accessible navigation
 78: feat(US-15): create product listing screen with accessible card grid layout
 79: feat(US-15): display product image, name, price with LKR formatting
+80: feat(US-15): implement category filtering chips and accessibility filter structure
