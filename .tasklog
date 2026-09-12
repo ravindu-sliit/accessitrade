@@ -76,3 +76,4 @@
 76: feat(US-19): display seller products list and add accessible labels
 77: test(US-19): test seller profile screen and verify accessible navigation
 78: feat(US-15): create product listing screen with accessible card grid layout
+79: feat(US-15): display product image, name, price with LKR formatting
