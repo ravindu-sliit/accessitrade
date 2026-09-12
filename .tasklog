@@ -72,3 +72,6 @@
 72: feat(US-18): add image picker and allow seller to select product image from gallery
 73: feat(US-18): upload image to Firebase Storage and store URL in Firestore record
 74: feat(US-18): add image validation, alt-text field and test upload flow
+75: feat(US-19): create seller profile screen with name, description and rating display
+76: feat(US-19): display seller products list and add accessible labels
+77: test(US-19): test seller profile screen and verify accessible navigation
