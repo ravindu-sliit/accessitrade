@@ -68,3 +68,4 @@
 68: feat(US-13): implement role-based navigation and test role permissions
 69: feat(US-14): create Product model with id, name, description, category, price fields
 70: feat(US-14): add images, sellerId, inventory and accessibility metadata fields
+71: feat(US-14): create Firestore product collection with service layer integration
