@@ -78,3 +78,4 @@
 78: feat(US-15): create product listing screen with accessible card grid layout
 79: feat(US-15): display product image, name, price with LKR formatting
 80: feat(US-15): implement category filtering chips and accessibility filter structure
+81: feat(US-15): implement filter state management, Firestore query and TalkBack test
