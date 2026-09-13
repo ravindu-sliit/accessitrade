@@ -66,3 +66,6 @@
 66: feat(US-13): define customer, seller and caregiver role models with permissions
 67: feat(US-13): create UserProfile model, Firestore storage and profile screen
 68: feat(US-13): implement role-based navigation and test role permissions
+69: feat(US-14): create Product model with id, name, description, category, price fields
+70: feat(US-14): add images, sellerId, inventory and accessibility metadata fields
+71: feat(US-14): create Firestore product collection with service layer integration
