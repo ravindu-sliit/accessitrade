@@ -79,3 +79,4 @@
 79: feat(US-15): display product image, name, price with LKR formatting
 80: feat(US-15): implement category filtering chips and accessibility filter structure
 81: feat(US-15): implement filter state management, Firestore query and TalkBack test
+82: feat(US-16): create Product Details screen with name, description, price layout
