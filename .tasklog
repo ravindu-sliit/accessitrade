@@ -98,3 +98,6 @@
 98: feat(US-23): audit Product Details screen and add Flutter Semantics widgets
 99: feat(US-23): add accessible labels to buttons, images and ensure logical reading order
 100: fix(US-23): fix TalkBack defects and document accessibility test results
+101: feat(US-24): define metadata schema and add fields to Product model and seller form
+102: feat(US-24): save metadata to Firestore and display on Product Details screen
+103: feat(US-24): integrate metadata with accessibility filter queries and test end-to-end
