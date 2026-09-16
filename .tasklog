@@ -81,3 +81,4 @@
 81: feat(US-15): implement filter state management, Firestore query and TalkBack test
 82: feat(US-16): create Product Details screen with name, description, price layout
 83: feat(US-16): display seller info, accessibility section and product image carousel
+84: feat(US-16): add image alt text, accessible navigation and test with TalkBack
