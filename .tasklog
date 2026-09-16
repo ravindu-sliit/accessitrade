@@ -102,3 +102,4 @@
 102: feat(US-24): save metadata to Firestore and display on Product Details screen
 103: feat(US-24): integrate metadata with accessibility filter queries and test end-to-end
 104: feat(US-25): design and create Seller Dashboard with simplified navigation layout
+105: feat(US-25): display seller products, inventory and order summaries
