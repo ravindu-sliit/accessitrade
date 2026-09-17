@@ -85,3 +85,6 @@
 85: feat(US-17): create seller listing screen with name, description and price inputs
 86: feat(US-17): add category selector, inventory input and accessibility fields
 87: feat(US-17): implement validation, save to Firestore and test listing creation
+88: feat(US-20): create accessible search field with hint text and clear button
+89: feat(US-20): implement keyword search against Firestore, display results and no-result state
+90: feat(US-20): add accessible search labels and test search functionality
