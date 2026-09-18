@@ -224,3 +224,4 @@
 233: feat(US-26): TASK-26.1 create inventory management screen
 234: feat(US-26): TASK-26.2 display current product quantity
 235: feat(US-26): TASK-26.3 add quantity update input field
+236: feat(US-26): TASK-26.4 validate inventory quantity (non-negative)
