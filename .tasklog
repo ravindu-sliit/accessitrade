@@ -139,3 +139,4 @@
 148: feat(US-16): TASK-16.6 display product accessibility information section
 149: feat(US-16): TASK-16.7 display product image carousel
 150: feat(US-16): TASK-16.8 add meaningful image alternative text for screen readers
+151: feat(US-16): TASK-16.9 add accessible navigation (back button, add-to-cart)
