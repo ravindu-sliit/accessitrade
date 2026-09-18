@@ -104,3 +104,4 @@
 104: feat(US-25): design and create Seller Dashboard with simplified navigation layout
 105: feat(US-25): display seller products, inventory and order summaries
 106: feat(US-25): add product/inventory/order navigation with accessible large tap targets
+107: feat(US-26): create inventory management screen with current quantity display
