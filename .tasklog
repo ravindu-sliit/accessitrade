@@ -138,3 +138,4 @@
 147: feat(US-16): TASK-16.5 display seller information and rating
 148: feat(US-16): TASK-16.6 display product accessibility information section
 149: feat(US-16): TASK-16.7 display product image carousel
+150: feat(US-16): TASK-16.8 add meaningful image alternative text for screen readers
