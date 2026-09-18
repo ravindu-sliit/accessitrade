@@ -605,3 +605,4 @@
 273: feat(US-30): TASK-30.4 create order review screen
 274: feat(US-30): TASK-30.5 create order confirmation screen
 275: feat(US-30): TASK-30.6 add step progress indicator
+276: feat(US-30): TASK-30.7 implement back/forward navigation between steps
