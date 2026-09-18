@@ -622,3 +622,4 @@
 290: feat(US-31): TASK-31.7 handle duplicate payment attempt prevention
 291: feat(US-31): TASK-31.8 display plain-language error messages (no technical jargon)
 292: feat(US-31): TASK-31.9 add recovery instructions for each error type
+293: test(US-31): TASK-31.10 test all payment error scenarios
