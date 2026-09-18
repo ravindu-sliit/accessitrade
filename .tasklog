@@ -181,3 +181,4 @@
 190: feat(US-21): TASK-21.5 implement speech recognition and audio capture
 191: feat(US-21): TASK-21.6 convert speech to search text
 192: feat(US-21): TASK-21.7 display recognized text in search field
+193: feat(US-21): TASK-21.8 execute product search from recognized text
