@@ -119,3 +119,4 @@
 127: feat(US-14): TASK-14.7 define inventory quantity field
 128: feat(US-14): TASK-14.8 define product images list field
 129: feat(US-14): TASK-14.9 define seller ID reference field
+130: feat(US-14): TASK-14.10 define accessibility metadata fields (alt text, sensory tags)
