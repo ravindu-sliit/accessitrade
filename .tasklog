@@ -587,3 +587,4 @@
 255: feat(US-28): TASK-28.8 implement simulated courier workflow
 256: test(US-28): TASK-28.9 test pickup request creation
 257: docs(US-28): TASK-28.10 document simulated courier API approach
+258: feat(US-29): TASK-29.1 create Cart model with CartItem list
