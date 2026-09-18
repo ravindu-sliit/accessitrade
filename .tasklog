@@ -599,3 +599,4 @@
 267: feat(US-29): TASK-29.10 handle empty cart state with message
 268: feat(US-29): TASK-29.11 persist cart state using Provider
 269: test(US-29): TASK-29.12 test cart calculations and state
+270: feat(US-30): TASK-30.1 design step-by-step checkout flow
