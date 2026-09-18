@@ -455,3 +455,4 @@
 115: feat(US-13): TASK-13.3 define caregiver role model and permissions
 116: feat(US-13): TASK-13.4 create UserProfile model with role field
 117: feat(US-13): TASK-13.5 store user profile in Firestore on registration
+118: feat(US-13): TASK-13.6 create profile screen with editable fields
