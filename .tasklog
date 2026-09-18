@@ -526,3 +526,4 @@
 194: feat(US-21): TASK-21.9 handle speech recognition errors gracefully
 195: feat(US-21): TASK-21.10 handle microphone permission denial with fallback
 196: feat(US-21): TASK-21.11 add screen reader semantics to voice search UI
+197: test(US-21): TASK-21.12 test voice search on Android device
