@@ -125,3 +125,4 @@
 134: feat(US-15): TASK-15.3 display product images with cached network loading
 135: feat(US-15): TASK-15.4 display product name with accessible text sizing
 136: feat(US-15): TASK-15.5 display price with LKR currency formatting
+137: feat(US-15): TASK-15.6 implement category filtering chips
