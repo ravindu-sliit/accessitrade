@@ -238,3 +238,4 @@
 247: test(US-27): TASK-27.8 test seller order management flow
 248: feat(US-28): TASK-28.1 create courier pickup request screen
 249: feat(US-28): TASK-28.2 display eligible order for courier pickup
+250: feat(US-28): TASK-28.3 capture pickup address and time details
