@@ -280,3 +280,4 @@
 289: feat(US-31): TASK-31.6 handle network failure during payment gracefully
 290: feat(US-31): TASK-31.7 handle duplicate payment attempt prevention
 291: feat(US-31): TASK-31.8 display plain-language error messages (no technical jargon)
+292: feat(US-31): TASK-31.9 add recovery instructions for each error type
