@@ -93,3 +93,4 @@
 93: feat(US-11): TASK-11.1 design user registration data flow
 94: feat(US-11): TASK-11.2 implement user registration using Firebase Authentication
 103: feat(US-12): TASK-12.1 create registration screen UI
+104: feat(US-12): TASK-12.2 create login screen UI with accessible form layout
