@@ -128,3 +128,4 @@
 137: feat(US-15): TASK-15.6 implement category filtering chips
 138: feat(US-15): TASK-15.7 design accessibility filter structure
 139: feat(US-15): TASK-15.8 implement filter state management with Provider
+140: feat(US-15): TASK-15.9 connect accessibility filters to Firestore query
