@@ -165,3 +165,4 @@
 174: feat(US-19): TASK-19.4 display seller accessibility rating placeholder
 175: feat(US-19): TASK-19.5 display seller products list
 176: feat(US-19): TASK-19.6 add accessible labels to profile elements
+177: test(US-19): TASK-19.7 test seller profile screen
