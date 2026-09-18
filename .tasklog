@@ -205,3 +205,4 @@
 214: fix(US-23): TASK-23.8 fix accessibility defects found during testing
 215: docs(US-23): TASK-23.9 document accessibility test results
 216: feat(US-24): TASK-24.1 define accessibility metadata fields schema
+217: feat(US-24): TASK-24.2 add metadata fields to Product model
