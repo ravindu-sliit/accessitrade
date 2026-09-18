@@ -618,3 +618,4 @@
 286: feat(US-31): TASK-31.3 create success response handler
 287: feat(US-31): TASK-31.4 create failure response handler
 288: feat(US-31): TASK-31.5 create cancellation response handler
+289: feat(US-31): TASK-31.6 handle network failure during payment gracefully
