@@ -287,3 +287,4 @@
 296: feat(US-32): TASK-32.3 create mock payment failure scenario
 297: feat(US-32): TASK-32.4 create mock payment cancellation scenario
 298: feat(US-32): TASK-32.5 simulate network failure during payment
+300: feat(US-32): TASK-32.7 connect mock payment service to checkout flow
