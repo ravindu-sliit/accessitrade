@@ -654,3 +654,4 @@
 322: feat(US-35): TASK-35.3 display order date for each order
 323: feat(US-35): TASK-35.4 display order status badge
 324: feat(US-35): TASK-35.5 display order total amount
+325: feat(US-35): TASK-35.6 display expandable order details
