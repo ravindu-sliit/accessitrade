@@ -647,3 +647,4 @@
 315: feat(US-34): TASK-34.6 calculate and save order total amount
 316: feat(US-34): TASK-34.7 save delivery details to order
 317: feat(US-34): TASK-34.8 save payment status to order
+318: feat(US-34): TASK-34.9 create accessible order confirmation screen
