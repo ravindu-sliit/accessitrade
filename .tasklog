@@ -233,3 +233,4 @@
 242: feat(US-27): TASK-27.3 display customer information required for fulfilment
 243: feat(US-27): TASK-27.4 display ordered products and quantities
 244: feat(US-27): TASK-27.5 add order status field (pending/confirmed/dispatched/delivered)
+245: feat(US-27): TASK-27.6 implement order status update controls
