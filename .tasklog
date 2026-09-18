@@ -492,3 +492,4 @@
 152: test(US-16): TASK-16.10 test Product Details screen with TalkBack
 153: feat(US-17): TASK-17.1 create seller listing screen with simplified layout
 154: feat(US-17): TASK-17.2 create product name input field
+155: feat(US-17): TASK-17.3 create product description input field
