@@ -466,3 +466,4 @@
 126: feat(US-14): TASK-14.6 define price field with LKR currency support
 127: feat(US-14): TASK-14.7 define inventory quantity field
 128: feat(US-14): TASK-14.8 define product images list field
+129: feat(US-14): TASK-14.9 define seller ID reference field
