@@ -549,3 +549,4 @@
 217: feat(US-24): TASK-24.2 add metadata fields to Product model
 218: feat(US-24): TASK-24.3 add metadata inputs to seller product listing form
 219: feat(US-24): TASK-24.4 save accessibility metadata to Firestore on product creation
+220: feat(US-24): TASK-24.5 display metadata section on Product Details screen
