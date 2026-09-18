@@ -452,3 +452,4 @@
 112: test(US-12): TASK-12.10 write authentication unit tests
 113: feat(US-13): TASK-13.1 define customer role model and permissions
 114: feat(US-13): TASK-13.2 define seller role model and permissions
+115: feat(US-13): TASK-13.3 define caregiver role model and permissions
