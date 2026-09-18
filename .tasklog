@@ -88,3 +88,4 @@
 88: feat(US-20): create accessible search field with hint text and clear button
 89: feat(US-20): implement keyword search against Firestore, display results and no-result state
 90: feat(US-20): add accessible search labels and test search functionality
+91: feat(US-21): research speech-to-text plugin and add dependency to pubspec
