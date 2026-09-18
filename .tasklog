@@ -123,3 +123,4 @@
 132: feat(US-15): TASK-15.1 create product listing screen
 133: feat(US-15): TASK-15.2 display product cards in accessible grid layout
 134: feat(US-15): TASK-15.3 display product images with cached network loading
+135: feat(US-15): TASK-15.4 display product name with accessible text sizing
