@@ -109,3 +109,4 @@
 117: feat(US-13): TASK-13.5 store user profile in Firestore on registration
 118: feat(US-13): TASK-13.6 create profile screen with editable fields
 119: feat(US-13): TASK-13.7 implement role-based navigation (buyer/seller/caregiver views)
+120: test(US-13): TASK-13.8 test role permissions and navigation routing
