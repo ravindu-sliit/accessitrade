@@ -517,3 +517,4 @@
 177: test(US-19): TASK-19.7 test seller profile screen
 186: feat(US-21): TASK-21.1 research Flutter speech-to-text plugin options
 187: feat(US-21): TASK-21.2 add speech_to_text dependency to pubspec.yaml
+188: feat(US-21): TASK-21.3 create microphone button with visual recording indicator
