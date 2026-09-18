@@ -581,3 +581,4 @@
 249: feat(US-28): TASK-28.2 display eligible order for courier pickup
 250: feat(US-28): TASK-28.3 capture pickup address and time details
 251: feat(US-28): TASK-28.4 capture preferred pickup time information
+252: feat(US-28): TASK-28.5 create pickup request data model
