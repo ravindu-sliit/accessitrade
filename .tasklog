@@ -650,3 +650,4 @@
 318: feat(US-34): TASK-34.9 create accessible order confirmation screen
 319: test(US-34): TASK-34.10 test order creation end-to-end
 320: feat(US-35): TASK-35.1 create order history screen
+321: feat(US-35): TASK-35.2 retrieve user's past orders from Firestore
