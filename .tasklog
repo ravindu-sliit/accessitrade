@@ -84,3 +84,4 @@
 84: feat(US-16): add image alt text, accessible navigation and test with TalkBack
 85: feat(US-17): create seller listing screen with name, description and price inputs
 86: feat(US-17): add category selector, inventory input and accessibility fields
+87: feat(US-17): implement validation, save to Firestore and test listing creation
