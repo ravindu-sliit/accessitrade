@@ -516,3 +516,4 @@
 176: feat(US-19): TASK-19.6 add accessible labels to profile elements
 177: test(US-19): TASK-19.7 test seller profile screen
 186: feat(US-21): TASK-21.1 research Flutter speech-to-text plugin options
+187: feat(US-21): TASK-21.2 add speech_to_text dependency to pubspec.yaml
