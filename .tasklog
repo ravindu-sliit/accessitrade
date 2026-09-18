@@ -155,3 +155,4 @@
 164: feat(US-18): TASK-18.1 add image picker to seller listing form
 165: feat(US-18): TASK-18.2 allow seller to select product image from gallery
 166: feat(US-18): TASK-18.3 upload image to Firebase Storage
+167: feat(US-18): TASK-18.4 store image URL in product Firestore record
