@@ -643,3 +643,4 @@
 311: feat(US-34): TASK-34.2 generate unique order ID
 312: feat(US-34): TASK-34.3 save customer information to order
 313: feat(US-34): TASK-34.4 save purchased products and SKUs to order
+314: feat(US-34): TASK-34.5 save product quantities to order
