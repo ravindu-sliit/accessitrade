@@ -97,3 +97,4 @@
 105: feat(US-12): TASK-12.3 implement Firebase Authentication (email/password)
 106: feat(US-12): TASK-12.4 implement email validation on registration form
 107: feat(US-12): TASK-12.5 implement password validation rules
+108: feat(US-12): TASK-12.6 implement login error handling with user-friendly messages
