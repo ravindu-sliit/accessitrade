@@ -551,3 +551,4 @@
 219: feat(US-24): TASK-24.4 save accessibility metadata to Firestore on product creation
 220: feat(US-24): TASK-24.5 display metadata section on Product Details screen
 221: feat(US-24): TASK-24.6 use metadata fields in accessibility filter queries
+222: test(US-24): TASK-24.7 test accessibility metadata end-to-end
