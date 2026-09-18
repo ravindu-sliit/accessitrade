@@ -524,3 +524,4 @@
 192: feat(US-21): TASK-21.7 display recognized text in search field
 193: feat(US-21): TASK-21.8 execute product search from recognized text
 194: feat(US-21): TASK-21.9 handle speech recognition errors gracefully
+195: feat(US-21): TASK-21.10 handle microphone permission denial with fallback
