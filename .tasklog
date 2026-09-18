@@ -294,3 +294,4 @@
 304: feat(US-33): TASK-33.3 add save payment option checkbox at checkout
 305: feat(US-33): TASK-33.4 store safe payment reference in Firestore (no raw card data)
 306: feat(US-33): TASK-33.5 display saved payment option at checkout
+307: feat(US-33): TASK-33.6 allow payment method removal
