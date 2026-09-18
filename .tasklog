@@ -443,3 +443,4 @@
 103: feat(US-12): TASK-12.1 create registration screen UI
 104: feat(US-12): TASK-12.2 create login screen UI with accessible form layout
 105: feat(US-12): TASK-12.3 implement Firebase Authentication (email/password)
+106: feat(US-12): TASK-12.4 implement email validation on registration form
