@@ -440,3 +440,4 @@
 100: feat(US-11): TASK-11.8 implement user profile update functionality
 101: feat(US-11): TASK-11.9 implement user role management for buyers and sellers
 102: test(US-11): TASK-11.10 test authentication, profile, and user access operations
+103: feat(US-12): TASK-12.1 create registration screen UI
