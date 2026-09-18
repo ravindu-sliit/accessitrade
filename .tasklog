@@ -245,3 +245,4 @@
 254: feat(US-28): TASK-28.7 display pickup request status
 255: feat(US-28): TASK-28.8 implement simulated courier workflow
 256: test(US-28): TASK-28.9 test pickup request creation
+257: docs(US-28): TASK-28.10 document simulated courier API approach
