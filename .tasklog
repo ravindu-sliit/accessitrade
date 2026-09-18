@@ -519,3 +519,4 @@
 187: feat(US-21): TASK-21.2 add speech_to_text dependency to pubspec.yaml
 188: feat(US-21): TASK-21.3 create microphone button with visual recording indicator
 189: feat(US-21): TASK-21.4 request microphone permission on first use
+190: feat(US-21): TASK-21.5 implement speech recognition and audio capture
