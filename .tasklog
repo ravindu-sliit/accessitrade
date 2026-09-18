@@ -130,3 +130,4 @@
 139: feat(US-15): TASK-15.8 implement filter state management with Provider
 140: feat(US-15): TASK-15.9 connect accessibility filters to Firestore query
 141: test(US-15): TASK-15.10 test filtering functionality end-to-end
+142: test(US-15): TASK-15.11 test accessibility of filter controls with TalkBack
