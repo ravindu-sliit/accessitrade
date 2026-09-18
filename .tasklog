@@ -784,3 +784,4 @@
 102: test(US-11): TASK-11.10 test authentication, profile, and user access operations
 103: feat(US-12): TASK-12.1 create registration screen UI
 104: feat(US-12): TASK-12.2 create login screen UI with accessible form layout
+105: feat(US-12): TASK-12.3 implement Firebase Authentication (email/password)
