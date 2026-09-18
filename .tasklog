@@ -631,3 +631,4 @@
 299: feat(US-32): TASK-32.6 simulate duplicate payment attempt detection
 300: feat(US-32): TASK-32.7 connect mock payment service to checkout flow
 301: test(US-32): TASK-32.8 test all mock payment scenarios
+302: feat(US-33): TASK-33.1 design saved-payment data model
