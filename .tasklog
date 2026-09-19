@@ -843,3 +843,4 @@
 161: feat(US-17): TASK-17.9 save product listing to Firestore via seller service
 162: feat(US-17): TASK-17.10 display success and error messages after submission
 163: test(US-17): TASK-17.11 test listing creation flow end-to-end
+164: feat(US-18): TASK-18.1 add image picker to seller listing form
