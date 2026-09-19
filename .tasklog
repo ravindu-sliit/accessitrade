@@ -813,3 +813,4 @@
 131: feat(US-14): TASK-14.11 create Firestore product collection with service layer
 132: feat(US-15): TASK-15.1 create product listing screen
 133: feat(US-15): TASK-15.2 display product cards in accessible grid layout
+134: feat(US-15): TASK-15.3 display product images with cached network loading
