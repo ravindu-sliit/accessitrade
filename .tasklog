@@ -792,3 +792,4 @@
 110: feat(US-12): TASK-12.8 implement authentication state management
 111: feat(US-12): TASK-12.9 add accessibility semantics and screen reader labels
 112: test(US-12): TASK-12.10 write authentication unit tests
+113: feat(US-13): TASK-13.1 define customer role model and permissions
