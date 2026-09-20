@@ -118,3 +118,4 @@
 118: feat(US-29): add cart total, empty state, Provider persistence and test calculations
 119: feat(US-30): design step-by-step checkout flow and create delivery details screen
 120: feat(US-30): create payment, order review and confirmation screens
+121: feat(US-30): add step progress indicator, form validation and back/forward navigation
