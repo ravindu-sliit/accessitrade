@@ -848,3 +848,4 @@
 166: feat(US-18): TASK-18.3 upload image to Firebase Storage
 167: feat(US-18): TASK-18.4 store image URL in product Firestore record
 168: feat(US-18): TASK-18.5 add image validation (size, format)
+169: feat(US-18): TASK-18.6 add alternative-text input field for accessibility
