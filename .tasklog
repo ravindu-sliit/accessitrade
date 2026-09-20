@@ -852,3 +852,4 @@
 170: test(US-18): TASK-18.7 test image upload flow end-to-end
 171: feat(US-19): TASK-19.1 create seller profile screen
 172: feat(US-19): TASK-19.2 display seller name
+173: feat(US-19): TASK-19.3 display seller description
