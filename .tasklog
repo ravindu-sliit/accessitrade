@@ -93,3 +93,4 @@
 93: feat(US-21): convert speech to search text, execute query and handle errors
 94: feat(US-21): add screen reader semantics and test voice search on Android
 95: feat(US-22): define accessibility filter categories and add fields to Product model
+96: feat(US-22): create filter UI with large controls and implement toggle state
