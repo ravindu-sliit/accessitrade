@@ -108,3 +108,4 @@
 108: feat(US-26): implement quantity update with validation and Firestore sync
 109: feat(US-26): display out-of-stock status and test inventory operations
 110: feat(US-27): create seller order list with order details and customer information
+111: feat(US-27): implement order status updates and save to Firestore
