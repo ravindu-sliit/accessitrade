@@ -92,3 +92,4 @@
 92: feat(US-21): create mic button, request permission and implement speech recognition
 93: feat(US-21): convert speech to search text, execute query and handle errors
 94: feat(US-21): add screen reader semantics and test voice search on Android
+95: feat(US-22): define accessibility filter categories and add fields to Product model
