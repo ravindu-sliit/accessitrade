@@ -859,3 +859,4 @@
 177: test(US-19): TASK-19.7 test seller profile screen
 178: feat(US-20): TASK-20.1 create search field with accessible hint text
 179: feat(US-20): TASK-20.2 implement keyword search against Firestore product collection
+180: feat(US-20): TASK-20.3 connect search results to product data
