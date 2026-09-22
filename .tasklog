@@ -120,3 +120,4 @@
 120: feat(US-30): create payment, order review and confirmation screens
 121: feat(US-30): add step progress indicator, form validation and back/forward navigation
 122: feat(US-30): remove distracting animations, add large touch targets and accessible labels
+123: test(US-30): test full checkout flow end-to-end
