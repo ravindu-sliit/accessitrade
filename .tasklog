@@ -801,3 +801,4 @@
 119: feat(US-13): TASK-13.7 implement role-based navigation (buyer/seller/caregiver views)
 120: test(US-13): TASK-13.8 test role permissions and navigation routing
 121: feat(US-14): TASK-14.1 create Product model class
+122: feat(US-14): TASK-14.2 define product ID field with Firestore auto-ID
