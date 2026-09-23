@@ -115,3 +115,4 @@
 115: test(US-28): test pickup request and document simulated courier API approach
 116: feat(US-29): create Cart model, Add-to-Cart and accessible Cart screen
 117: feat(US-29): implement quantity controls, item removal and subtotal calculations
+118: feat(US-29): add cart total, empty state, Provider persistence and test calculations
