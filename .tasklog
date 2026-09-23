@@ -110,3 +110,4 @@
 110: feat(US-27): create seller order list with order details and customer information
 111: feat(US-27): implement order status updates and save to Firestore
 112: test(US-27): test seller order management flow end-to-end
+113: feat(US-28): create courier pickup request screen with order display and address capture
