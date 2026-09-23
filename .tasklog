@@ -810,3 +810,4 @@
 128: feat(US-14): TASK-14.8 define product images list field
 129: feat(US-14): TASK-14.9 define seller ID reference field
 130: feat(US-14): TASK-14.10 define accessibility metadata fields (alt text, sensory tags)
+131: feat(US-14): TASK-14.11 create Firestore product collection with service layer
