@@ -835,3 +835,4 @@
 153: feat(US-17): TASK-17.1 create seller listing screen with simplified layout
 154: feat(US-17): TASK-17.2 create product name input field
 155: feat(US-17): TASK-17.3 create product description input field
+156: feat(US-17): TASK-17.4 create price input with numeric keyboard
