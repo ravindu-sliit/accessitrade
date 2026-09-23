@@ -863,3 +863,4 @@
 181: feat(US-20): TASK-20.4 display search results as accessible product cards
 182: feat(US-20): TASK-20.5 handle no-result state with helpful message
 183: feat(US-20): TASK-20.6 add clear-search functionality
+184: test(US-20): TASK-20.7 test search functionality
