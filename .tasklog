@@ -903,3 +903,4 @@
 221: feat(US-24): TASK-24.6 use metadata fields in accessibility filter queries
 222: test(US-24): TASK-24.7 test accessibility metadata end-to-end
 223: feat(US-25): TASK-25.1 design Seller Dashboard layout with simplified navigation
+224: feat(US-25): TASK-25.2 create dashboard screen scaffold
