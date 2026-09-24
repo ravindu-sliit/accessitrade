@@ -865,3 +865,4 @@
 183: feat(US-20): TASK-20.6 add clear-search functionality
 184: test(US-20): TASK-20.7 test search functionality
 185: feat(US-20): TASK-20.8 add accessible search labels for screen readers
+186: feat(US-21): TASK-21.1 research Flutter speech-to-text plugin options
