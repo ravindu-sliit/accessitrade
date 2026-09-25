@@ -875,3 +875,4 @@
 193: feat(US-21): TASK-21.8 execute product search from recognized text
 194: feat(US-21): TASK-21.9 handle speech recognition errors gracefully
 195: feat(US-21): TASK-21.10 handle microphone permission denial with fallback
+196: feat(US-21): TASK-21.11 add screen reader semantics to voice search UI
