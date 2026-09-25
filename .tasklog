@@ -124,3 +124,4 @@
 124: feat(US-31): define payment failure scenarios and create validation/response handlers
 125: feat(US-31): handle network failure, duplicate attempts and display plain-language errors
 126: feat(US-32): create mock payment service with success, failure and cancellation scenarios
+127: feat(US-32): simulate network failure and duplicate payment, connect to checkout flow
