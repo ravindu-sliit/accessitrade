@@ -922,3 +922,4 @@
 240: feat(US-27): TASK-27.1 create seller order list screen
 241: feat(US-27): TASK-27.2 display order details for each incoming order
 242: feat(US-27): TASK-27.3 display customer information required for fulfilment
+243: feat(US-27): TASK-27.4 display ordered products and quantities
