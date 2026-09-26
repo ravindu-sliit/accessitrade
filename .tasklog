@@ -889,3 +889,4 @@
 207: feat(US-23): TASK-23.1 audit Product Details screen for accessibility gaps
 208: feat(US-23): TASK-23.2 add Flutter Semantics widgets to product info
 209: feat(US-23): TASK-23.3 add accessible labels to all action buttons
+210: feat(US-23): TASK-23.4 add descriptive labels to product images
