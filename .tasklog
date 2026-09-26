@@ -888,3 +888,4 @@
 206: test(US-22): TASK-22.9 test screen-reader accessibility of filter controls
 207: feat(US-23): TASK-23.1 audit Product Details screen for accessibility gaps
 208: feat(US-23): TASK-23.2 add Flutter Semantics widgets to product info
+209: feat(US-23): TASK-23.3 add accessible labels to all action buttons
