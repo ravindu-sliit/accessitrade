@@ -886,3 +886,4 @@
 204: feat(US-22): TASK-22.7 add clear-all-filters function
 205: test(US-22): TASK-22.8 test filter combinations
 206: test(US-22): TASK-22.9 test screen-reader accessibility of filter controls
+207: feat(US-23): TASK-23.1 audit Product Details screen for accessibility gaps
