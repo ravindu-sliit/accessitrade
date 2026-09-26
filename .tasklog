@@ -884,3 +884,4 @@
 202: feat(US-22): TASK-22.5 implement multiple simultaneous filters
 203: feat(US-22): TASK-22.6 connect filters to Firestore product search query
 204: feat(US-22): TASK-22.7 add clear-all-filters function
+205: test(US-22): TASK-22.8 test filter combinations
