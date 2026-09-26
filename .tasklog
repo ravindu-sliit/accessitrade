@@ -121,3 +121,8 @@
 121: feat(US-30): add step progress indicator, form validation and back/forward navigation
 122: feat(US-30): remove distracting animations, add large touch targets and accessible labels
 123: test(US-30): test full checkout flow end-to-end
+124: feat(US-31): define payment failure scenarios and create validation/response handlers
+125: feat(US-31): handle network failure, duplicate attempts and display plain-language errors
+126: feat(US-32): create mock payment service with success, failure and cancellation scenarios
+127: feat(US-32): simulate network failure and duplicate payment, connect to checkout flow
+128: test(US-31-32): test all payment error scenarios and mock payment flows
