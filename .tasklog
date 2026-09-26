@@ -927,3 +927,4 @@
 245: feat(US-27): TASK-27.6 implement order status update controls
 246: feat(US-27): TASK-27.7 save updated order status to Firestore
 247: test(US-27): TASK-27.8 test seller order management flow
+248: feat(US-28): TASK-28.1 create courier pickup request screen
