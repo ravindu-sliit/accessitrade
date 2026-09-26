@@ -920,3 +920,4 @@
 238: feat(US-26): TASK-26.6 display out-of-stock status when quantity is zero
 239: test(US-26): TASK-26.7 test inventory update operations
 240: feat(US-27): TASK-27.1 create seller order list screen
+241: feat(US-27): TASK-27.2 display order details for each incoming order
