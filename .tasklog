@@ -939,3 +939,4 @@
 257: docs(US-28): TASK-28.10 document simulated courier API approach
 258: feat(US-29): TASK-29.1 create Cart model with CartItem list
 259: feat(US-29): TASK-29.2 create Add to Cart functionality from Product Details
+260: feat(US-29): TASK-29.3 create Cart screen with accessible layout
