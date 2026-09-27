@@ -935,3 +935,4 @@
 253: feat(US-28): TASK-28.6 save pickup request to Firestore
 254: feat(US-28): TASK-28.7 display pickup request status
 255: feat(US-28): TASK-28.8 implement simulated courier workflow
+256: test(US-28): TASK-28.9 test pickup request creation
