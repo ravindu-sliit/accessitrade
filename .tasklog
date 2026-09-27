@@ -941,3 +941,4 @@
 259: feat(US-29): TASK-29.2 create Add to Cart functionality from Product Details
 260: feat(US-29): TASK-29.3 create Cart screen with accessible layout
 261: feat(US-29): TASK-29.4 display cart items with product details
+262: feat(US-29): TASK-29.5 implement quantity increase with large tap target
