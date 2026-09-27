@@ -933,3 +933,4 @@
 251: feat(US-28): TASK-28.4 capture preferred pickup time information
 252: feat(US-28): TASK-28.5 create pickup request data model
 253: feat(US-28): TASK-28.6 save pickup request to Firestore
+254: feat(US-28): TASK-28.7 display pickup request status
