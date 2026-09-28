@@ -127,3 +127,4 @@
 127: feat(US-32): simulate network failure and duplicate payment, connect to checkout flow
 128: test(US-31-32): test all payment error scenarios and mock payment flows
 129: feat(US-33): design saved-payment model, create management screen and save payment reference
+130: feat(US-34): create Order model, generate order ID and save customer/product/payment data
