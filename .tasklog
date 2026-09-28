@@ -569,3 +569,11 @@
 237: feat(US-26): TASK-26.5 update Firestore product quantity on save
 238: feat(US-26): TASK-26.6 display out-of-stock status when quantity is zero
 239: test(US-26): TASK-26.7 test inventory update operations
+240: feat(US-27): TASK-27.1 create seller order list screen
+241: feat(US-27): TASK-27.2 display order details for each incoming order
+242: feat(US-27): TASK-27.3 display customer information required for fulfilment
+243: feat(US-27): TASK-27.4 display ordered products and quantities
+244: feat(US-27): TASK-27.5 add order status field (pending/confirmed/dispatched/delivered)
+245: feat(US-27): TASK-27.6 implement order status update controls
+246: feat(US-27): TASK-27.7 save updated order status to Firestore
+247: test(US-27): TASK-27.8 test seller order management flow
