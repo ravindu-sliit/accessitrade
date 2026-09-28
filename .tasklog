@@ -963,3 +963,4 @@
 281: feat(US-30): TASK-30.12 ensure no flashing promotions or pop-ups
 282: feat(US-30): TASK-30.13 add accessible labels throughout checkout flow
 283: test(US-30): TASK-30.14 test full checkout flow end-to-end
+284: feat(US-31): TASK-31.1 define payment failure scenarios
