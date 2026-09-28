@@ -965,3 +965,4 @@
 283: test(US-30): TASK-30.14 test full checkout flow end-to-end
 284: feat(US-31): TASK-31.1 define payment failure scenarios
 285: feat(US-31): TASK-31.2 create payment input validation
+286: feat(US-31): TASK-31.3 create success response handler
