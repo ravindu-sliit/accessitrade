@@ -944,3 +944,4 @@
 262: feat(US-29): TASK-29.5 implement quantity increase with large tap target
 263: feat(US-29): TASK-29.6 implement quantity decrease with minimum of 1
 264: feat(US-29): TASK-29.7 implement item removal from cart
+265: feat(US-29): TASK-29.8 calculate and display line item subtotals
