@@ -902,3 +902,13 @@
 220: feat(US-24): TASK-24.5 display metadata section on Product Details screen
 221: feat(US-24): TASK-24.6 use metadata fields in accessibility filter queries
 222: test(US-24): TASK-24.7 test accessibility metadata end-to-end
+223: feat(US-25): TASK-25.1 design Seller Dashboard layout with simplified navigation
+224: feat(US-25): TASK-25.2 create dashboard screen scaffold
+225: feat(US-25): TASK-25.3 display seller products list
+226: feat(US-25): TASK-25.4 display inventory summary
+227: feat(US-25): TASK-25.5 display order summary
+228: feat(US-25): TASK-25.6 add product management navigation
+229: feat(US-25): TASK-25.7 add inventory management navigation
+230: feat(US-25): TASK-25.8 add order management navigation
+231: feat(US-25): TASK-25.9 add accessible dashboard controls (large tap targets)
+232: test(US-25): TASK-25.10 test dashboard functionality
