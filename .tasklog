@@ -946,3 +946,4 @@
 264: feat(US-29): TASK-29.7 implement item removal from cart
 265: feat(US-29): TASK-29.8 calculate and display line item subtotals
 266: feat(US-29): TASK-29.9 calculate and display cart total
+267: feat(US-29): TASK-29.10 handle empty cart state with message
