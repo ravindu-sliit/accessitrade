@@ -221,3 +221,10 @@
 230: feat(US-25): TASK-25.8 add order management navigation
 231: feat(US-25): TASK-25.9 add accessible dashboard controls (large tap targets)
 232: test(US-25): TASK-25.10 test dashboard functionality
+233: feat(US-26): TASK-26.1 create inventory management screen
+234: feat(US-26): TASK-26.2 display current product quantity
+235: feat(US-26): TASK-26.3 add quantity update input field
+236: feat(US-26): TASK-26.4 validate inventory quantity (non-negative)
+237: feat(US-26): TASK-26.5 update Firestore product quantity on save
+238: feat(US-26): TASK-26.6 display out-of-stock status when quantity is zero
+239: test(US-26): TASK-26.7 test inventory update operations
