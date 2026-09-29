@@ -962,3 +962,4 @@
 280: feat(US-30): TASK-30.11 ensure no countdown timers present
 281: feat(US-30): TASK-30.12 ensure no flashing promotions or pop-ups
 282: feat(US-30): TASK-30.13 add accessible labels throughout checkout flow
+283: test(US-30): TASK-30.14 test full checkout flow end-to-end
