@@ -128,3 +128,4 @@
 128: test(US-31-32): test all payment error scenarios and mock payment flows
 129: feat(US-33): design saved-payment model, create management screen and save payment reference
 130: feat(US-34): create Order model, generate order ID and save customer/product/payment data
+131: feat(US-34): create accessible order confirmation screen and test order creation
