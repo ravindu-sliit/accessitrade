@@ -980,3 +980,4 @@
 298: feat(US-32): TASK-32.5 simulate network failure during payment
 299: feat(US-32): TASK-32.6 simulate duplicate payment attempt detection
 300: feat(US-32): TASK-32.7 connect mock payment service to checkout flow
+301: test(US-32): TASK-32.8 test all mock payment scenarios
