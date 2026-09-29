@@ -895,3 +895,10 @@
 213: test(US-23): TASK-23.7 test with TalkBack screen reader
 214: fix(US-23): TASK-23.8 fix accessibility defects found during testing
 215: docs(US-23): TASK-23.9 document accessibility test results
+216: feat(US-24): TASK-24.1 define accessibility metadata fields schema
+217: feat(US-24): TASK-24.2 add metadata fields to Product model
+218: feat(US-24): TASK-24.3 add metadata inputs to seller product listing form
+219: feat(US-24): TASK-24.4 save accessibility metadata to Firestore on product creation
+220: feat(US-24): TASK-24.5 display metadata section on Product Details screen
+221: feat(US-24): TASK-24.6 use metadata fields in accessibility filter queries
+222: test(US-24): TASK-24.7 test accessibility metadata end-to-end
