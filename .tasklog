@@ -129,3 +129,4 @@
 129: feat(US-33): design saved-payment model, create management screen and save payment reference
 130: feat(US-34): create Order model, generate order ID and save customer/product/payment data
 131: feat(US-34): create accessible order confirmation screen and test order creation
+132: feat(US-35): create order history screen and retrieve user orders from Firestore
