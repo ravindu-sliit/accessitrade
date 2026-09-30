@@ -984,3 +984,4 @@
 302: feat(US-33): TASK-33.1 design saved-payment data model
 303: feat(US-33): TASK-33.2 create payment method management screen
 304: feat(US-33): TASK-33.3 add save payment option checkbox at checkout
+305: feat(US-33): TASK-33.4 store safe payment reference in Firestore (no raw card data)
