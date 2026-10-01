@@ -973,3 +973,11 @@
 291: feat(US-31): TASK-31.8 display plain-language error messages (no technical jargon)
 292: feat(US-31): TASK-31.9 add recovery instructions for each error type
 293: test(US-31): TASK-31.10 test all payment error scenarios
+294: feat(US-32): TASK-32.1 create mock payment service class
+295: feat(US-32): TASK-32.2 create mock payment success scenario
+296: feat(US-32): TASK-32.3 create mock payment failure scenario
+297: feat(US-32): TASK-32.4 create mock payment cancellation scenario
+298: feat(US-32): TASK-32.5 simulate network failure during payment
+299: feat(US-32): TASK-32.6 simulate duplicate payment attempt detection
+300: feat(US-32): TASK-32.7 connect mock payment service to checkout flow
+301: test(US-32): TASK-32.8 test all mock payment scenarios
