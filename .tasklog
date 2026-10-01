@@ -307,3 +307,11 @@
 317: feat(US-34): TASK-34.8 save payment status to order
 318: feat(US-34): TASK-34.9 create accessible order confirmation screen
 319: test(US-34): TASK-34.10 test order creation end-to-end
+320: feat(US-35): TASK-35.1 create order history screen
+321: feat(US-35): TASK-35.2 retrieve user's past orders from Firestore
+322: feat(US-35): TASK-35.3 display order date for each order
+323: feat(US-35): TASK-35.4 display order status badge
+324: feat(US-35): TASK-35.5 display order total amount
+325: feat(US-35): TASK-35.6 display expandable order details
+326: feat(US-35): TASK-35.7 add accessible labels to order history items
+327: test(US-35): TASK-35.8 test order history retrieval and display
