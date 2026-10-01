@@ -289,3 +289,11 @@
 298: feat(US-32): TASK-32.5 simulate network failure during payment
 300: feat(US-32): TASK-32.7 connect mock payment service to checkout flow
 301: test(US-32): TASK-32.8 test all mock payment scenarios
+302: feat(US-33): TASK-33.1 design saved-payment data model
+303: feat(US-33): TASK-33.2 create payment method management screen
+304: feat(US-33): TASK-33.3 add save payment option checkbox at checkout
+305: feat(US-33): TASK-33.4 store safe payment reference in Firestore (no raw card data)
+306: feat(US-33): TASK-33.5 display saved payment option at checkout
+307: feat(US-33): TASK-33.6 allow payment method removal
+308: feat(US-33): TASK-33.7 add security validation before using saved payment
+309: test(US-33): TASK-33.8 test saved payment flow
