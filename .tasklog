@@ -131,3 +131,13 @@
 140: feat(US-15): TASK-15.9 connect accessibility filters to Firestore query
 141: test(US-15): TASK-15.10 test filtering functionality end-to-end
 142: test(US-15): TASK-15.11 test accessibility of filter controls with TalkBack
+143: feat(US-16): TASK-16.1 create Product Details screen layout
+144: feat(US-16): TASK-16.2 display product name with large accessible font
+145: feat(US-16): TASK-16.3 display full product description
+146: feat(US-16): TASK-16.4 display price with prominent styling
+147: feat(US-16): TASK-16.5 display seller information and rating
+148: feat(US-16): TASK-16.6 display product accessibility information section
+149: feat(US-16): TASK-16.7 display product image carousel
+150: feat(US-16): TASK-16.8 add meaningful image alternative text for screen readers
+151: feat(US-16): TASK-16.9 add accessible navigation (back button, add-to-cart)
+152: test(US-16): TASK-16.10 test Product Details screen with TalkBack
