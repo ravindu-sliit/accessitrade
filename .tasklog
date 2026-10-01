@@ -877,3 +877,12 @@
 195: feat(US-21): TASK-21.10 handle microphone permission denial with fallback
 196: feat(US-21): TASK-21.11 add screen reader semantics to voice search UI
 197: test(US-21): TASK-21.12 test voice search on Android device
+198: feat(US-22): TASK-22.1 define accessibility filter categories (mobility, sensory, visual, hearing)
+199: feat(US-22): TASK-22.2 add accessibility fields to Product model
+200: feat(US-22): TASK-22.3 create filter UI with large accessible controls
+201: feat(US-22): TASK-22.4 implement filter selection with toggle state
+202: feat(US-22): TASK-22.5 implement multiple simultaneous filters
+203: feat(US-22): TASK-22.6 connect filters to Firestore product search query
+204: feat(US-22): TASK-22.7 add clear-all-filters function
+205: test(US-22): TASK-22.8 test filter combinations
+206: test(US-22): TASK-22.9 test screen-reader accessibility of filter controls
