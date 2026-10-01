@@ -297,3 +297,13 @@
 307: feat(US-33): TASK-33.6 allow payment method removal
 308: feat(US-33): TASK-33.7 add security validation before using saved payment
 309: test(US-33): TASK-33.8 test saved payment flow
+310: feat(US-34): TASK-34.1 create Order model with all required fields
+311: feat(US-34): TASK-34.2 generate unique order ID
+312: feat(US-34): TASK-34.3 save customer information to order
+313: feat(US-34): TASK-34.4 save purchased products and SKUs to order
+314: feat(US-34): TASK-34.5 save product quantities to order
+315: feat(US-34): TASK-34.6 calculate and save order total amount
+316: feat(US-34): TASK-34.7 save delivery details to order
+317: feat(US-34): TASK-34.8 save payment status to order
+318: feat(US-34): TASK-34.9 create accessible order confirmation screen
+319: test(US-34): TASK-34.10 test order creation end-to-end
