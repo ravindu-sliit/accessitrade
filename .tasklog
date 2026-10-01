@@ -166,3 +166,11 @@
 175: feat(US-19): TASK-19.5 display seller products list
 176: feat(US-19): TASK-19.6 add accessible labels to profile elements
 177: test(US-19): TASK-19.7 test seller profile screen
+178: feat(US-20): TASK-20.1 create search field with accessible hint text
+179: feat(US-20): TASK-20.2 implement keyword search against Firestore product collection
+180: feat(US-20): TASK-20.3 connect search results to product data
+181: feat(US-20): TASK-20.4 display search results as accessible product cards
+182: feat(US-20): TASK-20.5 handle no-result state with helpful message
+183: feat(US-20): TASK-20.6 add clear-search functionality
+184: test(US-20): TASK-20.7 test search functionality
+185: feat(US-20): TASK-20.8 add accessible search labels for screen readers
