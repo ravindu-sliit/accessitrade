@@ -800,3 +800,14 @@
 118: feat(US-13): TASK-13.6 create profile screen with editable fields
 119: feat(US-13): TASK-13.7 implement role-based navigation (buyer/seller/caregiver views)
 120: test(US-13): TASK-13.8 test role permissions and navigation routing
+121: feat(US-14): TASK-14.1 create Product model class
+122: feat(US-14): TASK-14.2 define product ID field with Firestore auto-ID
+123: feat(US-14): TASK-14.3 define product name field
+124: feat(US-14): TASK-14.4 define product description field
+125: feat(US-14): TASK-14.5 define product category field with enum
+126: feat(US-14): TASK-14.6 define price field with LKR currency support
+127: feat(US-14): TASK-14.7 define inventory quantity field
+128: feat(US-14): TASK-14.8 define product images list field
+129: feat(US-14): TASK-14.9 define seller ID reference field
+130: feat(US-14): TASK-14.10 define accessibility metadata fields (alt text, sensory tags)
+131: feat(US-14): TASK-14.11 create Firestore product collection with service layer
