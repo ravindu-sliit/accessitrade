@@ -782,3 +782,13 @@
 100: feat(US-11): TASK-11.8 implement user profile update functionality
 101: feat(US-11): TASK-11.9 implement user role management for buyers and sellers
 102: test(US-11): TASK-11.10 test authentication, profile, and user access operations
+103: feat(US-12): TASK-12.1 create registration screen UI
+104: feat(US-12): TASK-12.2 create login screen UI with accessible form layout
+105: feat(US-12): TASK-12.3 implement Firebase Authentication (email/password)
+106: feat(US-12): TASK-12.4 implement email validation on registration form
+107: feat(US-12): TASK-12.5 implement password validation rules
+108: feat(US-12): TASK-12.6 implement login error handling with user-friendly messages
+109: feat(US-12): TASK-12.7 implement logout functionality
+110: feat(US-12): TASK-12.8 implement authentication state management
+111: feat(US-12): TASK-12.9 add accessibility semantics and screen reader labels
+112: test(US-12): TASK-12.10 write authentication unit tests
