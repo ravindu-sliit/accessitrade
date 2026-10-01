@@ -469,3 +469,14 @@
 129: feat(US-14): TASK-14.9 define seller ID reference field
 130: feat(US-14): TASK-14.10 define accessibility metadata fields (alt text, sensory tags)
 131: feat(US-14): TASK-14.11 create Firestore product collection with service layer
+132: feat(US-15): TASK-15.1 create product listing screen
+133: feat(US-15): TASK-15.2 display product cards in accessible grid layout
+134: feat(US-15): TASK-15.3 display product images with cached network loading
+135: feat(US-15): TASK-15.4 display product name with accessible text sizing
+136: feat(US-15): TASK-15.5 display price with LKR currency formatting
+137: feat(US-15): TASK-15.6 implement category filtering chips
+138: feat(US-15): TASK-15.7 design accessibility filter structure
+139: feat(US-15): TASK-15.8 implement filter state management with Provider
+140: feat(US-15): TASK-15.9 connect accessibility filters to Firestore query
+141: test(US-15): TASK-15.10 test filtering functionality end-to-end
+142: test(US-15): TASK-15.11 test accessibility of filter controls with TalkBack
