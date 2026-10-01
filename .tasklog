@@ -126,3 +126,8 @@
 126: feat(US-32): create mock payment service with success, failure and cancellation scenarios
 127: feat(US-32): simulate network failure and duplicate payment, connect to checkout flow
 128: test(US-31-32): test all payment error scenarios and mock payment flows
+129: feat(US-33): design saved-payment model, create management screen and save payment reference
+130: feat(US-34): create Order model, generate order ID and save customer/product/payment data
+131: feat(US-34): create accessible order confirmation screen and test order creation
+132: feat(US-35): create order history screen and retrieve user orders from Firestore
+133: feat(US-35): display order date, status badge, total, details and add accessible labels
