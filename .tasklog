@@ -949,3 +949,17 @@
 267: feat(US-29): TASK-29.10 handle empty cart state with message
 268: feat(US-29): TASK-29.11 persist cart state using Provider
 269: test(US-29): TASK-29.12 test cart calculations and state
+270: feat(US-30): TASK-30.1 design step-by-step checkout flow
+271: feat(US-30): TASK-30.2 create delivery details screen
+272: feat(US-30): TASK-30.3 create payment screen
+273: feat(US-30): TASK-30.4 create order review screen
+274: feat(US-30): TASK-30.5 create order confirmation screen
+275: feat(US-30): TASK-30.6 add step progress indicator
+276: feat(US-30): TASK-30.7 implement back/forward navigation between steps
+277: feat(US-30): TASK-30.8 implement form validation at each step
+278: feat(US-30): TASK-30.9 add large touch controls throughout checkout
+279: feat(US-30): TASK-30.10 remove all distracting animations
+280: feat(US-30): TASK-30.11 ensure no countdown timers present
+281: feat(US-30): TASK-30.12 ensure no flashing promotions or pop-ups
+282: feat(US-30): TASK-30.13 add accessible labels throughout checkout flow
+283: test(US-30): TASK-30.14 test full checkout flow end-to-end
