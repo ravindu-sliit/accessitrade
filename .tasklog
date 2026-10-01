@@ -1003,3 +1003,4 @@
 321: feat(US-35): TASK-35.2 retrieve user's past orders from Firestore
 322: feat(US-35): TASK-35.3 display order date for each order
 323: feat(US-35): TASK-35.4 display order status badge
+324: feat(US-35): TASK-35.5 display order total amount
