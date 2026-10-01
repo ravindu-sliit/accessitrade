@@ -963,3 +963,13 @@
 281: feat(US-30): TASK-30.12 ensure no flashing promotions or pop-ups
 282: feat(US-30): TASK-30.13 add accessible labels throughout checkout flow
 283: test(US-30): TASK-30.14 test full checkout flow end-to-end
+284: feat(US-31): TASK-31.1 define payment failure scenarios
+285: feat(US-31): TASK-31.2 create payment input validation
+286: feat(US-31): TASK-31.3 create success response handler
+287: feat(US-31): TASK-31.4 create failure response handler
+288: feat(US-31): TASK-31.5 create cancellation response handler
+289: feat(US-31): TASK-31.6 handle network failure during payment gracefully
+290: feat(US-31): TASK-31.7 handle duplicate payment attempt prevention
+291: feat(US-31): TASK-31.8 display plain-language error messages (no technical jargon)
+292: feat(US-31): TASK-31.9 add recovery instructions for each error type
+293: test(US-31): TASK-31.10 test all payment error scenarios
