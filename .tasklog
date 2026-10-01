@@ -174,3 +174,15 @@
 183: feat(US-20): TASK-20.6 add clear-search functionality
 184: test(US-20): TASK-20.7 test search functionality
 185: feat(US-20): TASK-20.8 add accessible search labels for screen readers
+186: feat(US-21): TASK-21.1 research Flutter speech-to-text plugin options
+187: feat(US-21): TASK-21.2 add speech_to_text dependency to pubspec.yaml
+188: feat(US-21): TASK-21.3 create microphone button with visual recording indicator
+189: feat(US-21): TASK-21.4 request microphone permission on first use
+190: feat(US-21): TASK-21.5 implement speech recognition and audio capture
+191: feat(US-21): TASK-21.6 convert speech to search text
+192: feat(US-21): TASK-21.7 display recognized text in search field
+193: feat(US-21): TASK-21.8 execute product search from recognized text
+194: feat(US-21): TASK-21.9 handle speech recognition errors gracefully
+195: feat(US-21): TASK-21.10 handle microphone permission denial with fallback
+196: feat(US-21): TASK-21.11 add screen reader semantics to voice search UI
+197: test(US-21): TASK-21.12 test voice search on Android device
