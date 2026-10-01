@@ -159,3 +159,10 @@
 168: feat(US-18): TASK-18.5 add image validation (size, format)
 169: feat(US-18): TASK-18.6 add alternative-text input field for accessibility
 170: test(US-18): TASK-18.7 test image upload flow end-to-end
+171: feat(US-19): TASK-19.1 create seller profile screen
+172: feat(US-19): TASK-19.2 display seller name
+173: feat(US-19): TASK-19.3 display seller description
+174: feat(US-19): TASK-19.4 display seller accessibility rating placeholder
+175: feat(US-19): TASK-19.5 display seller products list
+176: feat(US-19): TASK-19.6 add accessible labels to profile elements
+177: test(US-19): TASK-19.7 test seller profile screen
