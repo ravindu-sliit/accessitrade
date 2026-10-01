@@ -1005,3 +1005,4 @@
 323: feat(US-35): TASK-35.4 display order status badge
 324: feat(US-35): TASK-35.5 display order total amount
 325: feat(US-35): TASK-35.6 display expandable order details
+326: feat(US-35): TASK-35.7 add accessible labels to order history items
