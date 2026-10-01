@@ -141,3 +141,14 @@
 150: feat(US-16): TASK-16.8 add meaningful image alternative text for screen readers
 151: feat(US-16): TASK-16.9 add accessible navigation (back button, add-to-cart)
 152: test(US-16): TASK-16.10 test Product Details screen with TalkBack
+153: feat(US-17): TASK-17.1 create seller listing screen with simplified layout
+154: feat(US-17): TASK-17.2 create product name input field
+155: feat(US-17): TASK-17.3 create product description input field
+156: feat(US-17): TASK-17.4 create price input with numeric keyboard
+157: feat(US-17): TASK-17.5 create category selector dropdown
+158: feat(US-17): TASK-17.6 create inventory quantity input
+159: feat(US-17): TASK-17.7 add accessibility information fields for product listing
+160: feat(US-17): TASK-17.8 validate listing information before submission
+161: feat(US-17): TASK-17.9 save product listing to Firestore via seller service
+162: feat(US-17): TASK-17.10 display success and error messages after submission
+163: test(US-17): TASK-17.11 test listing creation flow end-to-end
