@@ -59,3 +59,75 @@
 59: docs: document data model decisions and Firestore schema
 60: test: add integration tests for backend service layer
 61: docs: finalize Sprint 3 UX acceptance criteria
+62: feat(US-12): create registration and login screens with accessible form layout
+63: feat(US-12): implement Firebase auth, email/password validation and error handling
+64: feat(US-12): implement auth state management, logout and screen reader labels
+65: test(US-12): write authentication unit tests and verify all flows
+66: feat(US-13): define customer, seller and caregiver role models with permissions
+67: feat(US-13): create UserProfile model, Firestore storage and profile screen
+68: feat(US-13): implement role-based navigation and test role permissions
+69: feat(US-14): create Product model with id, name, description, category, price fields
+70: feat(US-14): add images, sellerId, inventory and accessibility metadata fields
+71: feat(US-14): create Firestore product collection with service layer integration
+72: feat(US-18): add image picker and allow seller to select product image from gallery
+73: feat(US-18): upload image to Firebase Storage and store URL in Firestore record
+74: feat(US-18): add image validation, alt-text field and test upload flow
+75: feat(US-19): create seller profile screen with name, description and rating display
+76: feat(US-19): display seller products list and add accessible labels
+77: test(US-19): test seller profile screen and verify accessible navigation
+78: feat(US-15): create product listing screen with accessible card grid layout
+79: feat(US-15): display product image, name, price with LKR formatting
+80: feat(US-15): implement category filtering chips and accessibility filter structure
+81: feat(US-15): implement filter state management, Firestore query and TalkBack test
+82: feat(US-16): create Product Details screen with name, description, price layout
+83: feat(US-16): display seller info, accessibility section and product image carousel
+84: feat(US-16): add image alt text, accessible navigation and test with TalkBack
+85: feat(US-17): create seller listing screen with name, description and price inputs
+86: feat(US-17): add category selector, inventory input and accessibility fields
+87: feat(US-17): implement validation, save to Firestore and test listing creation
+88: feat(US-20): create accessible search field with hint text and clear button
+89: feat(US-20): implement keyword search against Firestore, display results and no-result state
+90: feat(US-20): add accessible search labels and test search functionality
+91: feat(US-21): research speech-to-text plugin and add dependency to pubspec
+92: feat(US-21): create mic button, request permission and implement speech recognition
+93: feat(US-21): convert speech to search text, execute query and handle errors
+94: feat(US-21): add screen reader semantics and test voice search on Android
+95: feat(US-22): define accessibility filter categories and add fields to Product model
+96: feat(US-22): create filter UI with large controls and implement toggle state
+97: feat(US-22): connect filters to Firestore query, add clear-all and test with TalkBack
+98: feat(US-23): audit Product Details screen and add Flutter Semantics widgets
+99: feat(US-23): add accessible labels to buttons, images and ensure logical reading order
+100: fix(US-23): fix TalkBack defects and document accessibility test results
+101: feat(US-24): define metadata schema and add fields to Product model and seller form
+102: feat(US-24): save metadata to Firestore and display on Product Details screen
+103: feat(US-24): integrate metadata with accessibility filter queries and test end-to-end
+104: feat(US-25): design and create Seller Dashboard with simplified navigation layout
+105: feat(US-25): display seller products, inventory and order summaries
+106: feat(US-25): add product/inventory/order navigation with accessible large tap targets
+107: feat(US-26): create inventory management screen with current quantity display
+108: feat(US-26): implement quantity update with validation and Firestore sync
+109: feat(US-26): display out-of-stock status and test inventory operations
+110: feat(US-27): create seller order list with order details and customer information
+111: feat(US-27): implement order status updates and save to Firestore
+112: test(US-27): test seller order management flow end-to-end
+113: feat(US-28): create courier pickup request screen with order display and address capture
+114: feat(US-28): create pickup model, save to Firestore and implement simulated workflow
+115: test(US-28): test pickup request and document simulated courier API approach
+116: feat(US-29): create Cart model, Add-to-Cart and accessible Cart screen
+117: feat(US-29): implement quantity controls, item removal and subtotal calculations
+118: feat(US-29): add cart total, empty state, Provider persistence and test calculations
+119: feat(US-30): design step-by-step checkout flow and create delivery details screen
+120: feat(US-30): create payment, order review and confirmation screens
+121: feat(US-30): add step progress indicator, form validation and back/forward navigation
+122: feat(US-30): remove distracting animations, add large touch targets and accessible labels
+123: test(US-30): test full checkout flow end-to-end
+124: feat(US-31): define payment failure scenarios and create validation/response handlers
+125: feat(US-31): handle network failure, duplicate attempts and display plain-language errors
+126: feat(US-32): create mock payment service with success, failure and cancellation scenarios
+127: feat(US-32): simulate network failure and duplicate payment, connect to checkout flow
+128: test(US-31-32): test all payment error scenarios and mock payment flows
+129: feat(US-33): design saved-payment model, create management screen and save payment reference
+130: feat(US-34): create Order model, generate order ID and save customer/product/payment data
+131: feat(US-34): create accessible order confirmation screen and test order creation
+132: feat(US-35): create order history screen and retrieve user orders from Firestore
+133: feat(US-35): display order date, status badge, total, details and add accessible labels
