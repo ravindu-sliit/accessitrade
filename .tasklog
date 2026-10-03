@@ -1016,3 +1016,4 @@
 334: feat(US-39): create community recommendation data model
 335: feat(US-39): create community screen with post feed
 336: feat(US-39): implement product recommendation post creation
+337: feat(US-39): save community recommendation to Firestore
