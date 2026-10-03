@@ -1009,3 +1009,4 @@
 327: test(US-35): TASK-35.8 test order history retrieval and display
 328: feat(US-38): create seller accessibility rating model
 329: feat(US-38): implement rating submission UI with accessible 5-star control
+330: feat(US-38): save accessibility rating to Firestore seller record
