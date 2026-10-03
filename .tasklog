@@ -676,3 +676,4 @@
 344: feat(US-45): display seller trust badge on product listing cards
 345: feat(US-45): show community recommendation count on product details
 346: feat(US-45): link seller accessibility rating to product search results
+347: test(US-45): test community trust integration across product screens
