@@ -440,3 +440,220 @@
 100: feat(US-11): TASK-11.8 implement user profile update functionality
 101: feat(US-11): TASK-11.9 implement user role management for buyers and sellers
 102: test(US-11): TASK-11.10 test authentication, profile, and user access operations
+103: feat(US-12): TASK-12.1 create registration screen UI
+104: feat(US-12): TASK-12.2 create login screen UI with accessible form layout
+105: feat(US-12): TASK-12.3 implement Firebase Authentication (email/password)
+106: feat(US-12): TASK-12.4 implement email validation on registration form
+107: feat(US-12): TASK-12.5 implement password validation rules
+108: feat(US-12): TASK-12.6 implement login error handling with user-friendly messages
+109: feat(US-12): TASK-12.7 implement logout functionality
+110: feat(US-12): TASK-12.8 implement authentication state management
+111: feat(US-12): TASK-12.9 add accessibility semantics and screen reader labels
+112: test(US-12): TASK-12.10 write authentication unit tests
+113: feat(US-13): TASK-13.1 define customer role model and permissions
+114: feat(US-13): TASK-13.2 define seller role model and permissions
+115: feat(US-13): TASK-13.3 define caregiver role model and permissions
+116: feat(US-13): TASK-13.4 create UserProfile model with role field
+117: feat(US-13): TASK-13.5 store user profile in Firestore on registration
+118: feat(US-13): TASK-13.6 create profile screen with editable fields
+119: feat(US-13): TASK-13.7 implement role-based navigation (buyer/seller/caregiver views)
+120: test(US-13): TASK-13.8 test role permissions and navigation routing
+121: feat(US-14): TASK-14.1 create Product model class
+122: feat(US-14): TASK-14.2 define product ID field with Firestore auto-ID
+123: feat(US-14): TASK-14.3 define product name field
+124: feat(US-14): TASK-14.4 define product description field
+125: feat(US-14): TASK-14.5 define product category field with enum
+126: feat(US-14): TASK-14.6 define price field with LKR currency support
+127: feat(US-14): TASK-14.7 define inventory quantity field
+128: feat(US-14): TASK-14.8 define product images list field
+129: feat(US-14): TASK-14.9 define seller ID reference field
+130: feat(US-14): TASK-14.10 define accessibility metadata fields (alt text, sensory tags)
+131: feat(US-14): TASK-14.11 create Firestore product collection with service layer
+132: feat(US-15): TASK-15.1 create product listing screen
+133: feat(US-15): TASK-15.2 display product cards in accessible grid layout
+134: feat(US-15): TASK-15.3 display product images with cached network loading
+135: feat(US-15): TASK-15.4 display product name with accessible text sizing
+136: feat(US-15): TASK-15.5 display price with LKR currency formatting
+137: feat(US-15): TASK-15.6 implement category filtering chips
+138: feat(US-15): TASK-15.7 design accessibility filter structure
+139: feat(US-15): TASK-15.8 implement filter state management with Provider
+140: feat(US-15): TASK-15.9 connect accessibility filters to Firestore query
+141: test(US-15): TASK-15.10 test filtering functionality end-to-end
+142: test(US-15): TASK-15.11 test accessibility of filter controls with TalkBack
+143: feat(US-16): TASK-16.1 create Product Details screen layout
+144: feat(US-16): TASK-16.2 display product name with large accessible font
+145: feat(US-16): TASK-16.3 display full product description
+146: feat(US-16): TASK-16.4 display price with prominent styling
+147: feat(US-16): TASK-16.5 display seller information and rating
+148: feat(US-16): TASK-16.6 display product accessibility information section
+149: feat(US-16): TASK-16.7 display product image carousel
+150: feat(US-16): TASK-16.8 add meaningful image alternative text for screen readers
+151: feat(US-16): TASK-16.9 add accessible navigation (back button, add-to-cart)
+152: test(US-16): TASK-16.10 test Product Details screen with TalkBack
+153: feat(US-17): TASK-17.1 create seller listing screen with simplified layout
+154: feat(US-17): TASK-17.2 create product name input field
+155: feat(US-17): TASK-17.3 create product description input field
+156: feat(US-17): TASK-17.4 create price input with numeric keyboard
+157: feat(US-17): TASK-17.5 create category selector dropdown
+158: feat(US-17): TASK-17.6 create inventory quantity input
+159: feat(US-17): TASK-17.7 add accessibility information fields for product listing
+160: feat(US-17): TASK-17.8 validate listing information before submission
+161: feat(US-17): TASK-17.9 save product listing to Firestore via seller service
+162: feat(US-17): TASK-17.10 display success and error messages after submission
+163: test(US-17): TASK-17.11 test listing creation flow end-to-end
+164: feat(US-18): TASK-18.1 add image picker to seller listing form
+165: feat(US-18): TASK-18.2 allow seller to select product image from gallery
+166: feat(US-18): TASK-18.3 upload image to Firebase Storage
+167: feat(US-18): TASK-18.4 store image URL in product Firestore record
+168: feat(US-18): TASK-18.5 add image validation (size, format)
+169: feat(US-18): TASK-18.6 add alternative-text input field for accessibility
+170: test(US-18): TASK-18.7 test image upload flow end-to-end
+171: feat(US-19): TASK-19.1 create seller profile screen
+172: feat(US-19): TASK-19.2 display seller name
+173: feat(US-19): TASK-19.3 display seller description
+174: feat(US-19): TASK-19.4 display seller accessibility rating placeholder
+175: feat(US-19): TASK-19.5 display seller products list
+176: feat(US-19): TASK-19.6 add accessible labels to profile elements
+177: test(US-19): TASK-19.7 test seller profile screen
+186: feat(US-21): TASK-21.1 research Flutter speech-to-text plugin options
+187: feat(US-21): TASK-21.2 add speech_to_text dependency to pubspec.yaml
+188: feat(US-21): TASK-21.3 create microphone button with visual recording indicator
+189: feat(US-21): TASK-21.4 request microphone permission on first use
+190: feat(US-21): TASK-21.5 implement speech recognition and audio capture
+191: feat(US-21): TASK-21.6 convert speech to search text
+192: feat(US-21): TASK-21.7 display recognized text in search field
+193: feat(US-21): TASK-21.8 execute product search from recognized text
+194: feat(US-21): TASK-21.9 handle speech recognition errors gracefully
+195: feat(US-21): TASK-21.10 handle microphone permission denial with fallback
+196: feat(US-21): TASK-21.11 add screen reader semantics to voice search UI
+197: test(US-21): TASK-21.12 test voice search on Android device
+198: feat(US-22): TASK-22.1 define accessibility filter categories (mobility, sensory, visual, hearing)
+199: feat(US-22): TASK-22.2 add accessibility fields to Product model
+200: feat(US-22): TASK-22.3 create filter UI with large accessible controls
+201: feat(US-22): TASK-22.4 implement filter selection with toggle state
+202: feat(US-22): TASK-22.5 implement multiple simultaneous filters
+203: feat(US-22): TASK-22.6 connect filters to Firestore product search query
+204: feat(US-22): TASK-22.7 add clear-all-filters function
+205: test(US-22): TASK-22.8 test filter combinations
+206: test(US-22): TASK-22.9 test screen-reader accessibility of filter controls
+207: feat(US-23): TASK-23.1 audit Product Details screen for accessibility gaps
+208: feat(US-23): TASK-23.2 add Flutter Semantics widgets to product info
+209: feat(US-23): TASK-23.3 add accessible labels to all action buttons
+210: feat(US-23): TASK-23.4 add descriptive labels to product images
+211: feat(US-23): TASK-23.5 add semantic roles to interactive elements
+212: feat(US-23): TASK-23.6 ensure logical reading order for screen readers
+213: test(US-23): TASK-23.7 test with TalkBack screen reader
+214: fix(US-23): TASK-23.8 fix accessibility defects found during testing
+215: docs(US-23): TASK-23.9 document accessibility test results
+216: feat(US-24): TASK-24.1 define accessibility metadata fields schema
+217: feat(US-24): TASK-24.2 add metadata fields to Product model
+218: feat(US-24): TASK-24.3 add metadata inputs to seller product listing form
+219: feat(US-24): TASK-24.4 save accessibility metadata to Firestore on product creation
+220: feat(US-24): TASK-24.5 display metadata section on Product Details screen
+221: feat(US-24): TASK-24.6 use metadata fields in accessibility filter queries
+222: test(US-24): TASK-24.7 test accessibility metadata end-to-end
+223: feat(US-25): TASK-25.1 design Seller Dashboard layout with simplified navigation
+224: feat(US-25): TASK-25.2 create dashboard screen scaffold
+225: feat(US-25): TASK-25.3 display seller products list
+226: feat(US-25): TASK-25.4 display inventory summary
+227: feat(US-25): TASK-25.5 display order summary
+228: feat(US-25): TASK-25.6 add product management navigation
+229: feat(US-25): TASK-25.7 add inventory management navigation
+230: feat(US-25): TASK-25.8 add order management navigation
+231: feat(US-25): TASK-25.9 add accessible dashboard controls (large tap targets)
+232: test(US-25): TASK-25.10 test dashboard functionality
+233: feat(US-26): TASK-26.1 create inventory management screen
+234: feat(US-26): TASK-26.2 display current product quantity
+235: feat(US-26): TASK-26.3 add quantity update input field
+236: feat(US-26): TASK-26.4 validate inventory quantity (non-negative)
+237: feat(US-26): TASK-26.5 update Firestore product quantity on save
+238: feat(US-26): TASK-26.6 display out-of-stock status when quantity is zero
+239: test(US-26): TASK-26.7 test inventory update operations
+240: feat(US-27): TASK-27.1 create seller order list screen
+241: feat(US-27): TASK-27.2 display order details for each incoming order
+242: feat(US-27): TASK-27.3 display customer information required for fulfilment
+243: feat(US-27): TASK-27.4 display ordered products and quantities
+244: feat(US-27): TASK-27.5 add order status field (pending/confirmed/dispatched/delivered)
+245: feat(US-27): TASK-27.6 implement order status update controls
+246: feat(US-27): TASK-27.7 save updated order status to Firestore
+247: test(US-27): TASK-27.8 test seller order management flow
+248: feat(US-28): TASK-28.1 create courier pickup request screen
+249: feat(US-28): TASK-28.2 display eligible order for courier pickup
+250: feat(US-28): TASK-28.3 capture pickup address and time details
+251: feat(US-28): TASK-28.4 capture preferred pickup time information
+252: feat(US-28): TASK-28.5 create pickup request data model
+253: feat(US-28): TASK-28.6 save pickup request to Firestore
+254: feat(US-28): TASK-28.7 display pickup request status
+255: feat(US-28): TASK-28.8 implement simulated courier workflow
+256: test(US-28): TASK-28.9 test pickup request creation
+257: docs(US-28): TASK-28.10 document simulated courier API approach
+258: feat(US-29): TASK-29.1 create Cart model with CartItem list
+259: feat(US-29): TASK-29.2 create Add to Cart functionality from Product Details
+260: feat(US-29): TASK-29.3 create Cart screen with accessible layout
+261: feat(US-29): TASK-29.4 display cart items with product details
+262: feat(US-29): TASK-29.5 implement quantity increase with large tap target
+263: feat(US-29): TASK-29.6 implement quantity decrease with minimum of 1
+264: feat(US-29): TASK-29.7 implement item removal from cart
+265: feat(US-29): TASK-29.8 calculate and display line item subtotals
+266: feat(US-29): TASK-29.9 calculate and display cart total
+267: feat(US-29): TASK-29.10 handle empty cart state with message
+268: feat(US-29): TASK-29.11 persist cart state using Provider
+269: test(US-29): TASK-29.12 test cart calculations and state
+270: feat(US-30): TASK-30.1 design step-by-step checkout flow
+271: feat(US-30): TASK-30.2 create delivery details screen
+272: feat(US-30): TASK-30.3 create payment screen
+273: feat(US-30): TASK-30.4 create order review screen
+274: feat(US-30): TASK-30.5 create order confirmation screen
+275: feat(US-30): TASK-30.6 add step progress indicator
+276: feat(US-30): TASK-30.7 implement back/forward navigation between steps
+277: feat(US-30): TASK-30.8 implement form validation at each step
+278: feat(US-30): TASK-30.9 add large touch controls throughout checkout
+279: feat(US-30): TASK-30.10 remove all distracting animations
+280: feat(US-30): TASK-30.11 ensure no countdown timers present
+281: feat(US-30): TASK-30.12 ensure no flashing promotions or pop-ups
+282: feat(US-30): TASK-30.13 add accessible labels throughout checkout flow
+283: test(US-30): TASK-30.14 test full checkout flow end-to-end
+284: feat(US-31): TASK-31.1 define payment failure scenarios
+285: feat(US-31): TASK-31.2 create payment input validation
+286: feat(US-31): TASK-31.3 create success response handler
+287: feat(US-31): TASK-31.4 create failure response handler
+288: feat(US-31): TASK-31.5 create cancellation response handler
+289: feat(US-31): TASK-31.6 handle network failure during payment gracefully
+290: feat(US-31): TASK-31.7 handle duplicate payment attempt prevention
+291: feat(US-31): TASK-31.8 display plain-language error messages (no technical jargon)
+292: feat(US-31): TASK-31.9 add recovery instructions for each error type
+293: test(US-31): TASK-31.10 test all payment error scenarios
+294: feat(US-32): TASK-32.1 create mock payment service class
+295: feat(US-32): TASK-32.2 create mock payment success scenario
+296: feat(US-32): TASK-32.3 create mock payment failure scenario
+297: feat(US-32): TASK-32.4 create mock payment cancellation scenario
+298: feat(US-32): TASK-32.5 simulate network failure during payment
+299: feat(US-32): TASK-32.6 simulate duplicate payment attempt detection
+300: feat(US-32): TASK-32.7 connect mock payment service to checkout flow
+301: test(US-32): TASK-32.8 test all mock payment scenarios
+302: feat(US-33): TASK-33.1 design saved-payment data model
+303: feat(US-33): TASK-33.2 create payment method management screen
+304: feat(US-33): TASK-33.3 add save payment option checkbox at checkout
+305: feat(US-33): TASK-33.4 store safe payment reference in Firestore (no raw card data)
+306: feat(US-33): TASK-33.5 display saved payment option at checkout
+307: feat(US-33): TASK-33.6 allow payment method removal
+308: feat(US-33): TASK-33.7 add security validation before using saved payment
+309: test(US-33): TASK-33.8 test saved payment flow
+310: feat(US-34): TASK-34.1 create Order model with all required fields
+311: feat(US-34): TASK-34.2 generate unique order ID
+312: feat(US-34): TASK-34.3 save customer information to order
+313: feat(US-34): TASK-34.4 save purchased products and SKUs to order
+314: feat(US-34): TASK-34.5 save product quantities to order
+315: feat(US-34): TASK-34.6 calculate and save order total amount
+316: feat(US-34): TASK-34.7 save delivery details to order
+317: feat(US-34): TASK-34.8 save payment status to order
+318: feat(US-34): TASK-34.9 create accessible order confirmation screen
+319: test(US-34): TASK-34.10 test order creation end-to-end
+320: feat(US-35): TASK-35.1 create order history screen
+321: feat(US-35): TASK-35.2 retrieve user's past orders from Firestore
+322: feat(US-35): TASK-35.3 display order date for each order
+323: feat(US-35): TASK-35.4 display order status badge
+324: feat(US-35): TASK-35.5 display order total amount
+325: feat(US-35): TASK-35.6 display expandable order details
+326: feat(US-35): TASK-35.7 add accessible labels to order history items
+327: test(US-35): TASK-35.8 test order history retrieval and display
