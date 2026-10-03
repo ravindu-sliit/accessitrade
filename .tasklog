@@ -329,3 +329,4 @@
 339: test(US-39): test community recommendation sharing flow
 340: feat(US-42): wire Add to Cart button on Product Details to cart provider
 341: feat(US-42): display cart item count badge on navigation bar
+342: feat(US-42): navigate from cart to checkout flow
