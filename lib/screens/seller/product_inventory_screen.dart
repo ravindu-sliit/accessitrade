@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:accessitrade/models/product.dart';
 import 'package:accessitrade/services/seller_service.dart';
+import 'package:accessitrade/services/cloudinary_service.dart';
 
 class ProductInventoryScreen extends StatefulWidget {
   const ProductInventoryScreen({super.key});
@@ -95,9 +96,12 @@ class _ProductInventoryScreenState extends State<ProductInventoryScreen> {
 
   Future<void> _showAddProductDialog() async {
     final nameController = TextEditingController();
+    final descriptionController = TextEditingController();
     final priceController = TextEditingController();
     final stockController = TextEditingController();
     var category = _categories[1];
+    String? uploadedImageUrl;
+    bool isUploading = false;
     await showDialog<void>(
       context: context,
       builder: (context) => StatefulBuilder(
@@ -112,6 +116,17 @@ class _ProductInventoryScreenState extends State<ProductInventoryScreen> {
                   decoration: const InputDecoration(labelText: 'Product name'),
                 ),
                 TextField(
+                  controller: descriptionController,
+                  minLines: 2,
+                  maxLines: 4,
+                  textCapitalization: TextCapitalization.sentences,
+                  decoration: const InputDecoration(
+                    labelText: 'Product description',
+                    hintText: 'Describe this product',
+                    alignLabelWithHint: true,
+                  ),
+                ),
+                TextField(
                   controller: priceController,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(labelText: 'Price'),
@@ -120,6 +135,86 @@ class _ProductInventoryScreenState extends State<ProductInventoryScreen> {
                   controller: stockController,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(labelText: 'Stock'),
+                ),
+                const SizedBox(height: 16),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Product image',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                InkWell(
+                  onTap: isUploading
+                      ? null
+                      : () async {
+                          final cloudinary = CloudinaryService();
+                          final picked = await cloudinary.pickFromGallery();
+                          if (picked == null) return;
+
+                          setDialogState(() => isUploading = true);
+                          try {
+                            final url = await cloudinary.uploadImage(picked);
+                            setDialogState(() {
+                              uploadedImageUrl = url;
+                              isUploading = false;
+                            });
+                          } catch (error) {
+                            setDialogState(() => isUploading = false);
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Could not upload product image: $error',
+                                  ),
+                                ),
+                              );
+                            }
+                          }
+                        },
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    height: 120,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE0F2F1),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: const Color(0xFF1A5C5A)),
+                    ),
+                    child: isUploading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: Color(0xFF1A5C5A),
+                            ),
+                          )
+                        : uploadedImageUrl != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.network(
+                              uploadedImageUrl!,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: 120,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Center(
+                                    child: Text('Image preview unavailable'),
+                                  ),
+                            ),
+                          )
+                        : const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.add_photo_alternate_outlined,
+                                size: 32,
+                                color: Color(0xFF1A5C5A),
+                              ),
+                              SizedBox(height: 6),
+                              Text('Tap to upload product image'),
+                            ],
+                          ),
+                  ),
                 ),
                 DropdownButtonFormField<String>(
                   value: category,
@@ -145,6 +240,7 @@ class _ProductInventoryScreenState extends State<ProductInventoryScreen> {
             ),
             FilledButton(
               onPressed: () async {
+                if (isUploading) return;
                 final price = double.tryParse(priceController.text);
                 final stock = int.tryParse(stockController.text);
                 if (nameController.text.trim().isEmpty ||
@@ -154,11 +250,12 @@ class _ProductInventoryScreenState extends State<ProductInventoryScreen> {
                 }
                 await _sellerService.addProduct(
                   name: nameController.text.trim(),
-                  description: '',
+                  description: descriptionController.text.trim(),
                   price: price,
                   category: category,
                   altText: nameController.text.trim(),
                   stockQty: stock,
+                  imageUrl: uploadedImageUrl,
                 );
                 if (context.mounted) Navigator.pop(context);
               },
@@ -169,6 +266,7 @@ class _ProductInventoryScreenState extends State<ProductInventoryScreen> {
       ),
     );
     nameController.dispose();
+    descriptionController.dispose();
     priceController.dispose();
     stockController.dispose();
   }
