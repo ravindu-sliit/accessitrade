@@ -131,3 +131,6 @@
 131: feat(US-34): create accessible order confirmation screen and test order creation
 132: feat(US-35): create order history screen and retrieve user orders from Firestore
 133: feat(US-35): display order date, status badge, total, details and add accessible labels
+134: feat(US-38): create seller accessibility rating model and accessible 5-star UI
+135: feat(US-38): save rating to Firestore and display average on seller profile
+136: feat(US-38): show accessibility rating badge on product cards and test flow
