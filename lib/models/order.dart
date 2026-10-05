@@ -122,10 +122,7 @@ class AppOrder {
       deliveryAddress: data['deliveryAddress'] ?? '',
       deliveryMethod: data['deliveryMethod'] ?? '',
       paymentMethod: data['paymentMethod'] ?? '',
-      status: OrderStatus.values.firstWhere(
-        (e) => e.name == data['status'],
-        orElse: () => OrderStatus.placed,
-      ),
+      status: _parseStatus(data['status']),
       trackingNumber: data['trackingNumber'],
       courierName: data['courierName'],
       pickupTime: (data['pickupTime'] as Timestamp?)?.toDate(),
@@ -133,6 +130,32 @@ class AppOrder {
       estimatedDelivery: (data['estimatedDelivery'] as Timestamp?)?.toDate(),
       sellerIds: List<String>.from(data['sellerIds'] ?? []),
     );
+  }
+
+  static OrderStatus _parseStatus(dynamic value) {
+    final normalized = value?.toString().trim().toLowerCase().replaceAll(
+      RegExp(r'[\s_-]+'),
+      '',
+    );
+    switch (normalized) {
+      case 'confirmed':
+        return OrderStatus.confirmed;
+      case 'processing':
+        return OrderStatus.processing;
+      case 'shipped':
+        return OrderStatus.shipped;
+      case 'outfordelivery':
+        return OrderStatus.outForDelivery;
+      case 'delivered':
+        return OrderStatus.delivered;
+      case 'cancelled':
+      case 'canceled':
+        return OrderStatus.cancelled;
+      case 'placed':
+      case 'orderplaced':
+      default:
+        return OrderStatus.placed;
+    }
   }
 
   Map<String, dynamic> toFirestore() {

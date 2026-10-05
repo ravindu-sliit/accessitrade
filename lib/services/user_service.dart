@@ -25,6 +25,12 @@ class UserService {
     return AppUser.fromFirestore(doc);
   }
 
+  Future<AppUser?> getUserById(String userId) async {
+    final doc = await _db.collection('users').doc(userId).get();
+    if (!doc.exists) return null;
+    return AppUser.fromFirestore(doc);
+  }
+
   // Update user profile
   Future<void> updateProfile({
     String? name,
@@ -41,7 +47,8 @@ class UserService {
 
   // Update accessibility preferences
   Future<void> updateAccessibilityPreferences(
-      Map<String, bool> preferences) async {
+    Map<String, bool> preferences,
+  ) async {
     if (_userId == null) return;
     await _db.collection('users').doc(_userId).update({
       'accessibilityPreferences': preferences,

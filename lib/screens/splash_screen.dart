@@ -74,7 +74,6 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Logo circle
             Container(
               width: 120,
               height: 120,
@@ -84,11 +83,12 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               child: Center(
                 child: Semantics(
-                  label: 'AccessiTrade logo, wheelchair accessibility symbol',
-                  child: const Icon(
-                    Icons.accessible,
-                    size: 64,
-                    color: Color(0xFF1A5C5A),
+                  label: 'AccessiTrade logo',
+                  child: Image.asset(
+                    'assets/accessitrade_logo.png',
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),

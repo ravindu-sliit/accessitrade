@@ -86,6 +86,21 @@ class SellerService {
     });
   }
 
+  Future<void> updateProduct(
+    String productId, {
+    required String name,
+    required double price,
+    required int stockQty,
+    required String category,
+  }) async {
+    await _db.collection('products').doc(productId).update({
+      'name': name,
+      'price': price,
+      'stockQty': stockQty,
+      'category': category,
+    });
+  }
+
   // Delete product
   Future<void> deleteProduct(String productId) async {
     await _db.collection('products').doc(productId).delete();

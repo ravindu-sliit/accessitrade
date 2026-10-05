@@ -17,8 +17,6 @@ class LandingScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 32),
 
-              // Illustration placeholder
-              // Replace with your actual illustration asset
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -39,12 +37,13 @@ class LandingScreen extends StatelessWidget {
                       ),
                       child: Semantics(
                         label:
-                            'Illustration of people with disabilities shopping independently in an accessible marketplace',
-                        child: const Center(
-                          child: Icon(
-                            Icons.storefront_outlined,
-                            size: 100,
-                            color: Color(0xFF1A5C5A),
+                            'AccessiTrade logo for an accessible marketplace',
+                        child: Center(
+                          child: Image.asset(
+                            'assets/accessitrade_logo.png',
+                            width: 120,
+                            height: 120,
+                            fit: BoxFit.contain,
                           ),
                         ),
                       ),

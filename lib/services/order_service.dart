@@ -150,11 +150,15 @@ class OrderService {
     required String courierName,
     required String trackingNumber,
     required DateTime pickupTime,
+    String pickupType = 'Nearest Store',
+    double additionalPickupCharge = 0,
   }) async {
     await _db.collection('orders').doc(orderId).update({
       'courierName': courierName,
       'trackingNumber': trackingNumber,
       'pickupTime': Timestamp.fromDate(pickupTime),
+      'pickupType': pickupType,
+      'additionalPickupCharge': additionalPickupCharge,
       'status': OrderStatus.confirmed.name,
     });
   }
