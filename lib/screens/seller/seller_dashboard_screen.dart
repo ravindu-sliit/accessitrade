@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:accessitrade/models/product.dart';
@@ -6,7 +8,6 @@ import 'package:accessitrade/services/seller_service.dart';
 import 'package:accessitrade/services/order_service.dart';
 import 'package:accessitrade/services/cloudinary_service.dart';
 import 'package:accessitrade/providers/accessibility_provider.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:accessitrade/screens/seller/active_orders_screen.dart';
 import 'package:accessitrade/screens/seller/product_inventory_screen.dart';
 import 'package:accessitrade/screens/seller/seller_profile_screen.dart';
@@ -461,9 +462,9 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
     final altTextCtrl = TextEditingController();
     String selectedCategory = 'Mobility Aids';
     bool isLoading = false;
-    XFile? _selectedImage;
-    String? _uploadedImageUrl;
-    bool _isUploading = false;
+    Uint8List? selectedImageBytes;
+    String? uploadedImageUrl;
+    bool isUploading = false;
 
     showModalBottomSheet(
       context: context,
@@ -497,16 +498,17 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                       final cloudinary = CloudinaryService();
                       final picked = await cloudinary.pickFromGallery();
                       if (picked != null) {
-                        setSheetState(() => _isUploading = true);
+                        setSheetState(() => isUploading = true);
                         try {
+                          final imageBytes = await picked.readAsBytes();
                           final url = await cloudinary.uploadImage(picked);
                           setSheetState(() {
-                            _selectedImage = picked;
-                            _uploadedImageUrl = url;
-                            _isUploading = false;
+                            selectedImageBytes = imageBytes;
+                            uploadedImageUrl = url;
+                            isUploading = false;
                           });
                         } catch (e) {
-                          setSheetState(() => _isUploading = false);
+                          setSheetState(() => isUploading = false);
                         }
                       }
                     },
@@ -521,7 +523,7 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                           style: BorderStyle.solid,
                         ),
                       ),
-                      child: _isUploading
+                      child: isUploading
                           ? const Center(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -537,16 +539,38 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                                 ],
                               ),
                             )
-                          : _uploadedImageUrl != null
+                          : uploadedImageUrl != null
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(16),
-                              child: Image.network(
-                                _uploadedImageUrl!,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                                height: 140,
-                                semanticLabel: 'Uploaded product photo',
-                              ),
+                              child: selectedImageBytes != null
+                                  ? Image.memory(
+                                      selectedImageBytes!,
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: 140,
+                                      semanticLabel: 'Uploaded product photo',
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              const Center(
+                                                child: Text(
+                                                  'Image preview unavailable',
+                                                ),
+                                              ),
+                                    )
+                                  : Image.network(
+                                      uploadedImageUrl!,
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: 140,
+                                      semanticLabel: 'Uploaded product photo',
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              const Center(
+                                                child: Text(
+                                                  'Image preview unavailable',
+                                                ),
+                                              ),
+                                    ),
                             )
                           : const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -648,8 +672,7 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                                 category: selectedCategory,
                                 altText: altTextCtrl.text.trim(),
                                 stockQty: int.tryParse(stockCtrl.text) ?? 0,
-                                imageUrl:
-                                    _uploadedImageUrl, // pass the uploaded URL
+                                imageUrl: uploadedImageUrl,
                               );
                               if (ctx.mounted) Navigator.pop(ctx);
                             } catch (e) {

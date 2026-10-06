@@ -1,3 +1,6 @@
+import 'dart:math' as math;
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:accessitrade/models/product.dart';
 import 'package:accessitrade/services/seller_service.dart';
@@ -101,168 +104,204 @@ class _ProductInventoryScreenState extends State<ProductInventoryScreen> {
     final stockController = TextEditingController();
     var category = _categories[1];
     String? uploadedImageUrl;
+    Uint8List? selectedImageBytes;
     bool isUploading = false;
     await showDialog<void>(
       context: context,
       builder: (context) => StatefulBuilder(
-        builder: (context, setDialogState) => AlertDialog(
-          title: const Text('Add Product'),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: nameController,
-                  decoration: const InputDecoration(labelText: 'Product name'),
-                ),
-                TextField(
-                  controller: descriptionController,
-                  minLines: 2,
-                  maxLines: 4,
-                  textCapitalization: TextCapitalization.sentences,
-                  decoration: const InputDecoration(
-                    labelText: 'Product description',
-                    hintText: 'Describe this product',
-                    alignLabelWithHint: true,
-                  ),
-                ),
-                TextField(
-                  controller: priceController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(labelText: 'Price'),
-                ),
-                TextField(
-                  controller: stockController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(labelText: 'Stock'),
-                ),
-                const SizedBox(height: 16),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Product image',
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                InkWell(
-                  onTap: isUploading
-                      ? null
-                      : () async {
-                          final cloudinary = CloudinaryService();
-                          final picked = await cloudinary.pickFromGallery();
-                          if (picked == null) return;
-
-                          setDialogState(() => isUploading = true);
-                          try {
-                            final url = await cloudinary.uploadImage(picked);
-                            setDialogState(() {
-                              uploadedImageUrl = url;
-                              isUploading = false;
-                            });
-                          } catch (error) {
-                            setDialogState(() => isUploading = false);
-                            if (context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Could not upload product image: $error',
-                                  ),
-                                ),
-                              );
-                            }
-                          }
-                        },
-                  borderRadius: BorderRadius.circular(12),
-                  child: Container(
-                    height: 120,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFE0F2F1),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: const Color(0xFF1A5C5A)),
+        builder: (context, setDialogState) {
+          final dialogWidth = math.min(
+            MediaQuery.sizeOf(context).width - 48,
+            500.0,
+          );
+          return AlertDialog(
+            title: const Text('Add Product'),
+            content: SizedBox(
+              width: dialogWidth,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      controller: nameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Product name',
+                      ),
                     ),
-                    child: isUploading
-                        ? const Center(
-                            child: CircularProgressIndicator(
-                              color: Color(0xFF1A5C5A),
-                            ),
-                          )
-                        : uploadedImageUrl != null
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.network(
-                              uploadedImageUrl!,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: 120,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Center(
-                                    child: Text('Image preview unavailable'),
+                    TextField(
+                      controller: descriptionController,
+                      minLines: 2,
+                      maxLines: 4,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: const InputDecoration(
+                        labelText: 'Product description',
+                        hintText: 'Describe this product',
+                        alignLabelWithHint: true,
+                      ),
+                    ),
+                    TextField(
+                      controller: priceController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(labelText: 'Price'),
+                    ),
+                    TextField(
+                      controller: stockController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(labelText: 'Stock'),
+                    ),
+                    const SizedBox(height: 16),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Product image',
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    InkWell(
+                      onTap: isUploading
+                          ? null
+                          : () async {
+                              final cloudinary = CloudinaryService();
+                              final picked = await cloudinary.pickFromGallery();
+                              if (picked == null) return;
+
+                              setDialogState(() => isUploading = true);
+                              try {
+                                final imageBytes = await picked.readAsBytes();
+                                final url = await cloudinary.uploadImage(
+                                  picked,
+                                );
+                                setDialogState(() {
+                                  selectedImageBytes = imageBytes;
+                                  uploadedImageUrl = url;
+                                  isUploading = false;
+                                });
+                              } catch (error) {
+                                setDialogState(() => isUploading = false);
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Could not upload product image: $error',
+                                      ),
+                                    ),
+                                  );
+                                }
+                              }
+                            },
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        height: 120,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFE0F2F1),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: const Color(0xFF1A5C5A)),
+                        ),
+                        child: isUploading
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                  color: Color(0xFF1A5C5A),
+                                ),
+                              )
+                            : uploadedImageUrl != null
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: selectedImageBytes != null
+                                    ? Image.memory(
+                                        selectedImageBytes!,
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                        height: 120,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                const Center(
+                                                  child: Text(
+                                                    'Image preview unavailable',
+                                                  ),
+                                                ),
+                                      )
+                                    : Image.network(
+                                        uploadedImageUrl!,
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                        height: 120,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                const Center(
+                                                  child: Text(
+                                                    'Image preview unavailable',
+                                                  ),
+                                                ),
+                                      ),
+                              )
+                            : const Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.add_photo_alternate_outlined,
+                                    size: 32,
+                                    color: Color(0xFF1A5C5A),
                                   ),
+                                  SizedBox(height: 6),
+                                  Text('Tap to upload product image'),
+                                ],
+                              ),
+                      ),
+                    ),
+                    DropdownButtonFormField<String>(
+                      value: category,
+                      decoration: const InputDecoration(labelText: 'Category'),
+                      items: _categories
+                          .skip(1)
+                          .map(
+                            (value) => DropdownMenuItem(
+                              value: value,
+                              child: Text(value),
                             ),
                           )
-                        : const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.add_photo_alternate_outlined,
-                                size: 32,
-                                color: Color(0xFF1A5C5A),
-                              ),
-                              SizedBox(height: 6),
-                              Text('Tap to upload product image'),
-                            ],
-                          ),
-                  ),
+                          .toList(),
+                      onChanged: (value) {
+                        if (value != null)
+                          setDialogState(() => category = value);
+                      },
+                    ),
+                  ],
                 ),
-                DropdownButtonFormField<String>(
-                  value: category,
-                  decoration: const InputDecoration(labelText: 'Category'),
-                  items: _categories
-                      .skip(1)
-                      .map(
-                        (value) =>
-                            DropdownMenuItem(value: value, child: Text(value)),
-                      )
-                      .toList(),
-                  onChanged: (value) {
-                    if (value != null) setDialogState(() => category = value);
-                  },
-                ),
-              ],
+              ),
             ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
-            ),
-            FilledButton(
-              onPressed: () async {
-                if (isUploading) return;
-                final price = double.tryParse(priceController.text);
-                final stock = int.tryParse(stockController.text);
-                if (nameController.text.trim().isEmpty ||
-                    price == null ||
-                    stock == null) {
-                  return;
-                }
-                await _sellerService.addProduct(
-                  name: nameController.text.trim(),
-                  description: descriptionController.text.trim(),
-                  price: price,
-                  category: category,
-                  altText: nameController.text.trim(),
-                  stockQty: stock,
-                  imageUrl: uploadedImageUrl,
-                );
-                if (context.mounted) Navigator.pop(context);
-              },
-              child: const Text('Add'),
-            ),
-          ],
-        ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              FilledButton(
+                onPressed: () async {
+                  if (isUploading) return;
+                  final price = double.tryParse(priceController.text);
+                  final stock = int.tryParse(stockController.text);
+                  if (nameController.text.trim().isEmpty ||
+                      price == null ||
+                      stock == null) {
+                    return;
+                  }
+                  await _sellerService.addProduct(
+                    name: nameController.text.trim(),
+                    description: descriptionController.text.trim(),
+                    price: price,
+                    category: category,
+                    altText: nameController.text.trim(),
+                    stockQty: stock,
+                    imageUrl: uploadedImageUrl,
+                  );
+                  if (context.mounted) Navigator.pop(context);
+                },
+                child: const Text('Add'),
+              ),
+            ],
+          );
+        },
       ),
     );
     nameController.dispose();
