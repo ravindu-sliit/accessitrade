@@ -136,3 +136,4 @@
 136: feat(US-38): show accessibility rating badge on product cards and test flow
 137: feat(US-39): create community recommendation model and screen with post feed
 138: feat(US-39): implement recommendation post creation and save to Firestore
+139: feat(US-39): display recommendations feed with accessible layout and test flow
