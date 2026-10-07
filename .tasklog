@@ -140,3 +140,4 @@
 140: feat(US-42): wire Add-to-Cart on Product Details to cart provider
 141: feat(US-42): display cart item count badge and navigate to checkout
 142: test(US-42): test product discovery to cart to checkout integration
+143: feat(US-45): display seller trust badge on product listing and details screens
