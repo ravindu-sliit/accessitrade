@@ -321,3 +321,9 @@
 331: feat(US-38): calculate and display average accessibility rating on seller profile
 332: feat(US-38): show accessibility rating badge on product cards
 333: test(US-38): test seller accessibility rating flow
+334: feat(US-39): create community recommendation data model
+335: feat(US-39): create community screen with post feed
+336: feat(US-39): implement product recommendation post creation
+337: feat(US-39): save community recommendation to Firestore
+338: feat(US-39): display community recommendations feed with accessible layout
+339: test(US-39): test community recommendation sharing flow
