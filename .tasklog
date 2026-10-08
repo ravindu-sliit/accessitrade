@@ -142,3 +142,4 @@
 142: test(US-42): test product discovery to cart to checkout integration
 143: feat(US-45): display seller trust badge on product listing and details screens
 144: feat(US-45): link accessibility rating to search results and test integration
+145: feat: add accessibility preferences provider and preferences screen
