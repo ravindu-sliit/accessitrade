@@ -673,3 +673,7 @@
 341: feat(US-42): display cart item count badge on navigation bar
 342: feat(US-42): navigate from cart to checkout flow
 343: test(US-42): test product discovery to cart to checkout integration
+344: feat(US-45): display seller trust badge on product listing cards
+345: feat(US-45): show community recommendation count on product details
+346: feat(US-45): link seller accessibility rating to product search results
+347: test(US-45): test community trust integration across product screens
