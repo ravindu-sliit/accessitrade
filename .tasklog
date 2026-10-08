@@ -141,3 +141,4 @@
 141: feat(US-42): display cart item count badge and navigate to checkout
 142: test(US-42): test product discovery to cart to checkout integration
 143: feat(US-45): display seller trust badge on product listing and details screens
+144: feat(US-45): link accessibility rating to search results and test integration
