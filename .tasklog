@@ -335,3 +335,6 @@
 345: feat(US-45): show community recommendation count on product details
 346: feat(US-45): link seller accessibility rating to product search results
 347: test(US-45): test community trust integration across product screens
+348: feat: add accessibility preferences provider and screen
+349: feat: add splash, landing, onboarding and voice login screens
+350: feat: add home tab, categories, notifications, and wishlist screens
