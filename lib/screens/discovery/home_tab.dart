@@ -6,6 +6,7 @@ import 'package:accessitrade/services/product_service.dart';
 import 'package:accessitrade/services/cart_service.dart';
 import 'package:accessitrade/services/cloudinary_service.dart';
 import 'package:accessitrade/screens/discovery/search_screen.dart';
+import 'package:accessitrade/screens/discovery/search_results_screen.dart';
 import 'package:accessitrade/screens/discovery/product_details_screen.dart';
 
 class HomeTab extends StatefulWidget {
@@ -24,13 +25,6 @@ class _HomeTabState extends State<HomeTab> {
     {'label': 'Daily Living', 'icon': Icons.restaurant},
     {'label': 'Vision Aids', 'icon': Icons.visibility},
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    // Seed sample products if Firestore is empty
-    _productService.seedSampleProducts();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +129,17 @@ class _HomeTabState extends State<HomeTab> {
                             label: '${cat['label']} category',
                             button: true,
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => SearchResultsScreen(
+                                    query: cat['label'] as String,
+                                    category: cat['label'] == 'Daily Living'
+                                        ? 'Daily Living Aids'
+                                        : cat['label'] as String,
+                                  ),
+                                ),
+                              ),
                               child: Container(
                                 margin: const EdgeInsets.only(right: 8),
                                 padding: const EdgeInsets.symmetric(vertical: 16),

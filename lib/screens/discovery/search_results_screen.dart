@@ -11,11 +11,13 @@ import 'package:accessitrade/screens/discovery/product_details_screen.dart';
 
 class SearchResultsScreen extends StatefulWidget {
   final String query;
+  final String? category;
   final bool fromVoice;
 
   const SearchResultsScreen({
     super.key,
     required this.query,
+    this.category,
     this.fromVoice = false,
   });
 
@@ -90,17 +92,18 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: StreamBuilder<List<Product>>(
-          stream: _productService.getProducts(),
+          stream: _productService.getProducts(category: widget.category),
           builder: (context, snapshot) {
-            // Filter products by query
             final allProducts = snapshot.data ?? [];
-            final results = allProducts.where((p) {
-              final q = widget.query.toLowerCase();
-              return p.name.toLowerCase().contains(q) ||
-                  p.category.toLowerCase().contains(q) ||
-                  p.description.toLowerCase().contains(q) ||
-                  p.altText.toLowerCase().contains(q);
-            }).toList();
+            final results = widget.category != null
+                ? allProducts
+                : allProducts.where((p) {
+                    final q = widget.query.toLowerCase();
+                    return p.name.toLowerCase().contains(q) ||
+                        p.category.toLowerCase().contains(q) ||
+                        p.description.toLowerCase().contains(q) ||
+                        p.altText.toLowerCase().contains(q);
+                  }).toList();
 
             // Auto-read aloud if from voice search and results loaded
             if (widget.fromVoice &&

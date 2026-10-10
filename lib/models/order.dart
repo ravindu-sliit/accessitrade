@@ -1,6 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-enum OrderStatus { placed, confirmed, processing, shipped, outForDelivery, delivered, cancelled }
+enum OrderStatus {
+  placed,
+  confirmed,
+  processing,
+  shipped,
+  outForDelivery,
+  delivered,
+  cancelled,
+}
 
 class OrderItem {
   final String productId;
@@ -53,6 +61,7 @@ class AppOrder {
   final OrderStatus status;
   final String? trackingNumber;
   final String? courierName;
+  final DateTime? pickupTime;
   final DateTime createdAt;
   final DateTime? estimatedDelivery;
   // List of unique seller IDs in this order (for seller querying)
@@ -71,22 +80,31 @@ class AppOrder {
     required this.status,
     this.trackingNumber,
     this.courierName,
+    this.pickupTime,
     required this.createdAt,
     this.estimatedDelivery,
     this.sellerIds = const [],
   });
 
-  String get orderNumber => '#AM-${createdAt.year}-${id.substring(0, 4).toUpperCase()}';
+  String get orderNumber =>
+      '#AM-${createdAt.year}-${id.substring(0, 4).toUpperCase()}';
 
   String get statusLabel {
     switch (status) {
-      case OrderStatus.placed: return 'Order Placed';
-      case OrderStatus.confirmed: return 'Confirmed';
-      case OrderStatus.processing: return 'Processing';
-      case OrderStatus.shipped: return 'Shipped';
-      case OrderStatus.outForDelivery: return 'Out for Delivery';
-      case OrderStatus.delivered: return 'Delivered';
-      case OrderStatus.cancelled: return 'Cancelled';
+      case OrderStatus.placed:
+        return 'Order Placed';
+      case OrderStatus.confirmed:
+        return 'Confirmed';
+      case OrderStatus.processing:
+        return 'Processing';
+      case OrderStatus.shipped:
+        return 'Shipped';
+      case OrderStatus.outForDelivery:
+        return 'Out for Delivery';
+      case OrderStatus.delivered:
+        return 'Delivered';
+      case OrderStatus.cancelled:
+        return 'Cancelled';
     }
   }
 
@@ -110,6 +128,7 @@ class AppOrder {
       ),
       trackingNumber: data['trackingNumber'],
       courierName: data['courierName'],
+      pickupTime: (data['pickupTime'] as Timestamp?)?.toDate(),
       createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
       estimatedDelivery: (data['estimatedDelivery'] as Timestamp?)?.toDate(),
       sellerIds: List<String>.from(data['sellerIds'] ?? []),
@@ -129,6 +148,7 @@ class AppOrder {
       'status': status.name,
       'trackingNumber': trackingNumber,
       'courierName': courierName,
+      'pickupTime': pickupTime != null ? Timestamp.fromDate(pickupTime!) : null,
       'createdAt': FieldValue.serverTimestamp(),
       'estimatedDelivery': estimatedDelivery != null
           ? Timestamp.fromDate(estimatedDelivery!)

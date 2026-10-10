@@ -3,8 +3,15 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:accessitrade/services/auth_service.dart';
 import 'package:accessitrade/screens/home/home_screen.dart';
+import 'package:accessitrade/screens/seller/seller_dashboard_screen.dart';
 
-enum _VoiceLoginStep { idle, listeningEmail, listeningPassword, confirming, signingIn }
+enum _VoiceLoginStep {
+  idle,
+  listeningEmail,
+  listeningPassword,
+  confirming,
+  signingIn,
+}
 
 class VoiceLoginScreen extends StatefulWidget {
   const VoiceLoginScreen({super.key});
@@ -94,8 +101,7 @@ class _VoiceLoginScreenState extends State<VoiceLoginScreen> {
     await _speech.listen(
       onResult: (result) {
         if (result.finalResult) {
-          final spoken = result.recognizedWords
-              .replaceAll(' ', '');
+          final spoken = result.recognizedWords.replaceAll(' ', '');
           setState(() {
             _password = spoken;
             _step = _VoiceLoginStep.confirming;
@@ -103,7 +109,9 @@ class _VoiceLoginScreenState extends State<VoiceLoginScreen> {
                 'Email: $_email\nPassword received.\nTap Sign In to continue or retry.';
           });
           _speech.stop();
-          _speak('I heard your credentials. Tap Sign In to continue, or tap Retry to try again.');
+          _speak(
+            'I heard your credentials. Tap Sign In to continue, or tap Retry to try again.',
+          );
         }
       },
       listenFor: const Duration(seconds: 10),
@@ -119,12 +127,22 @@ class _VoiceLoginScreenState extends State<VoiceLoginScreen> {
     });
 
     try {
-      await _authService.signIn(email: _email, password: _password);
+      final credential = await _authService.signIn(
+        email: _email,
+        password: _password,
+      );
+      final profile = credential?.user == null
+          ? null
+          : await _authService.getUserProfile(credential!.user!.uid);
       await _speak('Sign in successful. Welcome back.');
       if (mounted) {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          MaterialPageRoute(
+            builder: (_) => profile?['userType'] == 'seller'
+                ? const SellerDashboardScreen()
+                : const HomeScreen(),
+          ),
           (route) => false,
         );
       }
@@ -147,9 +165,11 @@ class _VoiceLoginScreenState extends State<VoiceLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isListening = _step == _VoiceLoginStep.listeningEmail ||
+    final bool isListening =
+        _step == _VoiceLoginStep.listeningEmail ||
         _step == _VoiceLoginStep.listeningPassword;
-    final bool canSignIn = _step == _VoiceLoginStep.confirming &&
+    final bool canSignIn =
+        _step == _VoiceLoginStep.confirming &&
         _email.isNotEmpty &&
         _password.isNotEmpty;
 
@@ -166,9 +186,13 @@ class _VoiceLoginScreenState extends State<VoiceLoginScreen> {
             onPressed: () => Navigator.pop(context),
           ),
         ),
-        title: const Text('Voice Sign In',
-            style: TextStyle(
-                fontWeight: FontWeight.bold, color: Color(0xFF1A1A1A))),
+        title: const Text(
+          'Voice Sign In',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF1A1A1A),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(24),
@@ -191,9 +215,7 @@ class _VoiceLoginScreenState extends State<VoiceLoginScreen> {
                       : const Color(0xFFE0F2F1),
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: isListening
-                        ? Colors.red
-                        : const Color(0xFF1A5C5A),
+                    color: isListening ? Colors.red : const Color(0xFF1A5C5A),
                     width: 3,
                   ),
                 ),
@@ -228,7 +250,7 @@ class _VoiceLoginScreenState extends State<VoiceLoginScreen> {
             ),
 
             // Error message
-            if (_errorMessage != null) ...[  
+            if (_errorMessage != null) ...[
               const SizedBox(height: 12),
               Semantics(
                 label: 'Error: $_errorMessage',
@@ -242,12 +264,17 @@ class _VoiceLoginScreenState extends State<VoiceLoginScreen> {
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.info_outline,
-                          color: Colors.orange, size: 20),
+                      const Icon(
+                        Icons.info_outline,
+                        color: Colors.orange,
+                        size: 20,
+                      ),
                       const SizedBox(width: 8),
                       Expanded(
-                        child: Text(_errorMessage!,
-                            style: const TextStyle(fontSize: 14)),
+                        child: Text(
+                          _errorMessage!,
+                          style: const TextStyle(fontSize: 14),
+                        ),
                       ),
                     ],
                   ),
@@ -258,9 +285,11 @@ class _VoiceLoginScreenState extends State<VoiceLoginScreen> {
             const Spacer(),
 
             // How it works steps
-            if (_step == _VoiceLoginStep.idle) ...[  
-              const Text('How it works:',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+            if (_step == _VoiceLoginStep.idle) ...[
+              const Text(
+                'How it works:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
               const SizedBox(height: 8),
               _stepInfo('1', 'Tap the microphone button'),
               _stepInfo('2', 'Say your email address aloud'),
@@ -271,7 +300,7 @@ class _VoiceLoginScreenState extends State<VoiceLoginScreen> {
 
             // Main action button
             if (_step == _VoiceLoginStep.idle ||
-                _step == _VoiceLoginStep.confirming) ...[  
+                _step == _VoiceLoginStep.confirming) ...[
               SizedBox(
                 width: double.infinity,
                 height: 56,
@@ -284,28 +313,31 @@ class _VoiceLoginScreenState extends State<VoiceLoginScreen> {
                     onPressed: _step == _VoiceLoginStep.idle
                         ? _startVoiceLogin
                         : canSignIn
-                            ? _signIn
-                            : null,
-                    icon: Icon(_step == _VoiceLoginStep.idle
-                        ? Icons.mic
-                        : Icons.login),
+                        ? _signIn
+                        : null,
+                    icon: Icon(
+                      _step == _VoiceLoginStep.idle ? Icons.mic : Icons.login,
+                    ),
                     label: Text(
                       _step == _VoiceLoginStep.idle
                           ? 'Start Voice Sign In'
                           : 'Sign In',
                       style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF1A5C5A),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32)),
+                        borderRadius: BorderRadius.circular(32),
+                      ),
                     ),
                   ),
                 ),
               ),
-              if (_step == _VoiceLoginStep.confirming) ...[  
+              if (_step == _VoiceLoginStep.confirming) ...[
                 const SizedBox(height: 12),
                 SizedBox(
                   width: double.infinity,
@@ -324,15 +356,22 @@ class _VoiceLoginScreenState extends State<VoiceLoginScreen> {
                         });
                       },
                       icon: const Icon(Icons.refresh),
-                      label: const Text('Retry',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      label: const Text(
+                        'Retry',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: const Color(0xFF1A5C5A),
                         side: const BorderSide(
-                            color: Color(0xFF1A5C5A), width: 2),
+                          color: Color(0xFF1A5C5A),
+                          width: 2,
+                        ),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(32)),
+                          borderRadius: BorderRadius.circular(32),
+                        ),
                       ),
                     ),
                   ),
@@ -341,8 +380,7 @@ class _VoiceLoginScreenState extends State<VoiceLoginScreen> {
             ],
 
             if (_step == _VoiceLoginStep.signingIn)
-              const CircularProgressIndicator(
-                  color: Color(0xFF1A5C5A)),
+              const CircularProgressIndicator(color: Color(0xFF1A5C5A)),
 
             const SizedBox(height: 32),
           ],
@@ -364,11 +402,14 @@ class _VoiceLoginScreenState extends State<VoiceLoginScreen> {
               shape: BoxShape.circle,
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Color(0xFF1A5C5A),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Color(0xFF1A5C5A),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),

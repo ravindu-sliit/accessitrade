@@ -13,8 +13,7 @@ class PersonalInformationScreen extends StatefulWidget {
       _PersonalInformationScreenState();
 }
 
-class _PersonalInformationScreenState
-    extends State<PersonalInformationScreen> {
+class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
@@ -50,8 +49,9 @@ class _PersonalInformationScreenState
         phone: _phoneController.text.trim(),
       );
       // Also update Firebase Auth display name
-      await FirebaseAuth.instance.currentUser
-          ?.updateDisplayName(_nameController.text.trim());
+      await FirebaseAuth.instance.currentUser?.updateDisplayName(
+        _nameController.text.trim(),
+      );
       if (mounted) {
         setState(() => _isEditing = false);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -63,8 +63,8 @@ class _PersonalInformationScreenState
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Error: $e')));
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -93,11 +93,14 @@ class _PersonalInformationScreenState
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text('Personal Information',
-            style: TextStyle(
-                fontSize: accessibility.bodyFontSize + 2,
-                fontWeight: FontWeight.bold,
-                color: Colors.black)),
+        title: Text(
+          'Personal Information',
+          style: TextStyle(
+            fontSize: accessibility.bodyFontSize + 2,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
         actions: [
           TextButton(
             onPressed: () {
@@ -109,14 +112,17 @@ class _PersonalInformationScreenState
             },
             child: _isLoading
                 ? const SizedBox(
-                    width: 20, height: 20,
-                    child: CircularProgressIndicator(strokeWidth: 2))
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
                 : Text(
                     _isEditing ? 'Save' : 'Edit',
                     style: TextStyle(
-                        color: colorScheme.primary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: accessibility.bodyFontSize),
+                      color: colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: accessibility.bodyFontSize,
+                    ),
                   ),
           ),
         ],
@@ -152,19 +158,22 @@ class _PersonalInformationScreenState
                             child: Text(
                               user?.initials ?? '?',
                               style: TextStyle(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.bold,
-                                  color: colorScheme.primary),
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                                color: colorScheme.primary,
+                              ),
                             ),
                           ),
                         ),
                         const SizedBox(height: 8),
-                        Text(user?.userType.toUpperCase() ?? '',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: colorScheme.primary,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1)),
+                        Text(
+                          user?.name.isNotEmpty == true ? user!.name : 'User',
+                          style: TextStyle(
+                            fontSize: accessibility.bodyFontSize,
+                            color: colorScheme.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -177,15 +186,15 @@ class _PersonalInformationScreenState
                     icon: Icons.person_outline,
                     enabled: _isEditing,
                     accessibility: accessibility,
-                    validator: (v) => v == null || v.isEmpty
-                        ? 'Name is required'
-                        : null,
+                    validator: (v) =>
+                        v == null || v.isEmpty ? 'Name is required' : null,
                   ),
                   const SizedBox(height: 16),
                   _buildField(
                     label: 'Email Address',
                     controller: TextEditingController(
-                        text: FirebaseAuth.instance.currentUser?.email ?? ''),
+                      text: FirebaseAuth.instance.currentUser?.email ?? '',
+                    ),
                     icon: Icons.email_outlined,
                     enabled: false,
                     accessibility: accessibility,
@@ -204,7 +213,8 @@ class _PersonalInformationScreenState
                   _buildField(
                     label: 'Account Type',
                     controller: TextEditingController(
-                        text: user?.userType ?? ''),
+                      text: user?.userType ?? '',
+                    ),
                     icon: Icons.badge_outlined,
                     enabled: false,
                     accessibility: accessibility,
@@ -213,9 +223,10 @@ class _PersonalInformationScreenState
                   _buildField(
                     label: 'Member Since',
                     controller: TextEditingController(
-                        text: user != null
-                            ? '${user.createdAt.day}/${user.createdAt.month}/${user.createdAt.year}'
-                            : ''),
+                      text: user != null
+                          ? '${user.createdAt.day}/${user.createdAt.month}/${user.createdAt.year}'
+                          : '',
+                    ),
                     icon: Icons.calendar_today_outlined,
                     enabled: false,
                     accessibility: accessibility,
@@ -232,15 +243,21 @@ class _PersonalInformationScreenState
                           backgroundColor: colorScheme.primary,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32)),
+                            borderRadius: BorderRadius.circular(32),
+                          ),
                         ),
                         child: _isLoading
                             ? const CircularProgressIndicator(
-                                color: Colors.white, strokeWidth: 2)
-                            : Text('Save Changes',
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              )
+                            : Text(
+                                'Save Changes',
                                 style: TextStyle(
-                                    fontSize: accessibility.bodyFontSize,
-                                    fontWeight: FontWeight.bold)),
+                                  fontSize: accessibility.bodyFontSize,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -252,12 +269,16 @@ class _PersonalInformationScreenState
                         style: OutlinedButton.styleFrom(
                           side: BorderSide(color: Colors.grey.shade300),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32)),
+                            borderRadius: BorderRadius.circular(32),
+                          ),
                         ),
-                        child: Text('Cancel',
-                            style: TextStyle(
-                                fontSize: accessibility.bodyFontSize,
-                                color: Colors.grey.shade700)),
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(
+                            fontSize: accessibility.bodyFontSize,
+                            color: Colors.grey.shade700,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -283,11 +304,14 @@ class _PersonalInformationScreenState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label,
-            style: TextStyle(
-                fontSize: accessibility.smallFontSize,
-                fontWeight: FontWeight.w600,
-                color: Colors.grey.shade600)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: accessibility.smallFontSize,
+            fontWeight: FontWeight.w600,
+            color: Colors.grey.shade600,
+          ),
+        ),
         const SizedBox(height: 6),
         TextFormField(
           controller: controller,
@@ -300,8 +324,10 @@ class _PersonalInformationScreenState
             hintText: hint,
             filled: true,
             fillColor: enabled ? Colors.white : Colors.grey.shade100,
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 14,
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(color: Colors.grey.shade200),
@@ -312,8 +338,7 @@ class _PersonalInformationScreenState
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide:
-                  const BorderSide(color: Color(0xFF1A5C5A), width: 2),
+              borderSide: const BorderSide(color: Color(0xFF1A5C5A), width: 2),
             ),
             disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),

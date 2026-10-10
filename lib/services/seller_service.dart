@@ -18,7 +18,9 @@ class SellerService {
         .where('sellerId', isEqualTo: _sellerId)
         .snapshots()
         .map((snap) {
-          final products = snap.docs.map((doc) => Product.fromFirestore(doc)).toList();
+          final products = snap.docs
+              .map((doc) => Product.fromFirestore(doc))
+              .toList();
           products.sort((a, b) => b.createdAt.compareTo(a.createdAt));
           return products;
         });
@@ -32,7 +34,9 @@ class SellerService {
         .where('sellerIds', arrayContains: _sellerId)
         .snapshots()
         .map((snap) {
-          final orders = snap.docs.map((doc) => AppOrder.fromFirestore(doc)).toList();
+          final orders = snap.docs
+              .map((doc) => AppOrder.fromFirestore(doc))
+              .toList();
           orders.sort((a, b) => b.createdAt.compareTo(a.createdAt));
           return orders;
         });
@@ -77,7 +81,9 @@ class SellerService {
 
   // Update product stock
   Future<void> updateStock(String productId, int newQty) async {
-    await _db.collection('products').doc(productId).update({'stockQty': newQty});
+    await _db.collection('products').doc(productId).update({
+      'stockQty': newQty,
+    });
   }
 
   // Delete product
@@ -94,8 +100,10 @@ class SellerService {
         .get();
     return {
       'productCount': products.docs.length,
-      'totalStock': products.docs
-          .fold(0, (acc, doc) => acc + ((doc.data()['stockQty'] ?? 0) as int)),
+      'totalStock': products.docs.fold(
+        0,
+        (acc, doc) => acc + ((doc.data()['stockQty'] ?? 0) as int),
+      ),
     };
   }
 }

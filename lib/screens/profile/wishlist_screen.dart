@@ -8,8 +8,18 @@ class WishlistScreen extends StatefulWidget {
 
 class _WishlistScreenState extends State<WishlistScreen> {
   final List<Map<String, String>> _items = [
-    {'name': 'Braille Learning Kit', 'price': 'Rs. 6,200', 'status': 'In Stock'},
-    {'name': 'Ergonomic Walker Frame', 'price': 'Rs. 18,500', 'status': 'In Stock'},
+    {
+      'name': 'Braille Learning Kit',
+      'price': 'Rs. 6,200',
+      'status': 'In Stock',
+      'imageUrl': '',
+    },
+    {
+      'name': 'Ergonomic Walker Frame',
+      'price': 'Rs. 18,500',
+      'status': 'In Stock',
+      'imageUrl': '',
+    },
   ];
 
   @override
@@ -21,13 +31,22 @@ class _WishlistScreenState extends State<WishlistScreen> {
         elevation: 0,
         leading: Container(
           margin: const EdgeInsets.all(8),
-          decoration: const BoxDecoration(color: Color(0xFFE0F2F1), shape: BoxShape.circle),
+          decoration: const BoxDecoration(
+            color: Color(0xFFE0F2F1),
+            shape: BoxShape.circle,
+          ),
           child: IconButton(
             icon: const Icon(Icons.arrow_back, color: Color(0xFF1A5C5A)),
             onPressed: () => Navigator.pop(context),
           ),
         ),
-        title: const Text('My Wishlist', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1A1A1A))),
+        title: const Text(
+          'My Wishlist',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF1A1A1A),
+          ),
+        ),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16),
@@ -47,19 +66,57 @@ class _WishlistScreenState extends State<WishlistScreen> {
                 Container(
                   width: 72,
                   height: 72,
-                  decoration: BoxDecoration(color: const Color(0xFFE0F2F1), borderRadius: BorderRadius.circular(12)),
-                  child: const Icon(Icons.shopping_bag_outlined, color: Color(0xFF1A5C5A), size: 36),
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE0F2F1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: item['imageUrl']?.isNotEmpty == true
+                      ? Image.network(
+                          item['imageUrl']!,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, _, _) => const Icon(
+                            Icons.shopping_bag_outlined,
+                            color: Color(0xFF1A5C5A),
+                            size: 36,
+                          ),
+                        )
+                      : const Icon(
+                          Icons.shopping_bag_outlined,
+                          color: Color(0xFF1A5C5A),
+                          size: 36,
+                        ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(item['name']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                      Text(
+                        item['name']!,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text(item['price']!, style: const TextStyle(color: Color(0xFF1A5C5A), fontWeight: FontWeight.bold, fontSize: 15)),
+                      Text(
+                        item['price']!,
+                        style: const TextStyle(
+                          color: Color(0xFF1A5C5A),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text(item['status']!, style: const TextStyle(color: Colors.green, fontWeight: FontWeight.w600, fontSize: 12)),
+                      Text(
+                        item['status']!,
+                        style: const TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -70,10 +127,21 @@ class _WishlistScreenState extends State<WishlistScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF1A5C5A),
                         foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 8,
+                        ),
                       ),
-                      child: const Text('Add to Cart', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                      child: const Text(
+                        'Add to Cart',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 6),
                     OutlinedButton(
@@ -81,10 +149,21 @@ class _WishlistScreenState extends State<WishlistScreen> {
                       style: OutlinedButton.styleFrom(
                         foregroundColor: Colors.red,
                         side: const BorderSide(color: Colors.red),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 8,
+                        ),
                       ),
-                      child: const Text('Remove', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                      child: const Text(
+                        'Remove',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ],
                 ),

@@ -5,6 +5,7 @@ import 'package:accessitrade/services/auth_service.dart';
 import 'package:accessitrade/screens/auth/voice_login_screen.dart';
 import 'package:accessitrade/screens/auth/forgot_password_screen.dart';
 import 'package:accessitrade/screens/home/home_screen.dart';
+import 'package:accessitrade/screens/seller/seller_dashboard_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -39,14 +40,21 @@ class _SignInScreenState extends State<SignInScreen> {
     });
 
     try {
-      await _authService.signIn(
+      final credential = await _authService.signIn(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+      final profile = credential?.user == null
+          ? null
+          : await _authService.getUserProfile(credential!.user!.uid);
       if (mounted) {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          MaterialPageRoute(
+            builder: (_) => profile?['userType'] == 'seller'
+                ? const SellerDashboardScreen()
+                : const HomeScreen(),
+          ),
           (route) => false,
         );
       }
@@ -66,7 +74,7 @@ class _SignInScreenState extends State<SignInScreen> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final accessibility = context.watch<AccessibilityProvider>();
-    
+
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
@@ -100,7 +108,10 @@ class _SignInScreenState extends State<SignInScreen> {
                 const SizedBox(height: 8),
                 Text(
                   'Sign in to your account',
-                  style: TextStyle(fontSize: accessibility.bodyFontSize, color: Colors.grey),
+                  style: TextStyle(
+                    fontSize: accessibility.bodyFontSize,
+                    color: Colors.grey,
+                  ),
                 ),
 
                 const SizedBox(height: 32),
@@ -113,12 +124,16 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: _inputDecoration(colorScheme, accessibility, 'kumari@accessmarket.lk').copyWith(
-                      labelText: 'Email Address',
-                    ),
+                    decoration: _inputDecoration(
+                      colorScheme,
+                      accessibility,
+                      'kumari@accessmarket.lk',
+                    ).copyWith(labelText: 'Email Address'),
                     validator: (v) {
-                      if (v == null || v.isEmpty) return 'Please enter your email';
-                      if (!v.contains('@')) return 'Enter a valid email address';
+                      if (v == null || v.isEmpty)
+                        return 'Please enter your email';
+                      if (!v.contains('@'))
+                        return 'Enter a valid email address';
                       return null;
                     },
                   ),
@@ -134,25 +149,34 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: TextFormField(
                     controller: _passwordController,
                     obscureText: _obscurePassword,
-                    decoration: _inputDecoration(colorScheme, accessibility, '••••••••').copyWith(
-                      labelText: 'Password',
-                      suffixIcon: Semantics(
-                        label: _obscurePassword ? 'Show password' : 'Hide password',
-                        button: true,
-                        child: IconButton(
-                          icon: Icon(
-                            _obscurePassword
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                            color: Colors.grey,
+                    decoration:
+                        _inputDecoration(
+                          colorScheme,
+                          accessibility,
+                          '••••••••',
+                        ).copyWith(
+                          labelText: 'Password',
+                          suffixIcon: Semantics(
+                            label: _obscurePassword
+                                ? 'Show password'
+                                : 'Hide password',
+                            button: true,
+                            child: IconButton(
+                              icon: Icon(
+                                _obscurePassword
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                color: Colors.grey,
+                              ),
+                              onPressed: () => setState(
+                                () => _obscurePassword = !_obscurePassword,
+                              ),
+                            ),
                           ),
-                          onPressed: () => setState(
-                              () => _obscurePassword = !_obscurePassword),
                         ),
-                      ),
-                    ),
-                    validator: (v) =>
-                        v == null || v.isEmpty ? 'Please enter your password' : null,
+                    validator: (v) => v == null || v.isEmpty
+                        ? 'Please enter your password'
+                        : null,
                   ),
                 ),
 
@@ -198,12 +222,19 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       child: Row(
                         children: [
-                          const Icon(Icons.info_outline,
-                              color: Colors.orange, size: 20),
+                          const Icon(
+                            Icons.info_outline,
+                            color: Colors.orange,
+                            size: 20,
+                          ),
                           const SizedBox(width: 8),
                           Expanded(
-                            child: Text(_errorMessage!,
-                                style: TextStyle(fontSize: accessibility.bodyFontSize - 1)),
+                            child: Text(
+                              _errorMessage!,
+                              style: TextStyle(
+                                fontSize: accessibility.bodyFontSize - 1,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -234,12 +265,16 @@ class _SignInScreenState extends State<SignInScreen> {
                               height: 24,
                               width: 24,
                               child: CircularProgressIndicator(
-                                  color: Colors.white, strokeWidth: 2),
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              ),
                             )
                           : Text(
                               'Sign In',
                               style: TextStyle(
-                                  fontSize: accessibility.bodyFontSize + 2, fontWeight: FontWeight.bold),
+                                fontSize: accessibility.bodyFontSize + 2,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                     ),
                   ),
@@ -257,8 +292,10 @@ class _SignInScreenState extends State<SignInScreen> {
                       child: RichText(
                         text: TextSpan(
                           text: "Don't have an account?  ",
-                          style:
-                              TextStyle(color: Colors.black54, fontSize: accessibility.bodyFontSize),
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: accessibility.bodyFontSize,
+                          ),
                           children: [
                             TextSpan(
                               text: 'Create Account',
@@ -283,8 +320,10 @@ class _SignInScreenState extends State<SignInScreen> {
                     const Expanded(child: Divider()),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Text('or',
-                          style: TextStyle(color: Colors.grey.shade500)),
+                      child: Text(
+                        'or',
+                        style: TextStyle(color: Colors.grey.shade500),
+                      ),
                     ),
                     const Expanded(child: Divider()),
                   ],
@@ -301,11 +340,18 @@ class _SignInScreenState extends State<SignInScreen> {
                         button: true,
                         child: OutlinedButton.icon(
                           onPressed: () {},
-                          icon: const Icon(Icons.g_mobiledata,
-                              size: 22, color: Colors.black87),
-                          label: Text('Google',
-                              style: TextStyle(
-                                  color: Colors.black87, fontSize: accessibility.bodyFontSize)),
+                          icon: const Icon(
+                            Icons.g_mobiledata,
+                            size: 22,
+                            color: Colors.black87,
+                          ),
+                          label: Text(
+                            'Google',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: accessibility.bodyFontSize,
+                            ),
+                          ),
                           style: OutlinedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             shape: RoundedRectangleBorder(
@@ -323,11 +369,18 @@ class _SignInScreenState extends State<SignInScreen> {
                         button: true,
                         child: OutlinedButton.icon(
                           onPressed: () {},
-                          icon: const Icon(Icons.apple,
-                              size: 22, color: Colors.black87),
-                          label: Text('Apple',
-                              style: TextStyle(
-                                  color: Colors.black87, fontSize: accessibility.bodyFontSize)),
+                          icon: const Icon(
+                            Icons.apple,
+                            size: 22,
+                            color: Colors.black87,
+                          ),
+                          label: Text(
+                            'Apple',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: accessibility.bodyFontSize,
+                            ),
+                          ),
                           style: OutlinedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             shape: RoundedRectangleBorder(
@@ -352,21 +405,27 @@ class _SignInScreenState extends State<SignInScreen> {
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (_) => const VoiceLoginScreen()),
+                          builder: (_) => const VoiceLoginScreen(),
+                        ),
                       ),
                       icon: const Icon(Icons.mic, color: Color(0xFF1A5C5A)),
                       label: const Text(
                         'Sign In with Voice',
                         style: TextStyle(
-                            color: Color(0xFF1A5C5A),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15),
+                          color: Color(0xFF1A5C5A),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
                       ),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: const Color(0xFF1A5C5A),
-                        side: const BorderSide(color: Color(0xFF1A5C5A), width: 2),
+                        side: const BorderSide(
+                          color: Color(0xFF1A5C5A),
+                          width: 2,
+                        ),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(32)),
+                          borderRadius: BorderRadius.circular(32),
+                        ),
                       ),
                     ),
                   ),
@@ -381,7 +440,11 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Widget _buildLabel(String text, AccessibilityProvider accessibility, ThemeData theme) {
+  Widget _buildLabel(
+    String text,
+    AccessibilityProvider accessibility,
+    ThemeData theme,
+  ) {
     return Text(
       text,
       style: TextStyle(
@@ -392,14 +455,17 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  InputDecoration _inputDecoration(ColorScheme colorScheme, AccessibilityProvider accessibility, String hint) {
+  InputDecoration _inputDecoration(
+    ColorScheme colorScheme,
+    AccessibilityProvider accessibility,
+    String hint,
+  ) {
     return InputDecoration(
       hintText: hint,
       hintStyle: TextStyle(color: Colors.grey.shade400),
       filled: true,
       fillColor: Colors.grey.shade50,
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(32),
         borderSide: BorderSide(color: Colors.grey.shade200),

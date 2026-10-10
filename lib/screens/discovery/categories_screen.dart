@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:accessitrade/providers/accessibility_provider.dart';
+import 'package:accessitrade/services/product_service.dart';
+import 'package:accessitrade/screens/discovery/search_results_screen.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
 
+  static final _productService = ProductService();
+
   static final _categories = [
-    {'label': 'Mobility Aids', 'count': '140', 'icon': Icons.accessible},
-    {'label': 'Daily Living Aids', 'count': '85', 'icon': Icons.restaurant},
-    {'label': 'Vision Aids', 'count': '62', 'icon': Icons.visibility},
-    {'label': 'Hearing Aids', 'count': '44', 'icon': Icons.hearing},
-    {'label': 'Home Mods', 'count': '31', 'icon': Icons.home},
-    {'label': 'Clothing', 'count': '92', 'icon': Icons.checkroom},
+    {'label': 'Mobility Aids', 'icon': Icons.accessible},
+    {'label': 'Daily Living Aids', 'icon': Icons.restaurant},
+    {'label': 'Vision Aids', 'icon': Icons.visibility},
+    {'label': 'Hearing Aids', 'icon': Icons.hearing},
+    {'label': 'Home Mods', 'icon': Icons.home},
+    {'label': 'Clothing', 'icon': Icons.checkroom},
   ];
 
   @override
@@ -79,53 +83,70 @@ class CategoriesScreen extends StatelessWidget {
               const SizedBox(height: 24),
 
               Expanded(
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1.1,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                  ),
-                  itemCount: _categories.length,
-                  itemBuilder: (context, index) {
-                    final cat = _categories[index];
-                    return Semantics(
-                      label: '${cat['label']}, ${cat['count']} items',
-                      button: true,
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: Colors.grey.shade200),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 56,
-                                height: 56,
-                                decoration: BoxDecoration(
-                                  color: colorScheme.primaryContainer,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(cat['icon'] as IconData,
-                                    color: colorScheme.primary, size: 28),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(cat['label'] as String,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: accessibility.smallFontSize)),
-                              const SizedBox(height: 4),
-                              Text('${cat['count']} Items',
-                                  style: TextStyle(
-                                      color: Colors.grey.shade500, fontSize: accessibility.smallFontSize)),
-                            ],
-                          ),
-                        ),
+                child: StreamBuilder(
+                  stream: _productService.getProducts(),
+                  builder: (context, snapshot) {
+                    final products = snapshot.data ?? [];
+
+                    return GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 1.1,
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 12,
                       ),
+                      itemCount: _categories.length,
+                      itemBuilder: (context, index) {
+                        final cat = _categories[index];
+                        final label = cat['label'] as String;
+                        final count = products.where((product) => product.category == label).length;
+                        return Semantics(
+                          label: '$label, $count items',
+                          button: true,
+                          child: GestureDetector(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => SearchResultsScreen(
+                                  query: label,
+                                  category: label,
+                                ),
+                              ),
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(color: Colors.grey.shade200),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: 56,
+                                    height: 56,
+                                    decoration: BoxDecoration(
+                                      color: colorScheme.primaryContainer,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Icon(cat['icon'] as IconData,
+                                        color: colorScheme.primary, size: 28),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(label,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold, fontSize: accessibility.smallFontSize)),
+                                  const SizedBox(height: 4),
+                                  Text('$count Items',
+                                      style: TextStyle(
+                                          color: Colors.grey.shade500, fontSize: accessibility.smallFontSize)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
                 ),

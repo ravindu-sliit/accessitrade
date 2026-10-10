@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:accessitrade/screens/landing_screen.dart';
 import 'package:accessitrade/screens/home/home_screen.dart';
+import 'package:accessitrade/screens/seller/seller_dashboard_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -44,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (userType == 'seller') {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          MaterialPageRoute(builder: (_) => const SellerDashboardScreen()),
         );
       } else if (userType == 'caregiver') {
         Navigator.pushReplacement(
@@ -105,10 +106,7 @@ class _SplashScreenState extends State<SplashScreen> {
             const SizedBox(height: 8),
             const Text(
               'Marketplace for Everyone',
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 16,
-              ),
+              style: TextStyle(color: Colors.white70, fontSize: 16),
             ),
           ],
         ),

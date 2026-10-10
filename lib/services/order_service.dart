@@ -19,20 +19,41 @@ class OrderService {
   }) async {
     if (_userId == null) throw Exception('User not signed in');
 
-    // Build order items with sellerId from each CartItem
-    final items = cartItems.map((c) => OrderItem(
-      productId: c.productId,
-      productName: c.productName,
-      price: c.price,
-      quantity: c.quantity,
-      sellerId: c.sellerId,
-    )).toList();
+    // Resolve seller IDs from products so stale cart records cannot hide orders.
+    final sellerIdsByProduct = <String, String>{};
+    for (final cartItem in cartItems) {
+      if (cartItem.productId.isNotEmpty) {
+        final product = await _db
+            .collection('products')
+            .doc(cartItem.productId)
+            .get();
+        final data = product.data();
+        final sellerId = data?['sellerId'] as String?;
+        if (sellerId != null && sellerId.isNotEmpty) {
+          sellerIdsByProduct[cartItem.productId] = sellerId;
+        }
+      }
+    }
+
+    final items = cartItems.map((c) {
+      final sellerId = c.sellerId.isNotEmpty
+          ? c.sellerId
+          : sellerIdsByProduct[c.productId] ?? '';
+      return OrderItem(
+        productId: c.productId,
+        productName: c.productName,
+        price: c.price,
+        quantity: c.quantity,
+        sellerId: sellerId,
+      );
+    }).toList();
 
     final subtotal = cartItems.fold(0.0, (acc, c) => acc + c.subtotal);
     final total = subtotal + deliveryFee;
 
     // Collect unique seller IDs for this order
-    final sellerIds = cartItems.map((c) => c.sellerId)
+    final sellerIds = items
+        .map((item) => item.sellerId)
         .toSet()
         .where((id) => id.isNotEmpty)
         .toList();
@@ -40,8 +61,8 @@ class OrderService {
     final estimatedDelivery = deliveryMethod == 'Express Delivery'
         ? DateTime.now().add(const Duration(days: 3))
         : deliveryMethod == 'Same Day Delivery'
-            ? DateTime.now().add(const Duration(hours: 8))
-            : DateTime.now().add(const Duration(days: 7));
+        ? DateTime.now().add(const Duration(hours: 8))
+        : DateTime.now().add(const Duration(days: 7));
 
     final order = AppOrder(
       id: '',
@@ -98,11 +119,14 @@ class OrderService {
   // Get user orders
   Stream<List<AppOrder>> getUserOrders() {
     if (_userId == null) return Stream.value([]);
-    return _db.collection('orders')
+    return _db
+        .collection('orders')
         .where('userId', isEqualTo: _userId)
         .snapshots()
         .map((snap) {
-          final orders = snap.docs.map((doc) => AppOrder.fromFirestore(doc)).toList();
+          final orders = snap.docs
+              .map((doc) => AppOrder.fromFirestore(doc))
+              .toList();
           orders.sort((a, b) => b.createdAt.compareTo(a.createdAt));
           return orders;
         });
@@ -117,9 +141,7 @@ class OrderService {
 
   // Update order status (for sellers)
   Future<void> updateOrderStatus(String orderId, OrderStatus status) async {
-    await _db.collection('orders').doc(orderId).update({
-      'status': status.name,
-    });
+    await _db.collection('orders').doc(orderId).update({'status': status.name});
   }
 
   // Setup courier for an order
