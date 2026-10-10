@@ -146,3 +146,4 @@
 146: feat: add splash, landing, onboarding and voice login screens
 147: feat: add home tab, categories, notifications and wishlist screens
 148: fix: improve accessibility semantics across discovery screens
+149: fix: fix screen reader announcement order on product cards
