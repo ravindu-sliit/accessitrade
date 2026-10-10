@@ -28,7 +28,7 @@ class _LandingScreenState extends State<LandingScreen> {
     final accessibility = context.read<AccessibilityProvider>();
     
     // Sync voice enabled setting
-    voiceNav.setVoiceEnabled(accessibility.voiceEnabled);
+    voiceNav.setAccessibilityProvider(accessibility);
     
     voiceNav.setScreen('landing');
     

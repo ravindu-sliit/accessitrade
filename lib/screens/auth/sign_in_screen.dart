@@ -42,7 +42,7 @@ class _SignInScreenState extends State<SignInScreen> {
     final accessibility = context.read<AccessibilityProvider>();
     
     // Sync voice enabled setting
-    voiceNav.setVoiceEnabled(accessibility.voiceEnabled);
+    voiceNav.setAccessibilityProvider(accessibility);
     
     voiceNav.setScreen('sign_in');
     voiceNav.announce('Sign in screen. Hold the microphone and say sign in to start.');

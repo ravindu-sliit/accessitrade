@@ -34,6 +34,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   bool _isReading = false;
   int _currentItemIndex = 0;
   List<Product> _currentResults = [];
+  bool _hasAnnouncedResults = false;
 
   @override
   void initState() {
@@ -89,7 +90,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     final accessibility = context.read<AccessibilityProvider>();
     
     // Sync voice enabled setting
-    voiceNav.setVoiceEnabled(accessibility.voiceEnabled);
+    voiceNav.setAccessibilityProvider(accessibility);
     
     voiceNav.setScreen('search_results');
     voiceNav.voiceService.registerScreenCommands('search_results', {
@@ -102,10 +103,6 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     });
     
     voiceNav.voiceService.onScreenCommand = _handleVoiceCommand;
-    
-    if (accessibility.voiceEnabled) {
-      voiceNav.announce('Search results. ${_currentResults.length} items found. Say next or previous to navigate, select to view details.');
-    }
   }
 
   void _handleVoiceCommand(String command, String? param) {
@@ -221,16 +218,26 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                             p.altText.toLowerCase().contains(q);
                       }).toList();
 
-                // Update results for voice navigation
-                if (_currentResults.length != results.length) {
+                // Update results for voice navigation and announce
+                if (_currentResults.length != results.length || (!_hasAnnouncedResults && results.isNotEmpty)) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     if (mounted) {
+                      final shouldAnnounce = !_hasAnnouncedResults && results.isNotEmpty;
                       setState(() {
                         _currentResults = results;
                         _currentItemIndex = 0;
+                        if (shouldAnnounce) _hasAnnouncedResults = true;
                       });
                       final voiceNav = context.read<VoiceNavigationProvider>();
                       voiceNav.setScreen('search_results', itemCount: results.length);
+                      
+                      // Announce results count when first loaded
+                      if (shouldAnnounce) {
+                        final accessibility = context.read<AccessibilityProvider>();
+                        if (accessibility.voiceEnabled) {
+                          voiceNav.announce('Found ${results.length} items for ${widget.query}. Say next or previous to navigate, select to view details.');
+                        }
+                      }
                     }
                   });
                 }
