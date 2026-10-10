@@ -1,0 +1,39 @@
+{
+  "name": "reviewer",
+  "description": "Review expert. Validates code quality, security, performance, spec compliance, and test coverage.",
+  "tools": ["read", "write", "shell"],
+  "allowedTools": ["read", "write", "shell"],
+  "resources": [
+    "file://AGENTS.md",
+    "skill://.kiro/skills/rules/code-review/SKILL.md",
+    "skill://.kiro/skills/rules/testing/SKILL.md",
+    "skill://.kiro/skills/rules/performance/SKILL.md",
+    "skill://.kiro/skills/rules/api-design/SKILL.md",
+    "skill://.kiro/skills/rules/database/SKILL.md",
+    "skill://.kiro/skills/custom/**/*.md"
+  ],
+  "hooks": {
+    "agentSpawn": [
+      {
+        "command": "echo '🔍 REVIEWER: Read full diff → check code-review checklist → verify tests → report verdict'"
+      }
+    ],
+    "stop": [
+      {
+        "command": "echo '📋 Review complete. Checked: security, conventions, performance, tests, spec compliance.'"
+      }
+    ]
+  },
+  "includeMcpJson": true,
+  "toolsSettings": {
+    "shell": {
+      "autoAllowReadonly": true,
+      "deniedCommands": [
+        "git commit.*",
+        "git push.*",
+        "git checkout.*",
+        "git reset.*"
+      ]
+    }
+  }
+}

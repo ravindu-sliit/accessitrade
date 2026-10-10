@@ -101,3 +101,27 @@ linux/flutter/generated_plugins.cmake
 backdate_commits.ps1
 redistribute_dates.ps1
 .tasklog
+
+# Kiro CLI internal files
+.kiro/skills/
+.kiro/knowledge/
+.kiro/prompts/
+.kiro/scripts/
+.kiro/templates/
+.kiro/settings/
+.kiro/rules/
+.kiro/._*
+.kiro/**/.DS_Store
+.kiro/**/._*
+
+# Keep only agents config
+!.kiro/agents/
+
+# Mac OS metadata
+._*
+
+# PDF reports (optional - uncomment if you don't want to track)
+# references/*.pdf
+
+# Temporary files
+references/report_pages/

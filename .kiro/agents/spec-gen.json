@@ -1,0 +1,38 @@
+{
+  "name": "spec-generator",
+  "description": "Generates expanded implementation specs from raw user documents. Reads docs/spec/raw/, writes to docs/spec/generated/.",
+  "tools": ["*"],
+  "allowedTools": ["*"],
+  "resources": [
+    "file://AGENTS.md",
+    "skill://.kiro/skills/rules/spec-driven/SKILL.md",
+    "skill://.kiro/skills/rules/api-design/SKILL.md",
+    "skill://.kiro/skills/rules/database/SKILL.md",
+    "skill://.kiro/skills/rules/frontend/SKILL.md"
+  ],
+  "toolsSettings": {
+    "shell": {
+      "autoAllowReadonly": true,
+      "deniedCommands": [
+        "rm\\s+(-[rRf]|--recursive|--force).*",
+        "rmdir\\b.*",
+        "mkfs\\b.*",
+        "sudo\\b.*",
+        "git\\s+push\\s+.*--force.*",
+        "git\\s+reset\\s+--hard.*",
+        "git\\s+clean\\s+-f.*",
+        "chmod\\s+(-R\\s+)?777.*",
+        "curl.*\\|\\s*(ba)?sh.*",
+        "wget.*\\|\\s*(ba)?sh.*",
+        "kill\\s+-9.*",
+        "killall\\b.*",
+        "shutdown\\b.*",
+        "reboot\\b.*",
+        "DROP\\s+(DATABASE|TABLE|SCHEMA).*",
+        "TRUNCATE\\b.*",
+        "find\\b.*-delete",
+        "find\\b.*-exec\\s+rm"
+      ]
+    }
+  }
+}

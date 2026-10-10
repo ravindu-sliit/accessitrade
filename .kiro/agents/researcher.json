@@ -1,0 +1,40 @@
+{
+  "name": "researcher",
+  "description": "Research specialist. Investigates codebase, web research, finds patterns and conventions to inform planning.",
+  "prompt": "file://.kiro/prompts/researcher-prompt.md",
+  "mcpServers": {
+    "fetch": {
+      "command": "uvx",
+      "args": ["--with", "socksio", "mcp-server-fetch"]
+    }
+  },
+  "tools": ["read", "shell", "@ripgrep", "@fetch"],
+  "allowedTools": ["read", "shell", "@ripgrep", "@fetch"],
+  "resources": [
+    "file://AGENTS.md",
+    "skill://.kiro/skills/rules/planning/SKILL.md",
+    "skill://.kiro/skills/rules/debugging/SKILL.md",
+    "skill://.kiro/skills/rules/api-design/SKILL.md",
+    "skill://.kiro/skills/rules/database/SKILL.md",
+    "skill://.kiro/skills/rules/frontend/SKILL.md"
+  ],
+  "hooks": {
+    "agentSpawn": [
+      {
+        "command": "echo '🔬 RESEARCHER: 1) Read existing patterns 2) Cross-verify claims 3) Report findings with file references'"
+      }
+    ],
+    "stop": [
+      {
+        "command": "echo '📝 Research complete. Findings include file references and verified patterns.'"
+      }
+    ]
+  },
+  "includeMcpJson": true,
+  "toolsSettings": {
+    "shell": {
+      "autoAllowReadonly": true,
+      "deniedCommands": ["git commit.*", "git push.*"]
+    }
+  }
+}

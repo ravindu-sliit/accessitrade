@@ -1,0 +1,8 @@
+{
+  "name": "dev-engineer",
+  "description": "Default Engineer for planning the entire system who knows the full structure, Docker setup, design tokens, and architecture.",
+  "prompt": "file://AGENT.md",
+  "tools": ["*"],
+  "allowedTools": ["*"],
+  "resources": ["file://AGENT.md", "skill://.kiro/skills/**/SKILL.md"]
+}
