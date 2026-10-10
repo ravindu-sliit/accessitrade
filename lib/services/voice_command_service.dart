@@ -46,6 +46,12 @@ class VoiceCommandService {
   // Callback for navigation actions
   Function(String action, String? param)? onNavigationCommand;
   
+  // Screen-specific command patterns (pattern-based registration)
+  final Map<String, Map<String, String>> _screenCommandPatterns = {};
+  
+  // Callback for screen-specific command handling
+  Function(String command, String? param)? onScreenCommand;
+  
   // Getters
   bool get isListening => _isListening;
   bool get isInitialized => _isInitialized;
@@ -137,9 +143,23 @@ class VoiceCommandService {
     _currentScreen = screenId;
   }
 
+  /// Register screen-specific commands using pattern map
+  void registerScreenCommands(String screenId, Map<String, String> commands) {
+    _screenCommandPatterns[screenId] = commands;
+    _currentScreen = screenId;
+  }
+
+  /// Clear screen-specific commands
+  void clearScreenCommands() {
+    _screenCommandPatterns.remove(_currentScreen);
+    _screenCommands.remove(_currentScreen);
+    onScreenCommand = null;
+  }
+
   /// Unregister screen commands
   void unregisterScreen(String screenId) {
     _screenCommands.remove(screenId);
+    _screenCommandPatterns.remove(screenId);
   }
 
   /// Set current screen context
@@ -150,13 +170,32 @@ class VoiceCommandService {
   /// Process voice input and execute matching command
   Future<bool> processCommand(BuildContext context, String input) async {
     final cleanInput = input.trim().toLowerCase();
+    debugPrint('🎤 VOICE: Processing command: "$cleanInput"');
     if (cleanInput.isEmpty) return false;
 
-    // Check screen-specific commands first
+    // Check pattern-based screen commands first (new system)
+    final patternCommands = _screenCommandPatterns[_currentScreen];
+    if (patternCommands != null && onScreenCommand != null) {
+      for (final entry in patternCommands.entries) {
+        final commandName = entry.key;
+        final patternStr = entry.value;
+        final pattern = RegExp(patternStr, caseSensitive: false);
+        final match = pattern.firstMatch(cleanInput);
+        if (match != null) {
+          debugPrint('🎤 VOICE: Matched pattern command: $commandName');
+          final param = match.groupCount > 0 ? match.group(1) : null;
+          onScreenCommand!(commandName, param);
+          return true;
+        }
+      }
+    }
+
+    // Check screen-specific commands (list-based)
     final screenCmds = _screenCommands[_currentScreen] ?? [];
     for (final cmd in screenCmds) {
       final param = cmd.match(cleanInput);
       if (param != null) {
+        debugPrint('🎤 VOICE: Matched screen command: ${cmd.name}');
         await cmd.action(context, param.isEmpty ? null : param);
         return true;
       }
@@ -169,12 +208,14 @@ class VoiceCommandService {
         final searchMatch = RegExp(r'^(?:search|find|look)\s+(?:for\s+)?(.+)$', caseSensitive: false).firstMatch(cleanInput);
         if (searchMatch != null) {
           final query = searchMatch.group(1);
+          debugPrint('🎤 VOICE: Matched global command: ${cmd.name}');
           await cmd.action(context, query);
           return true;
         }
       } else {
         final param = cmd.match(cleanInput);
         if (param != null) {
+          debugPrint('🎤 VOICE: Matched global command: ${cmd.name}');
           await cmd.action(context, param.isEmpty ? null : param);
           return true;
         }

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:accessitrade/providers/accessibility_provider.dart';
+import 'package:accessitrade/providers/voice_navigation_provider.dart';
+import 'package:accessitrade/services/voice_command_service.dart';
+import 'package:accessitrade/widgets/voice_fab.dart';
+import 'package:accessitrade/services/cart_service.dart';
 import 'package:accessitrade/models/product.dart';
 import 'package:accessitrade/screens/discovery/reviews_screen.dart';
 
@@ -15,6 +19,144 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int _qty = 1;
   int _imageIndex = 0;
+  final CartService _cartService = CartService();
+
+  @override
+  void initState() {
+    super.initState();
+    // Auto-read product details after screen loads
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _autoReadProduct();
+      _registerVoiceCommands();
+    });
+  }
+
+  void _autoReadProduct() {
+    final accessibility = context.read<AccessibilityProvider>();
+    // Only auto-read if voice features are enabled
+    if (!accessibility.voiceEnabled) return;
+    
+    final product = widget.product;
+    if (product != null) {
+      accessibility.speakProductDetails(
+        name: product.name,
+        price: product.price,
+        rating: product.rating,
+        reviewCount: product.reviewCount,
+        description: product.description,
+        sellerName: product.sellerName,
+        inStock: product.inStock,
+      );
+    }
+  }
+
+  void _registerVoiceCommands() {
+    final voiceNav = context.read<VoiceNavigationProvider>();
+    final accessibility = context.read<AccessibilityProvider>();
+    
+    // Sync voice enabled setting
+    voiceNav.setVoiceEnabled(accessibility.voiceEnabled);
+    
+    voiceNav.setScreen('product_details');
+    
+    voiceNav.registerScreenCommands('product_details', [
+      VoiceCommand(
+        name: 'add_to_cart',
+        pattern: r'^(add|cart|add\s*to\s*cart|add\s*this|buy|purchase).*$',
+        description: 'Add product to cart',
+        action: (context, params) async {
+          debugPrint('🛒 Adding to cart...');
+          await _addToCart();
+        },
+      ),
+      VoiceCommand(
+        name: 'go_back',
+        pattern: r'^(go\s*back|back|return|close)$',
+        description: 'Go back to previous screen',
+        action: (context, params) async {
+          final voiceNav = context.read<VoiceNavigationProvider>();
+          voiceNav.announce('Going back');
+          Navigator.pop(context);
+        },
+      ),
+      VoiceCommand(
+        name: 'read_description',
+        pattern: r'^(read|describe|tell|details|description).*$',
+        description: 'Read product description',
+        action: (context, params) async {
+          _autoReadProduct();
+        },
+      ),
+      VoiceCommand(
+        name: 'increase_quantity',
+        pattern: r'^(increase|more|plus|add\s*one).*$',
+        description: 'Increase quantity',
+        action: (context, params) async {
+          setState(() => _qty++);
+          final voiceNav = context.read<VoiceNavigationProvider>();
+          voiceNav.announce('Quantity is now $_qty');
+        },
+      ),
+      VoiceCommand(
+        name: 'decrease_quantity',
+        pattern: r'^(decrease|less|minus|reduce|remove\s*one).*$',
+        description: 'Decrease quantity',
+        action: (context, params) async {
+          if (_qty > 1) {
+            setState(() => _qty--);
+            final voiceNav = context.read<VoiceNavigationProvider>();
+            voiceNav.announce('Quantity is now $_qty');
+          } else {
+            final voiceNav = context.read<VoiceNavigationProvider>();
+            voiceNav.announce('Quantity is already at minimum');
+          }
+        },
+      ),
+      VoiceCommand(
+        name: 'go_to_cart',
+        pattern: r'^(go\s*to\s*cart|view\s*cart|open\s*cart|checkout)$',
+        description: 'Go to cart',
+        action: (context, params) async {
+          final voiceNav = context.read<VoiceNavigationProvider>();
+          voiceNav.announce('Opening cart');
+          // Pop back and navigate to cart tab
+          Navigator.pop(context);
+          voiceNav.onTabChange?.call(2); // Cart is tab index 2
+        },
+      ),
+    ]);
+  }
+
+  Future<void> _addToCart() async {
+    final product = widget.product;
+    if (product != null) {
+      final colorScheme = Theme.of(context).colorScheme;
+      final voiceNav = context.read<VoiceNavigationProvider>();
+      
+      for (int i = 0; i < _qty; i++) {
+        await _cartService.addToCart(product);
+      }
+      
+      voiceNav.announce('Added $_qty ${product.name} to cart');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Added $_qty item(s) to cart'),
+            backgroundColor: colorScheme.primary,
+          ),
+        );
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    try {
+      final voiceNav = context.read<VoiceNavigationProvider>();
+      voiceNav.unregisterScreenCommands('product_details');
+    } catch (_) {}
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +166,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
+      floatingActionButton: const VoiceFAB(),
       appBar: AppBar(
         backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
@@ -482,7 +625,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           label: 'Add to cart button',
                           button: true,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: _addToCart,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: colorScheme.primary,
                               foregroundColor: Colors.white,

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:accessitrade/providers/accessibility_provider.dart';
 import 'package:accessitrade/services/voice_command_service.dart';
 
 /// Provider for managing voice navigation state across the app
 class VoiceNavigationProvider extends ChangeNotifier {
   final VoiceCommandService _voiceService = VoiceCommandService();
+  
+  VoiceNavigationProvider() {
+    // Set up navigation command handler immediately
+    _voiceService.onNavigationCommand = _handleNavigationCommand;
+  }
   
   // Current screen context
   String _currentScreen = 'home';
@@ -21,6 +27,14 @@ class VoiceNavigationProvider extends ChangeNotifier {
   // Navigation callback
   GlobalKey<NavigatorState>? navigatorKey;
   Function(int tabIndex)? onTabChange;
+  Function(String query)? onSearch;
+  
+  // Reference to check if voice is enabled
+  bool _voiceEnabledOverride = true;
+
+  void setVoiceEnabled(bool enabled) {
+    _voiceEnabledOverride = enabled;
+  }
   
   // Getters
   String get currentScreen => _currentScreen;
@@ -44,6 +58,8 @@ class VoiceNavigationProvider extends ChangeNotifier {
 
   /// Handle navigation commands from voice service
   void _handleNavigationCommand(String action, String? param) {
+    debugPrint('📢 NAV: Handling navigation command: $action, param: $param');
+    debugPrint('📢 NAV: onTabChange is ${onTabChange != null ? "SET" : "NULL"}');
     switch (action) {
       case 'go_home':
         onTabChange?.call(0);
@@ -68,7 +84,7 @@ class VoiceNavigationProvider extends ChangeNotifier {
       case 'search':
         if (param != null && param.isNotEmpty) {
           _provideFeedback('Searching for $param');
-          // Navigation will be handled by the screen
+          onSearch?.call(param);
         }
         break;
     }
@@ -168,6 +184,7 @@ class VoiceNavigationProvider extends ChangeNotifier {
 
   /// Announce text via TTS
   Future<void> announce(String text) async {
+    if (!_voiceEnabledOverride) return;
     await _voiceService.announce(text);
   }
 
@@ -178,6 +195,7 @@ class VoiceNavigationProvider extends ChangeNotifier {
 
   /// Set feedback message
   void _provideFeedback(String message) {
+    if (!_voiceEnabledOverride) return;
     _feedback = message;
     notifyListeners();
   }
