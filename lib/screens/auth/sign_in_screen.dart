@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:accessitrade/providers/accessibility_provider.dart';
+import 'package:accessitrade/providers/voice_navigation_provider.dart';
 import 'package:accessitrade/services/auth_service.dart';
-import 'package:accessitrade/screens/auth/voice_login_screen.dart';
+import 'package:accessitrade/services/voice_command_service.dart';
 import 'package:accessitrade/screens/auth/forgot_password_screen.dart';
 import 'package:accessitrade/screens/home/home_screen.dart';
 import 'package:accessitrade/screens/seller/seller_dashboard_screen.dart';
+import 'package:accessitrade/widgets/voice_fab.dart';
+
+enum _VoiceAuthStep { idle, waitingEmail, waitingPassword }
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -23,9 +27,150 @@ class _SignInScreenState extends State<SignInScreen> {
   bool _isLoading = false;
   bool _obscurePassword = true;
   String? _errorMessage;
+  _VoiceAuthStep _voiceStep = _VoiceAuthStep.idle;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _setupVoiceCommands();
+    });
+  }
+
+  void _setupVoiceCommands() {
+    final voiceNav = context.read<VoiceNavigationProvider>();
+    final accessibility = context.read<AccessibilityProvider>();
+    
+    // Sync voice enabled setting
+    voiceNav.setVoiceEnabled(accessibility.voiceEnabled);
+    
+    voiceNav.setScreen('sign_in');
+    voiceNav.announce('Sign in screen. Hold the microphone and say sign in to start.');
+    
+    voiceNav.registerScreenCommands('sign_in', [
+      VoiceCommand(
+        name: 'sign_in_flow',
+        pattern: r'^(.+)$',  // Catch all - but we check state inside
+        description: 'Handle voice sign in flow',
+        action: (context, params) async {
+          if (params == null || params.isEmpty) return;
+          _processVoiceInput(params);
+        },
+      ),
+    ]);
+  }
+
+  void _processVoiceInput(String input) {
+    final voiceNav = context.read<VoiceNavigationProvider>();
+    final lowerInput = input.toLowerCase().trim();
+    
+    debugPrint('🎤 SIGNIN: Processing "$input" in step: $_voiceStep');
+    
+    switch (_voiceStep) {
+      case _VoiceAuthStep.idle:
+        // Check if user wants to start sign in
+        if (lowerInput.contains('sign') && lowerInput.contains('in') ||
+            lowerInput.contains('login') ||
+            lowerInput == 'log in') {
+          setState(() {
+            _voiceStep = _VoiceAuthStep.waitingEmail;
+            _emailController.clear();
+            _passwordController.clear();
+            _errorMessage = null;
+          });
+          voiceNav.announce('Please say your email address. For example: john at gmail dot com');
+        } else if (lowerInput.contains('back')) {
+          Navigator.pop(context);
+        }
+        break;
+        
+      case _VoiceAuthStep.waitingEmail:
+        if (lowerInput.contains('cancel') || lowerInput.contains('stop')) {
+          setState(() => _voiceStep = _VoiceAuthStep.idle);
+          voiceNav.announce('Cancelled. Say sign in to try again.');
+          return;
+        }
+        // Convert spoken email
+        final email = lowerInput
+            .replaceAll(' at ', '@')
+            .replaceAll(' dot ', '.')
+            .replaceAll(' ', '');
+        setState(() {
+          _emailController.text = email;
+          _voiceStep = _VoiceAuthStep.waitingPassword;
+        });
+        voiceNav.announce('Email is $email. Now please say your password.');
+        break;
+        
+      case _VoiceAuthStep.waitingPassword:
+        if (lowerInput.contains('cancel') || lowerInput.contains('stop')) {
+          setState(() => _voiceStep = _VoiceAuthStep.idle);
+          voiceNav.announce('Cancelled. Say sign in to try again.');
+          return;
+        }
+        // Password - just remove spaces
+        final password = input.replaceAll(' ', '');
+        setState(() {
+          _passwordController.text = password;
+          _voiceStep = _VoiceAuthStep.idle;
+        });
+        voiceNav.announce('Password received. Signing in now.');
+        _voiceSignIn();
+        break;
+    }
+  }
+
+  Future<void> _voiceSignIn() async {
+    final voiceNav = context.read<VoiceNavigationProvider>();
+    
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      final credential = await _authService.signIn(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      final profile = credential?.user == null
+          ? null
+          : await _authService.getUserProfile(credential!.user!.uid);
+      
+      await voiceNav.announce('Sign in successful. Welcome back!');
+      
+      if (mounted) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (_) => profile?['userType'] == 'seller'
+                ? const SellerDashboardScreen()
+                : const HomeScreen(),
+          ),
+          (route) => false,
+        );
+      }
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Sign in failed. Please try again.';
+        _voiceStep = _VoiceAuthStep.idle;
+      });
+      voiceNav.announce('Sign in failed. The email or password may be incorrect. Say sign in to try again.');
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
 
   @override
   void dispose() {
+    try {
+      final voiceNav = context.read<VoiceNavigationProvider>();
+      voiceNav.unregisterScreenCommands('sign_in');
+    } catch (_) {}
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -77,6 +222,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
+      floatingActionButton: const VoiceFAB(),
       appBar: AppBar(
         backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
@@ -113,6 +259,47 @@ class _SignInScreenState extends State<SignInScreen> {
                     color: Colors.grey,
                   ),
                 ),
+
+                // Voice auth status indicator
+                if (_voiceStep != _VoiceAuthStep.idle)
+                  Container(
+                    margin: const EdgeInsets.only(top: 16),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE0F2F1),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: const Color(0xFF1A5C5A)),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.mic, color: Color(0xFF1A5C5A)),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            _voiceStep == _VoiceAuthStep.waitingEmail
+                                ? 'Voice Sign In: Say your email address'
+                                : 'Voice Sign In: Say your password',
+                            style: const TextStyle(
+                              color: Color(0xFF1A5C5A),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _voiceStep = _VoiceAuthStep.idle;
+                              _emailController.clear();
+                              _passwordController.clear();
+                            });
+                            final voiceNav = context.read<VoiceNavigationProvider>();
+                            voiceNav.announce('Voice sign in cancelled');
+                          },
+                          child: const Icon(Icons.close, color: Color(0xFF1A5C5A), size: 20),
+                        ),
+                      ],
+                    ),
+                  ),
 
                 const SizedBox(height: 32),
 
@@ -394,43 +581,6 @@ class _SignInScreenState extends State<SignInScreen> {
                   ],
                 ),
 
-                const SizedBox(height: 12),
-                Semantics(
-                  label: 'Sign in using voice for visually impaired users',
-                  button: true,
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 52,
-                    child: OutlinedButton.icon(
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const VoiceLoginScreen(),
-                        ),
-                      ),
-                      icon: const Icon(Icons.mic, color: Color(0xFF1A5C5A)),
-                      label: const Text(
-                        'Sign In with Voice',
-                        style: TextStyle(
-                          color: Color(0xFF1A5C5A),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: const Color(0xFF1A5C5A),
-                        side: const BorderSide(
-                          color: Color(0xFF1A5C5A),
-                          width: 2,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
                 const SizedBox(height: 32),
               ],
             ),
@@ -485,5 +635,3 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 }
-// updated
-// updated

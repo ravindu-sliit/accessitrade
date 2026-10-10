@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:accessitrade/providers/accessibility_provider.dart';
+import 'package:accessitrade/providers/voice_navigation_provider.dart';
+import 'package:accessitrade/widgets/voice_fab.dart';
 import 'package:accessitrade/screens/discovery/home_tab.dart';
 import 'package:accessitrade/screens/discovery/categories_screen.dart';
 import 'package:accessitrade/screens/checkout/cart_screen.dart';
 import 'package:accessitrade/screens/profile/profile_screen.dart';
+import 'package:accessitrade/screens/discovery/search_results_screen.dart';
 import 'package:accessitrade/services/cart_service.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,6 +28,62 @@ class _HomeScreenState extends State<HomeScreen> {
     ProfileScreen(),
   ];
 
+  final List<String> _screenNames = const ['Home', 'Categories', 'Cart', 'Profile'];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _setupVoiceNavigation();
+    });
+  }
+
+  void _setupVoiceNavigation() {
+    final voiceNav = context.read<VoiceNavigationProvider>();
+    final accessibility = context.read<AccessibilityProvider>();
+    
+    // Sync voice enabled setting
+    voiceNav.setVoiceEnabled(accessibility.voiceEnabled);
+    
+    voiceNav.onTabChange = (tabIndex) {
+      if (tabIndex != _currentIndex) {
+        setState(() {
+          _currentIndex = tabIndex;
+        });
+        voiceNav.announce('Switched to ${_screenNames[tabIndex]}');
+      }
+    };
+
+    // Add search callback
+    voiceNav.onSearch = (query) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => SearchResultsScreen(query: query),
+        ),
+      );
+    };
+
+    voiceNav.setScreen('home');
+    
+    // Only announce if voice features are enabled
+    if (accessibility.voiceEnabled) {
+      voiceNav.announce('Home screen. Tap microphone or say help for commands.');
+    }
+  }
+
+  void _onTabSelected(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+    final voiceNav = context.read<VoiceNavigationProvider>();
+    final accessibility = context.read<AccessibilityProvider>();
+    voiceNav.setScreen(_screenNames[index].toLowerCase());
+    if (accessibility.voiceEnabled) {
+      voiceNav.announce('Switched to ${_screenNames[index]}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -33,9 +94,10 @@ class _HomeScreenState extends State<HomeScreen> {
         index: _currentIndex,
         children: _screens,
       ),
+      floatingActionButton: const VoiceFAB(),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentIndex,
-        onDestinationSelected: (i) => setState(() => _currentIndex = i),
+        onDestinationSelected: _onTabSelected,
         destinations: [
           NavigationDestination(
             icon: const Icon(Icons.home_outlined),

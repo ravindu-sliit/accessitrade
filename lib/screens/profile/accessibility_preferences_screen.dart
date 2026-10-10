@@ -98,8 +98,8 @@ class AccessibilityPreferencesScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       _toggleTile(
-                        'Voice Search',
-                        'Enables dictation and voice commands',
+                        'Voice Navigation',
+                        'Enables voice commands, floating microphone button, and auto-read features',
                         accessibility.voiceEnabled,
                         accessibility.setVoiceEnabled,
                       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:accessitrade/providers/accessibility_provider.dart';
+import 'package:accessitrade/providers/voice_navigation_provider.dart';
 import 'firebase_options.dart';
 import 'screens/splash_screen.dart';
 
@@ -11,8 +12,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => AccessibilityProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AccessibilityProvider()),
+        ChangeNotifierProvider(create: (_) => VoiceNavigationProvider()),
+      ],
       child: const AccessiTradeApp(),
     ),
   );
