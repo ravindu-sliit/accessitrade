@@ -126,3 +126,8 @@ references/*.pdf
 
 # Temporary files
 references/report_pages/
+
+# Flutter build artifacts
+.metadata
+android/app/src/debug/
+android/app/src/profile/
