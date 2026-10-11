@@ -214,18 +214,25 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: SafeArea(
             child: StreamBuilder<List<Product>>(
-              stream: _productService.getProducts(category: widget.category),
+              stream: _productService.getProducts(),
               builder: (context, snapshot) {
                 final allProducts = snapshot.data ?? [];
-                final results = widget.category != null
-                    ? allProducts
-                    : allProducts.where((p) {
-                        final q = widget.query.toLowerCase();
-                        return p.name.toLowerCase().contains(q) ||
-                            p.category.toLowerCase().contains(q) ||
-                            p.description.toLowerCase().contains(q) ||
-                            p.altText.toLowerCase().contains(q);
-                      }).toList();
+                final results = allProducts.where((p) {
+                  final q = widget.query.toLowerCase();
+                  final cat = widget.category?.toLowerCase();
+                  
+                  // If category is specified, filter by category (case-insensitive contains)
+                  if (cat != null) {
+                    return p.category.toLowerCase().contains(cat) ||
+                           cat.contains(p.category.toLowerCase());
+                  }
+                  
+                  // Otherwise search across all text fields
+                  return p.name.toLowerCase().contains(q) ||
+                         p.category.toLowerCase().contains(q) ||
+                         p.description.toLowerCase().contains(q) ||
+                         p.altText.toLowerCase().contains(q);
+                }).toList();
 
                 // Update results reference for voice navigation (no setState needed here)
                 if (!_listEquals(_currentResults, results)) {
@@ -234,21 +241,19 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                     _currentItemIndex = 0;
                   }
                   
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    if (mounted) {
+                  // Use post frame callback only for voice announcements, with proper mounted check
+                  if (!_hasAnnouncedResults && results.isNotEmpty) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (!mounted) return;
+                      _hasAnnouncedResults = true;
                       final voiceNav = context.read<VoiceNavigationProvider>();
                       voiceNav.setScreen('search_results', itemCount: results.length);
-                      
-                      // Announce only once when first loaded
-                      if (!_hasAnnouncedResults && results.isNotEmpty) {
-                        _hasAnnouncedResults = true;
-                        final accessibility = context.read<AccessibilityProvider>();
-                        if (accessibility.voiceEnabled) {
-                          voiceNav.announce('Found ${results.length} items for ${widget.query}. Say next or previous to navigate, select to view details.');
-                        }
+                      final accessibility = context.read<AccessibilityProvider>();
+                      if (accessibility.voiceEnabled) {
+                        voiceNav.announce('Found ${results.length} items for ${widget.query}. Say next or previous to navigate, select to view details.');
                       }
-                    }
-                  });
+                    });
+                  }
                 }
 
                 // Auto-read aloud if from voice search and results loaded
