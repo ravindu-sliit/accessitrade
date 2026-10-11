@@ -149,3 +149,4 @@
 149: fix: fix screen reader announcement order on product cards
 150: fix: resolve profile screen update race condition
 151: fix: correct order total calculation for multi-seller carts
+152: refactor: clean up navigation routes and improve app startup performance
