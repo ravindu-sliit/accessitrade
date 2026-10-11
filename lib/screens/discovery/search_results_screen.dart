@@ -36,6 +36,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   List<Product> _currentResults = [];
   bool _hasAnnouncedResults = false;
   VoiceNavigationProvider? _voiceNavProvider;
+  AccessibilityProvider? _accessibilityProvider;
 
   @override
   void initState() {
@@ -88,8 +89,9 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
 
   void _registerVoiceCommands() {
     _voiceNavProvider = context.read<VoiceNavigationProvider>();
+    _accessibilityProvider = context.read<AccessibilityProvider>();
     final voiceNav = _voiceNavProvider!;
-    final accessibility = context.read<AccessibilityProvider>();
+    final accessibility = _accessibilityProvider!;
     
     // Sync voice enabled setting
     voiceNav.setAccessibilityProvider(accessibility);
@@ -108,8 +110,11 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   }
 
   void _handleVoiceCommand(String command, String? param) {
-    final voiceNav = context.read<VoiceNavigationProvider>();
-    final accessibility = context.read<AccessibilityProvider>();
+    if (_voiceNavProvider == null || _accessibilityProvider == null) return;
+    if (!mounted) return;
+    
+    final voiceNav = _voiceNavProvider!;
+    final accessibility = _accessibilityProvider!;
     
     if (!accessibility.voiceEnabled) return;
     
@@ -176,9 +181,8 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     if (_currentResults.isEmpty) return;
     final product = _currentResults[_currentItemIndex];
     await _cartService.addToCart(product);
-    if (mounted) {
-      final voiceNav = context.read<VoiceNavigationProvider>();
-      voiceNav.announce('Added ${product.name} to cart');
+    if (mounted && _voiceNavProvider != null) {
+      _voiceNavProvider!.announce('Added ${product.name} to cart');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Added ${product.name} to cart'),
@@ -247,12 +251,11 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                   if (!_hasAnnouncedResults && results.isNotEmpty) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       if (!mounted) return;
+                      if (_voiceNavProvider == null || _accessibilityProvider == null) return;
                       _hasAnnouncedResults = true;
-                      final voiceNav = context.read<VoiceNavigationProvider>();
-                      voiceNav.setScreen('search_results', itemCount: results.length);
-                      final accessibility = context.read<AccessibilityProvider>();
-                      if (accessibility.voiceEnabled) {
-                        voiceNav.announce('Found ${results.length} items for ${widget.query}. Say next or previous to navigate, select to view details.');
+                      _voiceNavProvider!.setScreen('search_results', itemCount: results.length);
+                      if (_accessibilityProvider!.voiceEnabled) {
+                        _voiceNavProvider!.announce('Found ${results.length} items for ${widget.query}. Say next or previous to navigate, select to view details.');
                       }
                     });
                   }
