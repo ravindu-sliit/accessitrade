@@ -194,6 +194,15 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     super.dispose();
   }
 
+  /// Compare two product lists by ID to detect actual changes
+  bool _listEquals(List<Product> a, List<Product> b) {
+    if (a.length != b.length) return false;
+    for (int i = 0; i < a.length; i++) {
+      if (a[i].id != b[i].id) return false;
+    }
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -218,21 +227,21 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                             p.altText.toLowerCase().contains(q);
                       }).toList();
 
-                // Update results for voice navigation and announce
-                if (_currentResults.length != results.length || (!_hasAnnouncedResults && results.isNotEmpty)) {
+                // Update results reference for voice navigation (no setState needed here)
+                if (!_listEquals(_currentResults, results)) {
+                  _currentResults = results;
+                  if (_currentItemIndex >= results.length) {
+                    _currentItemIndex = 0;
+                  }
+                  
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     if (mounted) {
-                      final shouldAnnounce = !_hasAnnouncedResults && results.isNotEmpty;
-                      setState(() {
-                        _currentResults = results;
-                        _currentItemIndex = 0;
-                        if (shouldAnnounce) _hasAnnouncedResults = true;
-                      });
                       final voiceNav = context.read<VoiceNavigationProvider>();
                       voiceNav.setScreen('search_results', itemCount: results.length);
                       
-                      // Announce results count when first loaded
-                      if (shouldAnnounce) {
+                      // Announce only once when first loaded
+                      if (!_hasAnnouncedResults && results.isNotEmpty) {
+                        _hasAnnouncedResults = true;
                         final accessibility = context.read<AccessibilityProvider>();
                         if (accessibility.voiceEnabled) {
                           voiceNav.announce('Found ${results.length} items for ${widget.query}. Say next or previous to navigate, select to view details.');
