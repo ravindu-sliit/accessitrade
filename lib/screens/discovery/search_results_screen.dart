@@ -35,6 +35,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   int _currentItemIndex = 0;
   List<Product> _currentResults = [];
   bool _hasAnnouncedResults = false;
+  VoiceNavigationProvider? _voiceNavProvider;
 
   @override
   void initState() {
@@ -86,7 +87,8 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   }
 
   void _registerVoiceCommands() {
-    final voiceNav = context.read<VoiceNavigationProvider>();
+    _voiceNavProvider = context.read<VoiceNavigationProvider>();
+    final voiceNav = _voiceNavProvider!;
     final accessibility = context.read<AccessibilityProvider>();
     
     // Sync voice enabled setting
@@ -190,7 +192,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   @override
   void dispose() {
     _tts.stop();
-    context.read<VoiceNavigationProvider>().voiceService.clearScreenCommands();
+    _voiceNavProvider?.voiceService.clearScreenCommands();
     super.dispose();
   }
 
