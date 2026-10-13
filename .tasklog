@@ -154,3 +154,4 @@
 154: fix: resolve final accessibility issues found in demo testing
 155: chore: update README and prepare for final submission
 156: fix: fix seller dashboard loading state on slow connections
+157: fix: correct checkout form validation error messages
