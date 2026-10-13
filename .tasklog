@@ -151,3 +151,8 @@
 151: fix: correct order total calculation for multi-seller carts
 152: refactor: clean up navigation routes and improve app startup performance
 153: chore: final code review fixes and pre-demo cleanup
+154: fix: resolve final accessibility issues found in demo testing
+155: chore: update README and prepare for final submission
+156: fix: fix seller dashboard loading state on slow connections
+157: fix: correct checkout form validation error messages
+158: docs: add code comments and inline documentation across screens
