@@ -657,3 +657,26 @@
 325: feat(US-35): TASK-35.6 display expandable order details
 326: feat(US-35): TASK-35.7 add accessible labels to order history items
 327: test(US-35): TASK-35.8 test order history retrieval and display
+328: feat(US-38): create seller accessibility rating model
+329: feat(US-38): implement rating submission UI with accessible 5-star control
+330: feat(US-38): save accessibility rating to Firestore seller record
+331: feat(US-38): calculate and display average accessibility rating on seller profile
+332: feat(US-38): show accessibility rating badge on product cards
+333: test(US-38): test seller accessibility rating flow
+334: feat(US-39): create community recommendation data model
+335: feat(US-39): create community screen with post feed
+336: feat(US-39): implement product recommendation post creation
+337: feat(US-39): save community recommendation to Firestore
+338: feat(US-39): display community recommendations feed with accessible layout
+339: test(US-39): test community recommendation sharing flow
+340: feat(US-42): wire Add to Cart button on Product Details to cart provider
+341: feat(US-42): display cart item count badge on navigation bar
+342: feat(US-42): navigate from cart to checkout flow
+343: test(US-42): test product discovery to cart to checkout integration
+344: feat(US-45): display seller trust badge on product listing cards
+345: feat(US-45): show community recommendation count on product details
+346: feat(US-45): link seller accessibility rating to product search results
+347: test(US-45): test community trust integration across product screens
+348: feat: add accessibility preferences provider and screen
+349: feat: add splash, landing, onboarding and voice login screens
+350: feat: add home tab, categories, notifications, and wishlist screens
