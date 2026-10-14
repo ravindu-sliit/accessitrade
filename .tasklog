@@ -131,3 +131,28 @@
 131: feat(US-34): create accessible order confirmation screen and test order creation
 132: feat(US-35): create order history screen and retrieve user orders from Firestore
 133: feat(US-35): display order date, status badge, total, details and add accessible labels
+134: feat(US-38): create seller accessibility rating model and accessible 5-star UI
+135: feat(US-38): save rating to Firestore and display average on seller profile
+136: feat(US-38): show accessibility rating badge on product cards and test flow
+137: feat(US-39): create community recommendation model and screen with post feed
+138: feat(US-39): implement recommendation post creation and save to Firestore
+139: feat(US-39): display recommendations feed with accessible layout and test flow
+140: feat(US-42): wire Add-to-Cart on Product Details to cart provider
+141: feat(US-42): display cart item count badge and navigate to checkout
+142: test(US-42): test product discovery to cart to checkout integration
+143: feat(US-45): display seller trust badge on product listing and details screens
+144: feat(US-45): link accessibility rating to search results and test integration
+145: feat: add accessibility preferences provider and preferences screen
+146: feat: add splash, landing, onboarding and voice login screens
+147: feat: add home tab, categories, notifications and wishlist screens
+148: fix: improve accessibility semantics across discovery screens
+149: fix: fix screen reader announcement order on product cards
+150: fix: resolve profile screen update race condition
+151: fix: correct order total calculation for multi-seller carts
+152: refactor: clean up navigation routes and improve app startup performance
+153: chore: final code review fixes and pre-demo cleanup
+154: fix: resolve final accessibility issues found in demo testing
+155: chore: update README and prepare for final submission
+156: fix: fix seller dashboard loading state on slow connections
+157: fix: correct checkout form validation error messages
+158: docs: add code comments and inline documentation across screens
