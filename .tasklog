@@ -657,3 +657,9 @@
 325: feat(US-35): TASK-35.6 display expandable order details
 326: feat(US-35): TASK-35.7 add accessible labels to order history items
 327: test(US-35): TASK-35.8 test order history retrieval and display
+328: feat(US-38): create seller accessibility rating model
+329: feat(US-38): implement rating submission UI with accessible 5-star control
+330: feat(US-38): save accessibility rating to Firestore seller record
+331: feat(US-38): calculate and display average accessibility rating on seller profile
+332: feat(US-38): show accessibility rating badge on product cards
+333: test(US-38): test seller accessibility rating flow
