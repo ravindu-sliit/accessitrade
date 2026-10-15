@@ -1,1 +1,29 @@
-// updated
+{
+  "project_info": {
+    "project_number": "6285254583",
+    "project_id": "accessitrade",
+    "storage_bucket": "accessitrade.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6285254583:android:10b637eb19bafdfc5cd232",
+        "android_client_info": {
+          "package_name": "com.accessitrade.accessitrade"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbBbZyWTRqf-BbugWg8Br6mTJKBV9vrJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
