@@ -8,6 +8,10 @@ import 'package:accessitrade/screens/profile/my_orders_screen.dart';
 import 'package:accessitrade/screens/profile/wishlist_screen.dart';
 import 'package:accessitrade/screens/profile/notifications_screen.dart';
 import 'package:accessitrade/screens/profile/accessibility_preferences_screen.dart';
+import 'package:accessitrade/screens/profile/personal_information_screen.dart';
+import 'package:accessitrade/screens/profile/my_addresses_screen.dart';
+import 'package:accessitrade/screens/profile/payment_methods_screen.dart';
+import 'package:accessitrade/screens/profile/help_and_support_screen.dart';
 import 'package:accessitrade/screens/seller/seller_dashboard_screen.dart';
 import 'package:accessitrade/screens/community/product_request_screen.dart';
 
@@ -101,13 +105,22 @@ class ProfileScreen extends StatelessWidget {
 
                 const SizedBox(height: 16),
 
-                _buildMenuItem(context, theme, colorScheme, accessibility, Icons.person_outline, 'Personal Information', () {}),
+                _buildMenuItem(context, theme, colorScheme, accessibility, Icons.person_outline, 'Personal Information', () {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (_) => const PersonalInformationScreen()));
+                }),
                 _buildMenuItem(context, theme, colorScheme, accessibility, Icons.accessible, 'Accessibility Settings', () {
                   Navigator.push(context, MaterialPageRoute(
                       builder: (_) => const AccessibilityPreferencesScreen()));
                 }, highlight: true),
-                _buildMenuItem(context, theme, colorScheme, accessibility, Icons.location_on_outlined, 'My Addresses', () {}),
-                _buildMenuItem(context, theme, colorScheme, accessibility, Icons.credit_card_outlined, 'Payment Methods', () {}),
+                _buildMenuItem(context, theme, colorScheme, accessibility, Icons.location_on_outlined, 'My Addresses', () {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (_) => const MyAddressesScreen()));
+                }),
+                _buildMenuItem(context, theme, colorScheme, accessibility, Icons.credit_card_outlined, 'Payment Methods', () {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (_) => const PaymentMethodsScreen()));
+                }),
                 _buildMenuItem(context, theme, colorScheme, accessibility, Icons.shopping_bag_outlined, 'Order History', () {
                   Navigator.push(context, MaterialPageRoute(
                       builder: (_) => const MyOrdersScreen()));
@@ -129,7 +142,10 @@ class ProfileScreen extends StatelessWidget {
                     Navigator.push(context, MaterialPageRoute(
                         builder: (_) => const SellerDashboardScreen()));
                   }),
-                _buildMenuItem(context, theme, colorScheme, accessibility, Icons.help_center_outlined, 'Help and Support', () {}),
+                _buildMenuItem(context, theme, colorScheme, accessibility, Icons.help_center_outlined, 'Help and Support', () {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (_) => const HelpAndSupportScreen()));
+                }),
 
                 const SizedBox(height: 20),
 
