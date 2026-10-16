@@ -8,6 +8,7 @@ class CartItem {
   final int quantity;
   final String? imageUrl;
   final String sellerName;
+  final String sellerId;
 
   CartItem({
     required this.id,
@@ -17,6 +18,7 @@ class CartItem {
     required this.quantity,
     this.imageUrl,
     required this.sellerName,
+    required this.sellerId,
   });
 
   double get subtotal => price * quantity;
@@ -31,6 +33,7 @@ class CartItem {
       quantity: data['quantity'] ?? 1,
       imageUrl: data['imageUrl'],
       sellerName: data['sellerName'] ?? '',
+      sellerId: data['sellerId'] ?? '',
     );
   }
 
@@ -42,6 +45,7 @@ class CartItem {
       'quantity': quantity,
       'imageUrl': imageUrl,
       'sellerName': sellerName,
+      'sellerId': sellerId,
       'updatedAt': FieldValue.serverTimestamp(),
     };
   }
@@ -55,6 +59,7 @@ class CartItem {
       quantity: quantity ?? this.quantity,
       imageUrl: imageUrl,
       sellerName: sellerName,
+      sellerId: sellerId,
     );
   }
 }

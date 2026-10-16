@@ -7,12 +7,14 @@ class OrderItem {
   final String productName;
   final double price;
   final int quantity;
+  final String sellerId;
 
   OrderItem({
     required this.productId,
     required this.productName,
     required this.price,
     required this.quantity,
+    required this.sellerId,
   });
 
   double get subtotal => price * quantity;
@@ -23,6 +25,7 @@ class OrderItem {
       productName: data['productName'] ?? '',
       price: (data['price'] ?? 0).toDouble(),
       quantity: data['quantity'] ?? 1,
+      sellerId: data['sellerId'] ?? '',
     );
   }
 
@@ -32,6 +35,7 @@ class OrderItem {
       'productName': productName,
       'price': price,
       'quantity': quantity,
+      'sellerId': sellerId,
     };
   }
 }
@@ -51,6 +55,8 @@ class AppOrder {
   final String? courierName;
   final DateTime createdAt;
   final DateTime? estimatedDelivery;
+  // List of unique seller IDs in this order (for seller querying)
+  final List<String> sellerIds;
 
   AppOrder({
     required this.id,
@@ -67,6 +73,7 @@ class AppOrder {
     this.courierName,
     required this.createdAt,
     this.estimatedDelivery,
+    this.sellerIds = const [],
   });
 
   String get orderNumber => '#AM-${createdAt.year}-${id.substring(0, 4).toUpperCase()}';
@@ -105,6 +112,7 @@ class AppOrder {
       courierName: data['courierName'],
       createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
       estimatedDelivery: (data['estimatedDelivery'] as Timestamp?)?.toDate(),
+      sellerIds: List<String>.from(data['sellerIds'] ?? []),
     );
   }
 
@@ -125,6 +133,7 @@ class AppOrder {
       'estimatedDelivery': estimatedDelivery != null
           ? Timestamp.fromDate(estimatedDelivery!)
           : null,
+      'sellerIds': sellerIds,
     };
   }
 }

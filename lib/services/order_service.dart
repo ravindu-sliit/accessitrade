@@ -9,7 +9,7 @@ class OrderService {
 
   String? get _userId => _auth.currentUser?.uid;
 
-  // Create order from cart items
+  // Create order from cart items — also decrements product stock
   Future<AppOrder> createOrder({
     required List<CartItem> cartItems,
     required String deliveryAddress,
@@ -19,15 +19,23 @@ class OrderService {
   }) async {
     if (_userId == null) throw Exception('User not signed in');
 
+    // Build order items with sellerId from each CartItem
     final items = cartItems.map((c) => OrderItem(
       productId: c.productId,
       productName: c.productName,
       price: c.price,
       quantity: c.quantity,
+      sellerId: c.sellerId,
     )).toList();
 
-    final subtotal = cartItems.fold(0.0, (sum, c) => sum + c.subtotal);
+    final subtotal = cartItems.fold(0.0, (acc, c) => acc + c.subtotal);
     final total = subtotal + deliveryFee;
+
+    // Collect unique seller IDs for this order
+    final sellerIds = cartItems.map((c) => c.sellerId)
+        .toSet()
+        .where((id) => id.isNotEmpty)
+        .toList();
 
     final estimatedDelivery = deliveryMethod == 'Express Delivery'
         ? DateTime.now().add(const Duration(days: 3))
@@ -48,11 +56,30 @@ class OrderService {
       status: OrderStatus.placed,
       createdAt: DateTime.now(),
       estimatedDelivery: estimatedDelivery,
+      sellerIds: sellerIds,
     );
 
-    final ref = await _db.collection('orders').add(order.toFirestore());
+    // Use a Firestore batch to atomically:
+    // 1. Create the order document
+    // 2. Decrement stockQty for each product
+    final batch = _db.batch();
+
+    final orderRef = _db.collection('orders').doc();
+    batch.set(orderRef, order.toFirestore());
+
+    for (final cartItem in cartItems) {
+      if (cartItem.productId.isNotEmpty) {
+        final productRef = _db.collection('products').doc(cartItem.productId);
+        batch.update(productRef, {
+          'stockQty': FieldValue.increment(-cartItem.quantity),
+        });
+      }
+    }
+
+    await batch.commit();
+
     return AppOrder(
-      id: ref.id,
+      id: orderRef.id,
       userId: order.userId,
       items: order.items,
       subtotal: order.subtotal,
@@ -64,6 +91,7 @@ class OrderService {
       status: order.status,
       createdAt: order.createdAt,
       estimatedDelivery: order.estimatedDelivery,
+      sellerIds: sellerIds,
     );
   }
 
@@ -85,5 +113,27 @@ class OrderService {
     final doc = await _db.collection('orders').doc(orderId).get();
     if (!doc.exists) return null;
     return AppOrder.fromFirestore(doc);
+  }
+
+  // Update order status (for sellers)
+  Future<void> updateOrderStatus(String orderId, OrderStatus status) async {
+    await _db.collection('orders').doc(orderId).update({
+      'status': status.name,
+    });
+  }
+
+  // Setup courier for an order
+  Future<void> setupCourier({
+    required String orderId,
+    required String courierName,
+    required String trackingNumber,
+    required DateTime pickupTime,
+  }) async {
+    await _db.collection('orders').doc(orderId).update({
+      'courierName': courierName,
+      'trackingNumber': trackingNumber,
+      'pickupTime': Timestamp.fromDate(pickupTime),
+      'status': OrderStatus.confirmed.name,
+    });
   }
 }

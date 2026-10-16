@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:accessitrade/models/product.dart';
+import 'package:accessitrade/models/order.dart';
 import 'package:accessitrade/services/seller_service.dart';
+import 'package:accessitrade/services/order_service.dart';
 import 'package:accessitrade/services/cloudinary_service.dart';
 import 'package:accessitrade/providers/accessibility_provider.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,6 +17,7 @@ class SellerDashboardScreen extends StatefulWidget {
 
 class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
   final _sellerService = SellerService();
+  final _orderService = OrderService();
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +74,14 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
         builder: (context, snapshot) {
           final products = snapshot.data ?? [];
 
+          return StreamBuilder<List<AppOrder>>(
+            stream: _sellerService.getMyOrders(),
+            builder: (context, orderSnap) {
+              final orders = orderSnap.data ?? [];
+              final activeOrders = orders.where((o) =>
+                o.status != OrderStatus.delivered &&
+                o.status != OrderStatus.cancelled).toList();
+
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,7 +99,7 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                       const SizedBox(width: 12),
                       _StatCard(
                           label: 'Active Orders',
-                          value: '0',
+                          value: '${activeOrders.length}',
                           icon: Icons.shopping_bag_outlined),
                       const SizedBox(width: 12),
                       _StatCard(
@@ -163,6 +174,84 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                     ),
                   ),
                 ),
+
+                const SizedBox(height: 16),
+
+                // ── Incoming Orders ────────────────────────────────────
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Incoming Orders',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                      if (activeOrders.isNotEmpty)
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: colorScheme.primary,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text('${activeOrders.length} new',
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 8),
+
+                if (activeOrders.isEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade50,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.grey.shade200),
+                      ),
+                      child: Column(
+                        children: [
+                          Icon(Icons.inbox_outlined,
+                              size: 40, color: Colors.grey.shade300),
+                          const SizedBox(height: 8),
+                          Text('No active orders yet',
+                              style: TextStyle(color: Colors.grey.shade500)),
+                        ],
+                      ),
+                    ),
+                  )
+                else
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: activeOrders.length,
+                    itemBuilder: (context, index) {
+                      final order = activeOrders[index];
+                      // Only show items belonging to this seller
+                      final myItems = order.items
+                          .where((i) => i.sellerId ==
+                              _sellerService.currentSellerId)
+                          .toList();
+                      return _OrderCard(
+                        order: order,
+                        myItems: myItems,
+                        onSetupCourier: () =>
+                            _showCourierSheetForOrder(context, order),
+                        onUpdateStatus: (status) =>
+                            _orderService.updateOrderStatus(order.id, status),
+                        colorScheme: colorScheme,
+                      );
+                    },
+                  ),
 
                 const SizedBox(height: 16),
 
@@ -401,6 +490,8 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
               ],
             ),
           );
+            }, // end orders StreamBuilder builder
+          ); // end orders StreamBuilder
         },
       ),
     );
@@ -618,6 +709,145 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
     );
   }
 
+  void _showCourierSheetForOrder(BuildContext context, AppOrder order) {
+    final courierController = TextEditingController();
+    final trackingController = TextEditingController();
+    DateTime selectedPickup = DateTime.now().add(const Duration(hours: 2));
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setModalState) => Padding(
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(ctx).viewInsets.bottom,
+              left: 16, right: 16, top: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Setup Courier — ${order.orderNumber}',
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold)),
+                  IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => Navigator.pop(ctx)),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Text('To: ${order.deliveryAddress}',
+                  style: TextStyle(color: Colors.grey.shade600, fontSize: 13)),
+              const SizedBox(height: 16),
+              _SheetTextField(
+                  label: 'Courier name',
+                  hint: 'e.g. Pronto, DHL, PickMe Flash'),
+              const SizedBox(height: 12),
+              _SheetTextField(
+                  label: 'Tracking number',
+                  hint: 'e.g. PRN-123456'),
+              const SizedBox(height: 12),
+              // Pickup time selector
+              GestureDetector(
+                onTap: () async {
+                  final picked = await showDateTimePicker(ctx, selectedPickup);
+                  if (picked != null) setModalState(() => selectedPickup = picked);
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 14),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade50,
+                    borderRadius: BorderRadius.circular(32),
+                    border: Border.all(color: Colors.grey.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.schedule_outlined,
+                          color: Colors.grey, size: 18),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Pickup: ${selectedPickup.day}/${selectedPickup.month} '
+                        '${selectedPickup.hour.toString().padLeft(2, '0')}:'
+                        '${selectedPickup.minute.toString().padLeft(2, '0')}',
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    Navigator.pop(ctx);
+                    try {
+                      await _orderService.setupCourier(
+                        orderId: order.id,
+                        courierName: courierController.text.isNotEmpty
+                            ? courierController.text
+                            : 'Courier',
+                        trackingNumber: trackingController.text.isNotEmpty
+                            ? trackingController.text
+                            : 'TBD',
+                        pickupTime: selectedPickup,
+                      );
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Courier setup successfully'),
+                              backgroundColor: Color(0xFF1A5C5A)),
+                        );
+                      }
+                    } catch (e) {
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Error: $e')));
+                      }
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF1A5C5A),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32)),
+                  ),
+                  child: const Text('Confirm Courier',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ),
+              const SizedBox(height: 24),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<DateTime?> showDateTimePicker(
+      BuildContext context, DateTime initial) async {
+    final date = await showDatePicker(
+      context: context,
+      initialDate: initial,
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 30)),
+    );
+    if (date == null) return null;
+    if (!context.mounted) return null;
+    final time = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(initial),
+    );
+    if (time == null) return null;
+    return DateTime(date.year, date.month, date.day, time.hour, time.minute);
+  }
+
   void _showCourierSheet(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     showModalBottomSheet(
@@ -712,6 +942,229 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
           borderSide:
               BorderSide(color: const Color(0xFF1A5C5A), width: 2),
         ),
+      ),
+    );
+  }
+}
+
+// ── Incoming Order Card ────────────────────────────────────────────────────
+class _OrderCard extends StatelessWidget {
+  final AppOrder order;
+  final List<OrderItem> myItems;
+  final VoidCallback onSetupCourier;
+  final void Function(OrderStatus) onUpdateStatus;
+  final ColorScheme colorScheme;
+
+  const _OrderCard({
+    required this.order,
+    required this.myItems,
+    required this.onSetupCourier,
+    required this.onUpdateStatus,
+    required this.colorScheme,
+  });
+
+  Color _statusColor(OrderStatus s) {
+    switch (s) {
+      case OrderStatus.placed: return Colors.orange;
+      case OrderStatus.confirmed: return Colors.blue;
+      case OrderStatus.processing: return Colors.purple;
+      case OrderStatus.shipped: return Colors.teal;
+      case OrderStatus.outForDelivery: return Colors.indigo;
+      case OrderStatus.delivered: return Colors.green;
+      case OrderStatus.cancelled: return Colors.red;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final hasCourier = order.courierName != null && order.courierName!.isNotEmpty;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade200),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 14, 16, 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(order.orderNumber,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15)),
+                    const SizedBox(height: 2),
+                    Text(
+                      '${order.createdAt.day}/${order.createdAt.month}/${order.createdAt.year}',
+                      style: TextStyle(
+                          color: Colors.grey.shade500, fontSize: 12),
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: _statusColor(order.status).withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(order.statusLabel,
+                      style: TextStyle(
+                          color: _statusColor(order.status),
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold)),
+                ),
+              ],
+            ),
+          ),
+
+          const Divider(height: 1),
+
+          // Items belonging to this seller
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 10, 16, 6),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Your items in this order',
+                    style: TextStyle(
+                        color: Colors.grey.shade500,
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0.5)),
+                const SizedBox(height: 6),
+                ...myItems.map((item) => Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text('${item.productName} × ${item.quantity}',
+                            style: const TextStyle(fontSize: 14)),
+                      ),
+                      Text('Rs. ${item.subtotal.toStringAsFixed(0)}',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 14)),
+                    ],
+                  ),
+                )),
+                const SizedBox(height: 4),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Deliver to:',
+                        style: TextStyle(
+                            color: Colors.grey.shade500, fontSize: 12)),
+                    Expanded(
+                      child: Text(
+                        order.deliveryAddress,
+                        textAlign: TextAlign.end,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          // Courier info if set
+          if (hasCourier)
+            Container(
+              margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.teal.shade50,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.local_shipping_outlined,
+                      size: 16, color: Colors.teal),
+                  const SizedBox(width: 8),
+                  Text(
+                    '${order.courierName}  •  ${order.trackingNumber}',
+                    style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.teal,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+            ),
+
+          // Actions
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 4, 16, 14),
+            child: Row(
+              children: [
+                // Setup / Update Courier
+                Expanded(
+                  child: Semantics(
+                    label: hasCourier
+                        ? 'Update courier for order ${order.orderNumber}'
+                        : 'Setup courier for order ${order.orderNumber}',
+                    button: true,
+                    child: ElevatedButton.icon(
+                      onPressed: onSetupCourier,
+                      icon: Icon(
+                          hasCourier
+                              ? Icons.edit_outlined
+                              : Icons.local_shipping_outlined,
+                          size: 16),
+                      label: Text(
+                          hasCourier ? 'Update Courier' : 'Setup Courier',
+                          style: const TextStyle(fontSize: 13)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: colorScheme.primary,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 10),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                // Mark as Shipped (quick action)
+                if (order.status == OrderStatus.confirmed ||
+                    order.status == OrderStatus.processing)
+                  OutlinedButton(
+                    onPressed: () => onUpdateStatus(OrderStatus.shipped),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: colorScheme.primary,
+                      side: BorderSide(color: colorScheme.primary),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 10),
+                    ),
+                    child: const Text('Mark Shipped',
+                        style: TextStyle(fontSize: 13)),
+                  ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

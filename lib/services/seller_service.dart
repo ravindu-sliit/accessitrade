@@ -8,6 +8,7 @@ class SellerService {
   final _auth = FirebaseAuth.instance;
 
   String? get _sellerId => _auth.currentUser?.uid;
+  String? get currentSellerId => _auth.currentUser?.uid;
 
   // Stream seller's own products
   Stream<List<Product>> getMyProducts() {
@@ -28,7 +29,7 @@ class SellerService {
     if (_sellerId == null) return Stream.value([]);
     return _db
         .collection('orders')
-        .where('sellerId', isEqualTo: _sellerId)
+        .where('sellerIds', arrayContains: _sellerId)
         .snapshots()
         .map((snap) {
           final orders = snap.docs.map((doc) => AppOrder.fromFirestore(doc)).toList();
@@ -94,7 +95,7 @@ class SellerService {
     return {
       'productCount': products.docs.length,
       'totalStock': products.docs
-          .fold(0, (sum, doc) => sum + ((doc.data()['stockQty'] ?? 0) as int)),
+          .fold(0, (acc, doc) => acc + ((doc.data()['stockQty'] ?? 0) as int)),
     };
   }
 }

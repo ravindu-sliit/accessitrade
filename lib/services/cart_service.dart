@@ -45,6 +45,7 @@ class CartService {
         'quantity': quantity,
         'imageUrl': product.imageUrls.isNotEmpty ? product.imageUrls.first : null,
         'sellerName': product.sellerName,
+        'sellerId': product.sellerId,
         'updatedAt': FieldValue.serverTimestamp(),
       });
     }
