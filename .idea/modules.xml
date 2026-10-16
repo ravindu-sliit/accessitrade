@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/accessitrade.iml" filepath="$PROJECT_DIR$/accessitrade.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/accessitrade_android.iml" filepath="$PROJECT_DIR$/android/accessitrade_android.iml" />
-    </modules>
-  </component>
-</project>
