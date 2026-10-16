@@ -50,7 +50,7 @@ class _HomeTabState extends State<HomeTab> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Welcome to AccessMart',
+                      'Welcome to AccessiTrade',
                       style: TextStyle(
                         fontSize: accessibility.titleFontSize,
                         fontWeight: FontWeight.bold,

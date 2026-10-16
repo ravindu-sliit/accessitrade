@@ -25,7 +25,7 @@ class AccessiTradeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final accessibility = context.watch<AccessibilityProvider>();
     return MaterialApp(
-      title: 'AccessMart',
+      title: 'AccessiTrade',
       debugShowCheckedModeBanner: false,
       theme: accessibility.buildTheme(),
       home: const SplashScreen(),

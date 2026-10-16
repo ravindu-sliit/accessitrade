@@ -43,7 +43,7 @@ class OnboardingScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 8),
                             Text(
-                              'Personalise AccessMart for your needs. These settings help you navigate the app independently.',
+                              'Personalise AccessiTrade for your needs. These settings help you navigate the app independently.',
                               style: TextStyle(fontSize: 14, color: Colors.black54),
                               textAlign: TextAlign.center,
                             ),

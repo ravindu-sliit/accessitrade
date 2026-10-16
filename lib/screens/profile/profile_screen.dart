@@ -150,7 +150,7 @@ class ProfileScreen extends StatelessWidget {
 
                 const SizedBox(height: 12),
                 Center(
-                  child: Text('AccessMart App Version 2.4.1 (Accessibility First)',
+                  child: Text('AccessiTrade App Version 2.4.1 (Accessibility First)',
                       style: TextStyle(color: Colors.grey, fontSize: accessibility.smallFontSize - 1)),
                 ),
                 const SizedBox(height: 20),
