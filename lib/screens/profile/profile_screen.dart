@@ -13,7 +13,7 @@ import 'package:accessitrade/screens/profile/my_addresses_screen.dart';
 import 'package:accessitrade/screens/profile/payment_methods_screen.dart';
 import 'package:accessitrade/screens/profile/help_and_support_screen.dart';
 import 'package:accessitrade/screens/seller/seller_dashboard_screen.dart';
-import 'package:accessitrade/screens/community/product_request_screen.dart';
+import 'package:accessitrade/screens/profile/my_requested_products_screen.dart';
 import 'package:accessitrade/screens/auth/sign_in_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -233,13 +233,13 @@ class ProfileScreen extends StatelessWidget {
                   theme,
                   colorScheme,
                   accessibility,
-                  Icons.help_outline,
-                  'Request Product',
+                  Icons.assignment_outlined,
+                  'My Requested Products',
                   () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const ProductRequestScreen(),
+                        builder: (_) => const MyRequestedProductsScreen(),
                       ),
                     );
                   },

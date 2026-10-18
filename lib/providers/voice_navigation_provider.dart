@@ -69,12 +69,16 @@ class VoiceNavigationProvider extends ChangeNotifier {
         onTabChange?.call(1);
         _provideFeedback('Going to categories');
         break;
-      case 'go_cart':
+      case 'go_community':
         onTabChange?.call(2);
+        _provideFeedback('Going to community');
+        break;
+      case 'go_cart':
+        onTabChange?.call(3);
         _provideFeedback('Going to cart');
         break;
       case 'go_profile':
-        onTabChange?.call(3);
+        onTabChange?.call(4);
         _provideFeedback('Going to profile');
         break;
       case 'go_back':

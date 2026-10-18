@@ -6,7 +6,9 @@ class CustomRequest {
   final String posterName;
   final String title;
   final String description;
+  final String category;
   final List<String> tags;
+  final String? imageUrl;
   final String? budget;
   final int responseCount;
   final DateTime createdAt;
@@ -17,7 +19,9 @@ class CustomRequest {
     required this.posterName,
     required this.title,
     required this.description,
+    this.category = 'General',
     required this.tags,
+    this.imageUrl,
     this.budget,
     this.responseCount = 0,
     required this.createdAt,
@@ -25,13 +29,17 @@ class CustomRequest {
 
   factory CustomRequest.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
+    final parsedTags = List<String>.from(data['tags'] ?? []);
+    final defaultCat = parsedTags.isNotEmpty ? parsedTags.first : 'General';
     return CustomRequest(
       id: doc.id,
       userId: data['userId'] ?? '',
       posterName: data['posterName'] ?? 'Anonymous',
       title: data['title'] ?? '',
       description: data['description'] ?? '',
-      tags: List<String>.from(data['tags'] ?? []),
+      category: data['category'] ?? defaultCat,
+      tags: parsedTags,
+      imageUrl: data['imageUrl'],
       budget: data['budget'],
       responseCount: data['responseCount'] ?? 0,
       createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
@@ -44,7 +52,9 @@ class CustomRequest {
       'posterName': posterName,
       'title': title,
       'description': description,
+      'category': category,
       'tags': tags,
+      'imageUrl': imageUrl,
       'budget': budget,
       'responseCount': responseCount,
       'createdAt': FieldValue.serverTimestamp(),

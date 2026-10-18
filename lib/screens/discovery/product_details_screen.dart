@@ -121,7 +121,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           voiceNav.announce('Opening cart');
           // Pop back and navigate to cart tab
           Navigator.pop(context);
-          voiceNav.onTabChange?.call(2); // Cart is tab index 2
+          voiceNav.onTabChange?.call(3); // Cart is tab index 3
         },
       ),
     ]);
