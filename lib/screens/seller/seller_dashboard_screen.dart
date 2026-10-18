@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:accessitrade/screens/seller/active_orders_screen.dart';
 import 'package:accessitrade/screens/seller/product_inventory_screen.dart';
 import 'package:accessitrade/screens/seller/seller_profile_screen.dart';
+import 'package:accessitrade/screens/seller/seller_community_requests_screen.dart';
 
 class SellerDashboardScreen extends StatefulWidget {
   const SellerDashboardScreen({super.key});
@@ -50,6 +51,13 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => const ProductInventoryScreen()),
+          );
+        },
+        onCommunityRequests: () {
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const SellerCommunityRequestsScreen()),
           );
         },
       ),
@@ -1186,11 +1194,13 @@ class _SellerNavigationDrawer extends StatelessWidget {
   final VoidCallback onProfile;
   final VoidCallback onActiveOrders;
   final VoidCallback onInventory;
+  final VoidCallback onCommunityRequests;
 
   const _SellerNavigationDrawer({
     required this.onProfile,
     required this.onActiveOrders,
     required this.onInventory,
+    required this.onCommunityRequests,
   });
 
   @override
@@ -1235,6 +1245,11 @@ class _SellerNavigationDrawer extends StatelessWidget {
               leading: const Icon(Icons.inventory_2_outlined),
               title: const Text('Product Inventory'),
               onTap: onInventory,
+            ),
+            ListTile(
+              leading: const Icon(Icons.forum_outlined),
+              title: const Text('Community Requests'),
+              onTap: onCommunityRequests,
             ),
           ],
         ),

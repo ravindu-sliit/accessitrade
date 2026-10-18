@@ -10,6 +10,11 @@ service cloud.firestore {
       return signedIn() && request.auth.uid in resource.data.sellerIds;
     }
 
+    function isSeller() {
+      return signedIn() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType == 'seller';
+    }
+
     match /orders/{orderId} {
       allow read: if signedIn() &&
         (resource.data.userId == request.auth.uid ||
@@ -39,6 +44,22 @@ service cloud.firestore {
     match /users/{userId} {
       allow read, update: if signedIn() && request.auth.uid == userId;
       allow create: if signedIn() && request.auth.uid == userId;
+    }
+
+    match /requests/{requestId} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow delete: if signedIn() && resource.data.userId == request.auth.uid;
+      allow update: if isSeller() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['responseCount']);
+
+      match /responses/{sellerId} {
+        allow read: if signedIn();
+        allow create, update: if isSeller() && request.auth.uid == sellerId &&
+          request.resource.data.sellerId == request.auth.uid &&
+          request.resource.data.keys().hasOnly(['sellerId', 'sellerName', 'message', 'createdAt']);
+        allow delete: if isSeller() && request.auth.uid == sellerId;
+      }
     }
   }
 }

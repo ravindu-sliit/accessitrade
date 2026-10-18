@@ -493,7 +493,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         controller: controller,
         keyboardType: keyboardType,
         decoration: InputDecoration(
-          labelText: labelText,
           hintText: hint,
           hintStyle: TextStyle(color: Colors.grey.shade400),
           filled: true,
@@ -539,7 +538,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         controller: controller,
         obscureText: obscure,
         decoration: InputDecoration(
-          labelText: labelText,
           hintText: hint,
           hintStyle: TextStyle(color: Colors.grey.shade400),
           filled: true,

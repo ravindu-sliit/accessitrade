@@ -315,7 +315,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       colorScheme,
                       accessibility,
                       'kumari@accessmarket.lk',
-                    ).copyWith(labelText: 'Email Address'),
+                    ),
                     validator: (v) {
                       if (v == null || v.isEmpty)
                         return 'Please enter your email';
@@ -342,7 +342,6 @@ class _SignInScreenState extends State<SignInScreen> {
                           accessibility,
                           '••••••••',
                         ).copyWith(
-                          labelText: 'Password',
                           suffixIcon: Semantics(
                             label: _obscurePassword
                                 ? 'Show password'
