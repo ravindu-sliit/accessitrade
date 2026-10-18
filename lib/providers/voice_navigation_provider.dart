@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:accessitrade/providers/accessibility_provider.dart';
 import 'package:accessitrade/services/voice_command_service.dart';
+import 'package:accessitrade/providers/accessibility_provider.dart';
 
 /// Provider for managing voice navigation state across the app
 class VoiceNavigationProvider extends ChangeNotifier {
   final VoiceCommandService _voiceService = VoiceCommandService();
+  
+  // Reference to accessibility provider for checking voiceEnabled
+  AccessibilityProvider? _accessibilityProvider;
   
   VoiceNavigationProvider() {
     // Set up navigation command handler immediately
@@ -29,13 +32,6 @@ class VoiceNavigationProvider extends ChangeNotifier {
   Function(int tabIndex)? onTabChange;
   Function(String query)? onSearch;
   
-  // Reference to check if voice is enabled
-  bool _voiceEnabledOverride = true;
-
-  void setVoiceEnabled(bool enabled) {
-    _voiceEnabledOverride = enabled;
-  }
-  
   // Getters
   String get currentScreen => _currentScreen;
   int get currentItemIndex => _currentItemIndex;
@@ -45,6 +41,14 @@ class VoiceNavigationProvider extends ChangeNotifier {
   String get recognizedText => _recognizedText;
   String get feedback => _feedback;
   VoiceCommandService get voiceService => _voiceService;
+  
+  /// Check if voice is enabled (delegates to accessibility provider)
+  bool get isVoiceEnabled => _accessibilityProvider?.voiceEnabled ?? false;
+  
+  /// Set the accessibility provider reference
+  void setAccessibilityProvider(AccessibilityProvider provider) {
+    _accessibilityProvider = provider;
+  }
   
   /// Initialize the voice service
   Future<bool> initialize() async {
@@ -58,6 +62,9 @@ class VoiceNavigationProvider extends ChangeNotifier {
 
   /// Handle navigation commands from voice service
   void _handleNavigationCommand(String action, String? param) {
+    // Check if voice is enabled before handling
+    if (!isVoiceEnabled) return;
+    
     debugPrint('📢 NAV: Handling navigation command: $action, param: $param');
     debugPrint('📢 NAV: onTabChange is ${onTabChange != null ? "SET" : "NULL"}');
     switch (action) {
@@ -142,6 +149,8 @@ class VoiceNavigationProvider extends ChangeNotifier {
 
   /// Start listening for voice commands
   Future<void> startListening(BuildContext context) async {
+    if (!isVoiceEnabled) return;
+    
     if (_isListening) {
       await stopListening();
       return;
@@ -188,7 +197,7 @@ class VoiceNavigationProvider extends ChangeNotifier {
 
   /// Announce text via TTS
   Future<void> announce(String text) async {
-    if (!_voiceEnabledOverride) return;
+    if (!isVoiceEnabled) return;
     await _voiceService.announce(text);
   }
 
@@ -197,9 +206,9 @@ class VoiceNavigationProvider extends ChangeNotifier {
     await _voiceService.stop();
   }
 
-  /// Set feedback message
+  /// Provide feedback (visual + optional audio)
   void _provideFeedback(String message) {
-    if (!_voiceEnabledOverride) return;
+    if (!isVoiceEnabled) return;
     _feedback = message;
     notifyListeners();
   }

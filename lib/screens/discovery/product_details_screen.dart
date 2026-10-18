@@ -55,7 +55,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     final accessibility = context.read<AccessibilityProvider>();
     
     // Sync voice enabled setting
-    voiceNav.setVoiceEnabled(accessibility.voiceEnabled);
+    voiceNav.setAccessibilityProvider(accessibility);
     
     voiceNav.setScreen('product_details');
     

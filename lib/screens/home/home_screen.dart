@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final accessibility = context.read<AccessibilityProvider>();
     
     // Sync voice enabled setting
-    voiceNav.setVoiceEnabled(accessibility.voiceEnabled);
+    voiceNav.setAccessibilityProvider(accessibility);
     
     voiceNav.onTabChange = (tabIndex) {
       if (tabIndex != _currentIndex) {

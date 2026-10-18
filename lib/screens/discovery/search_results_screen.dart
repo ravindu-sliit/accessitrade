@@ -34,6 +34,9 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   bool _isReading = false;
   int _currentItemIndex = 0;
   List<Product> _currentResults = [];
+  bool _hasAnnouncedResults = false;
+  VoiceNavigationProvider? _voiceNavProvider;
+  AccessibilityProvider? _accessibilityProvider;
 
   @override
   void initState() {
@@ -85,11 +88,13 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   }
 
   void _registerVoiceCommands() {
-    final voiceNav = context.read<VoiceNavigationProvider>();
-    final accessibility = context.read<AccessibilityProvider>();
+    _voiceNavProvider = context.read<VoiceNavigationProvider>();
+    _accessibilityProvider = context.read<AccessibilityProvider>();
+    final voiceNav = _voiceNavProvider!;
+    final accessibility = _accessibilityProvider!;
     
     // Sync voice enabled setting
-    voiceNav.setVoiceEnabled(accessibility.voiceEnabled);
+    voiceNav.setAccessibilityProvider(accessibility);
     
     voiceNav.setScreen('search_results');
     voiceNav.voiceService.registerScreenCommands('search_results', {
@@ -102,15 +107,14 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     });
     
     voiceNav.voiceService.onScreenCommand = _handleVoiceCommand;
-    
-    if (accessibility.voiceEnabled) {
-      voiceNav.announce('Search results. ${_currentResults.length} items found. Say next or previous to navigate, select to view details.');
-    }
   }
 
   void _handleVoiceCommand(String command, String? param) {
-    final voiceNav = context.read<VoiceNavigationProvider>();
-    final accessibility = context.read<AccessibilityProvider>();
+    if (_voiceNavProvider == null || _accessibilityProvider == null) return;
+    if (!mounted) return;
+    
+    final voiceNav = _voiceNavProvider!;
+    final accessibility = _accessibilityProvider!;
     
     if (!accessibility.voiceEnabled) return;
     
@@ -177,9 +181,8 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     if (_currentResults.isEmpty) return;
     final product = _currentResults[_currentItemIndex];
     await _cartService.addToCart(product);
-    if (mounted) {
-      final voiceNav = context.read<VoiceNavigationProvider>();
-      voiceNav.announce('Added ${product.name} to cart');
+    if (mounted && _voiceNavProvider != null) {
+      _voiceNavProvider!.announce('Added ${product.name} to cart');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Added ${product.name} to cart'),
@@ -193,8 +196,17 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   @override
   void dispose() {
     _tts.stop();
-    context.read<VoiceNavigationProvider>().voiceService.clearScreenCommands();
+    _voiceNavProvider?.voiceService.clearScreenCommands();
     super.dispose();
+  }
+
+  /// Compare two product lists by ID to detect actual changes
+  bool _listEquals(List<Product> a, List<Product> b) {
+    if (a.length != b.length) return false;
+    for (int i = 0; i < a.length; i++) {
+      if (a[i].id != b[i].id) return false;
+    }
+    return true;
   }
 
   @override
@@ -208,31 +220,45 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: SafeArea(
             child: StreamBuilder<List<Product>>(
-              stream: _productService.getProducts(category: widget.category),
+              stream: _productService.getProducts(),
               builder: (context, snapshot) {
                 final allProducts = snapshot.data ?? [];
-                final results = widget.category != null
-                    ? allProducts
-                    : allProducts.where((p) {
-                        final q = widget.query.toLowerCase();
-                        return p.name.toLowerCase().contains(q) ||
-                            p.category.toLowerCase().contains(q) ||
-                            p.description.toLowerCase().contains(q) ||
-                            p.altText.toLowerCase().contains(q);
-                      }).toList();
+                final results = allProducts.where((p) {
+                  final q = widget.query.toLowerCase();
+                  final cat = widget.category?.toLowerCase();
+                  
+                  // If category is specified, filter by category (case-insensitive contains)
+                  if (cat != null) {
+                    return p.category.toLowerCase().contains(cat) ||
+                           cat.contains(p.category.toLowerCase());
+                  }
+                  
+                  // Otherwise search across all text fields
+                  return p.name.toLowerCase().contains(q) ||
+                         p.category.toLowerCase().contains(q) ||
+                         p.description.toLowerCase().contains(q) ||
+                         p.altText.toLowerCase().contains(q);
+                }).toList();
 
-                // Update results for voice navigation
-                if (_currentResults.length != results.length) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    if (mounted) {
-                      setState(() {
-                        _currentResults = results;
-                        _currentItemIndex = 0;
-                      });
-                      final voiceNav = context.read<VoiceNavigationProvider>();
-                      voiceNav.setScreen('search_results', itemCount: results.length);
-                    }
-                  });
+                // Update results reference for voice navigation (no setState needed here)
+                if (!_listEquals(_currentResults, results)) {
+                  _currentResults = results;
+                  if (_currentItemIndex >= results.length) {
+                    _currentItemIndex = 0;
+                  }
+                  
+                  // Use post frame callback only for voice announcements, with proper mounted check
+                  if (!_hasAnnouncedResults && results.isNotEmpty) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (!mounted) return;
+                      if (_voiceNavProvider == null || _accessibilityProvider == null) return;
+                      _hasAnnouncedResults = true;
+                      _voiceNavProvider!.setScreen('search_results', itemCount: results.length);
+                      if (_accessibilityProvider!.voiceEnabled) {
+                        _voiceNavProvider!.announce('Found ${results.length} items for ${widget.query}. Say next or previous to navigate, select to view details.');
+                      }
+                    });
+                  }
                 }
 
                 // Auto-read aloud if from voice search and results loaded
