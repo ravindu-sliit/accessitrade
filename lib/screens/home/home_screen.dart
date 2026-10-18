@@ -5,6 +5,7 @@ import 'package:accessitrade/providers/voice_navigation_provider.dart';
 import 'package:accessitrade/widgets/voice_fab.dart';
 import 'package:accessitrade/screens/discovery/home_tab.dart';
 import 'package:accessitrade/screens/discovery/categories_screen.dart';
+import 'package:accessitrade/screens/community/community_screen.dart';
 import 'package:accessitrade/screens/checkout/cart_screen.dart';
 import 'package:accessitrade/screens/profile/profile_screen.dart';
 import 'package:accessitrade/screens/discovery/search_results_screen.dart';
@@ -24,11 +25,12 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _screens = const [
     HomeTab(),
     CategoriesScreen(),
+    CommunityScreen(),
     CartScreen(),
     ProfileScreen(),
   ];
 
-  final List<String> _screenNames = const ['Home', 'Categories', 'Cart', 'Profile'];
+  final List<String> _screenNames = const ['Home', 'Categories', 'Community', 'Cart', 'Profile'];
 
   @override
   void initState() {
@@ -110,6 +112,12 @@ class _HomeScreenState extends State<HomeScreen> {
             selectedIcon: Icon(Icons.grid_view, color: colorScheme.primary),
             label: 'Categories',
             tooltip: 'Browse categories',
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.people_outline),
+            selectedIcon: Icon(Icons.people, color: colorScheme.primary),
+            label: 'Community',
+            tooltip: 'Community hub',
           ),
           NavigationDestination(
             icon: StreamBuilder<int>(

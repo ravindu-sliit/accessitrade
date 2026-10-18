@@ -100,6 +100,12 @@ class VoiceCommandService {
       action: (ctx, _) async => onNavigationCommand?.call('go_categories', null),
     ),
     VoiceCommand(
+      name: 'go_community',
+      pattern: r'^(go\s+)?(to\s+)?community$',
+      description: 'Navigate to community',
+      action: (ctx, _) async => onNavigationCommand?.call('go_community', null),
+    ),
+    VoiceCommand(
       name: 'go_profile',
       pattern: r'^(go\s+)?(to\s+)?profile$',
       description: 'Navigate to profile',

@@ -22,11 +22,34 @@ class CommunityService {
         });
   }
 
+  // Stream custom requests posted by the current user
+  Stream<List<CustomRequest>> getUserRequests() {
+    if (_userId == null) return Stream.value([]);
+    return _db
+        .collection('requests')
+        .where('userId', isEqualTo: _userId)
+        .snapshots()
+        .map((snap) {
+          final requests = snap.docs
+              .map((doc) => CustomRequest.fromFirestore(doc))
+              .toList();
+          requests.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+          return requests;
+        });
+  }
+
+  // Delete a custom request
+  Future<void> deleteRequest(String requestId) async {
+    await _db.collection('requests').doc(requestId).delete();
+  }
+
   // Post a new custom request
   Future<void> postRequest({
     required String title,
     required String description,
+    required String category,
     required List<String> tags,
+    String? imageUrl,
     String? budget,
   }) async {
     if (_userId == null) throw Exception('Not signed in');
@@ -36,7 +59,9 @@ class CommunityService {
       'posterName': user?.displayName ?? user?.email?.split('@').first ?? 'User',
       'title': title,
       'description': description,
+      'category': category,
       'tags': tags,
+      'imageUrl': imageUrl,
       'budget': budget,
       'responseCount': 0,
       'createdAt': FieldValue.serverTimestamp(),
